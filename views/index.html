@@ -67,7 +67,7 @@
       color: var(--text);
       font-family: var(--font-body);
       font-size: 16px;
-      line-height: 1.65;
+      line-height: 1;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -771,8 +771,8 @@
 
     .project-title {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 30px;
+      font-weight: 500;
       color: var(--text);
       letter-spacing: -0.5px;
       margin-bottom: 10px;
@@ -1693,6 +1693,36 @@
           </video>
         </div>
       </div>
+
+      <!-- Code-to-Cloud — featured -->
+<div class="project-card featured reveal">
+  <div class="project-color-bar" style="background: linear-gradient(90deg, var(--purple), var(--cyan));"></div>
+  <div>
+    <div class="project-badge badge-ai">AI / CLOUD ARCHITECTURE</div>
+    <div class="project-title">Code-to-Cloud</div>
+    <div class="project-desc">Paste any code, get back the AWS architecture you should use. Recommends services, calculates monthly costs across three traffic tiers, and explains reasoning with Well-Architected Framework alignment. Built end-to-end on AWS: React frontend, API Gateway, Lambda, and Bedrock (Claude Haiku 4.5) doing the analysis. <em>v1 takes 5 to 10 seconds per analysis while the AI reasons through your code.</em></div>
+    <div class="project-stack">
+      <span class="stack-tag">AWS Bedrock</span>
+      <span class="stack-tag">AWS Lambda</span>
+      <span class="stack-tag">API Gateway</span>
+      <span class="stack-tag">React</span>
+      <span class="stack-tag">Python</span>
+      <span class="stack-tag">FastAPI</span>
+      <span class="stack-tag">IAM</span>
+      <span class="stack-tag">CloudWatch</span>
+    </div>
+    <div class="project-links">
+      <a href="https://code-to-cloud.kaizarthwe.com/" target="_blank" rel="noopener" class="link-btn">Live Demo ↗</a>
+      <a href="https://github.com/khine282/code-to-cloud" target="_blank" rel="noopener" class="link-btn">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="project-visual"
+    style="padding:16px; overflow:hidden; min-height:420px; display:flex; align-items:center; justify-content:center; background:#111;">
+    <video src="/code-to-cloud-demo.mp4" autoplay muted loop playsinline controls
+      style="height:300px; width:100%; border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+    </video>
+  </div>
+</div>
 
       <!-- SGEMS2 -->
       <div class="project-card reveal reveal-delay-1">
