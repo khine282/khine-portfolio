@@ -2102,23 +2102,20 @@
           <div
             style="font-family:var(--font-mono); font-size:11px; letter-spacing:2px; color:var(--lime); text-transform:uppercase; margin-bottom:16px;">
             Send me a message</div>
-          <form id="https://formspree.io/f/xojzjkyw" style="display:flex; flex-direction:column; gap:12px;">
-            <input type="text" id="cf-name" placeholder="Your name" required
+          <form action="https://formspree.io/f/xojzjkyw" method="POST" style="display:flex; flex-direction:column; gap:12px;">
+            <input type="text" name="name" placeholder="Your name" required
               style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;"
               onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <input type="email" id="cf-email" placeholder="Your email" required
+            <input type="email" name="email" placeholder="Your email" required
               style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;"
               onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <textarea id="cf-message" placeholder="Your message" rows="4" required
+            <textarea name="message" placeholder="Your message" rows="4" required
               style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease; resize:vertical;"
               onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-            <button type="submit" id="cf-btn"
+            <button type="submit"
               style="background:var(--lime); color:#000; font-family:var(--font-mono); font-size:13px; font-weight:500; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; transition:all 0.2s ease; letter-spacing:0.3px;">
               Send Message →
             </button>
-            <div id="cf-status"
-              style="font-family:var(--font-mono); font-size:12px; display:none; padding:10px 14px; border-radius:6px;">
-            </div>
           </form>
         </div>
       </div>
