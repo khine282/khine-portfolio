@@ -2098,26 +2098,17 @@
         </div>
 
         <!-- CONTACT FORM -->
-        <div style="background: var(--surface); border: 1px solid var(--border); border-radius:16px; padding:28px;">
-          <div
-            style="font-family:var(--font-mono); font-size:11px; letter-spacing:2px; color:var(--lime); text-transform:uppercase; margin-bottom:16px;">
-            Send me a message</div>
-          <form action="https://formspree.io/f/xojzjkyw" method="POST" style="display:flex; flex-direction:column; gap:12px;">
-            <input type="text" name="name" placeholder="Your name" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <input type="email" name="email" placeholder="Your email" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <textarea name="message" placeholder="Your message" rows="4" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease; resize:vertical;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-            <button type="submit"
-              style="background:var(--lime); color:#000; font-family:var(--font-mono); font-size:13px; font-weight:500; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; transition:all 0.2s ease; letter-spacing:0.3px;">
-              Send Message →
-            </button>
-          </form>
-        </div>
+       <div style="background: var(--surface); border: 1px solid var(--border); border-radius:16px; padding:28px;">
+  <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:2px; color:var(--lime); text-transform:uppercase; margin-bottom:16px;">Send me a message</div>
+  
+  <form id="contactForm" style="display:flex; flex-direction:column; gap:12px;">
+    <input type="text" id="from_name" placeholder="Your name" required style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;" onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
+    <input type="email" id="from_email" placeholder="Your email" required style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease;" onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
+    <textarea id="message" placeholder="Your message" rows="4" required style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:14px; outline:none; transition:border-color 0.2s ease; resize:vertical;" onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+    <button type="submit" id="submitBtn" style="background:var(--lime); color:#000; font-family:var(--font-mono); font-size:13px; font-weight:500; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; transition:all 0.2s ease; letter-spacing:0.3px;">Send Message →</button>
+    <div id="statusMessage" style="font-family:var(--font-mono); font-size:12px; display:none; padding:10px 14px; border-radius:6px;"></div>
+  </form>
+</div>
       </div>
     </div>
   </section>
@@ -2125,7 +2116,7 @@
   <!-- ── FOOTER ── -->
   <footer>
     <a href="#hero" class="footer-logo">KZT<span>.</span></a>
-   <div class="footer-copy">Khine Zar Thwe · Built with React · Deployed on Render · 2026</div>
+<div class="footer-copy">Khine Zar Thwe · Built to understand the abstractions · 2026</div>
     <div style="display:flex; gap:12px;">
       <a href="https://github.com/khine282" target="_blank" rel="noopener"
         style="font-family:var(--font-mono); font-size:11px; color:var(--muted); text-decoration:none; transition:color 0.2s ease;"
@@ -2135,7 +2126,7 @@
         onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--muted)'">LinkedIn ↗</a>
     </div>
   </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
   <script>
     // Hamburger nav
     const ham = document.getElementById('navHam');
@@ -2241,6 +2232,44 @@
       });
     });
   </script>
+  <script>
+  emailjs.init('6Ce6pwcYozFpeUQiR');
+
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('statusMessage');
+    const formData = {
+      from_name: document.getElementById('from_name').value,
+      from_email: document.getElementById('from_email').value,
+      message: document.getElementById('message').value
+    };
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      await emailjs.send('service_ko4bs4m', 'admin_notification', formData);
+      await emailjs.send('service_ko4bs4m', 'user_confirmation', formData);
+
+      status.style.display = 'block';
+      status.style.background = 'rgba(200,255,0,0.08)';
+      status.style.color = 'var(--lime)';
+      status.style.border = '1px solid rgba(200,255,0,0.2)';
+      status.textContent = '✓ Email sent! You\'ll receive a confirmation at ' + formData.from_email;
+      document.getElementById('contactForm').reset();
+    } catch (err) {
+      status.style.display = 'block';
+      status.style.background = 'rgba(255,92,92,0.08)';
+      status.style.color = 'var(--coral)';
+      status.style.border = '1px solid rgba(255,92,92,0.2)';
+      status.textContent = '✗ Failed to send. Try emailing directly.';
+    }
+
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+  });
+</script>
 </body>
 
 </html>
