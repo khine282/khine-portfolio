@@ -2126,7 +2126,7 @@
         onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--muted)'">LinkedIn ↗</a>
     </div>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+<script src="https://unpkg.com/@emailjs/browser@3/dist/index.min.js"></script>
   <script>
     // Hamburger nav
     const ham = document.getElementById('navHam');
@@ -2172,7 +2172,64 @@
       }
     });
 
-    // // Contact form
+    
+
+    // Tech Stack tab switching
+    document.querySelectorAll('.stack-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.stack-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.stack-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`.stack-panel[data-panel="${target}"]`).classList.add('active');
+      });
+    });
+  </script>
+  <script>
+  emailjs.init('Np3WQADeBr1A6MXUz');
+
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const status = document.getElementById('statusMessage');
+    const formData = {
+      from_name: document.getElementById('from_name').value,
+      from_email: document.getElementById('from_email').value,
+      message: document.getElementById('message').value
+    };
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      await emailjs.send('service_ko4bs4m', 'admin_notification', formData);
+      await emailjs.send('service_ko4bs4m', 'user_confirmation', formData);
+
+      status.style.display = 'block';
+      status.style.background = 'rgba(200,255,0,0.08)';
+      status.style.color = 'var(--lime)';
+      status.style.border = '1px solid rgba(200,255,0,0.2)';
+      status.textContent = '✓ Email sent! You\'ll receive a confirmation at ' + formData.from_email;
+      document.getElementById('contactForm').reset();
+    } catch (err) {
+      status.style.display = 'block';
+      status.style.background = 'rgba(255,92,92,0.08)';
+      status.style.color = 'var(--coral)';
+      status.style.border = '1px solid rgba(255,92,92,0.2)';
+      status.textContent = '✗ Failed to send. Try emailing directly.';
+    }
+
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+  });
+</script>
+
+</body>
+
+</html>
+
+
+// // Contact form
     // document.getElementById('contactForm').addEventListener('submit', async (e) => {
     //   e.preventDefault();
     //   const btn = document.getElementById('cf-btn');
@@ -2220,56 +2277,3 @@
     //   btn.disabled = false;
     //   btn.style.opacity = '1';
     // });
-
-    // Tech Stack tab switching
-    document.querySelectorAll('.stack-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-        document.querySelectorAll('.stack-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.stack-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelector(`.stack-panel[data-panel="${target}"]`).classList.add('active');
-      });
-    });
-  </script>
-  <script>
-  emailjs.init('6Ce6pwcYozFpeUQiR');
-
-  document.getElementById('contactForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    const status = document.getElementById('statusMessage');
-    const formData = {
-      from_name: document.getElementById('from_name').value,
-      from_email: document.getElementById('from_email').value,
-      message: document.getElementById('message').value
-    };
-
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    try {
-      await emailjs.send('service_ko4bs4m', 'admin_notification', formData);
-      await emailjs.send('service_ko4bs4m', 'user_confirmation', formData);
-
-      status.style.display = 'block';
-      status.style.background = 'rgba(200,255,0,0.08)';
-      status.style.color = 'var(--lime)';
-      status.style.border = '1px solid rgba(200,255,0,0.2)';
-      status.textContent = '✓ Email sent! You\'ll receive a confirmation at ' + formData.from_email;
-      document.getElementById('contactForm').reset();
-    } catch (err) {
-      status.style.display = 'block';
-      status.style.background = 'rgba(255,92,92,0.08)';
-      status.style.color = 'var(--coral)';
-      status.style.border = '1px solid rgba(255,92,92,0.2)';
-      status.textContent = '✗ Failed to send. Try emailing directly.';
-    }
-
-    btn.textContent = 'Send Message →';
-    btn.disabled = false;
-  });
-</script>
-</body>
-
-</html>
