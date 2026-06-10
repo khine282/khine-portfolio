@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=DM+Mono:ital,wght@0,300..500;1,300..500&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..500&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet">
 <style>
+ 
   *,
   *::before,
   *::after {
@@ -2062,11 +2063,67 @@
       grid-template-columns: 1fr;
     }
   }
+
+  .cert-scroll-container {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+ 
+  .cert-scroll-container::-webkit-scrollbar {
+    width: 6px;
+  }
+ 
+  .cert-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+ 
+  .cert-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--lime);
+    border-radius: 3px;
+  }
+ 
+  .cert-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #d4ff1a;
+  }
+ 
+  .cert-scroll-container {
+    scrollbar-color: var(--lime) transparent;
+    scrollbar-width: thin;
+  }
+ 
+  @media (max-width: 768px) {
+    .cert-scroll-container {
+      max-height: 290px;
+    }
+  }
+ 
+  @media (max-width: 480px) {
+    .cert-scroll-container {
+      max-height: 270px;
+    }
+  }
+
+  .cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    600px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(240, 184, 56, 0.09),
+    transparent 80%
+  );
+}
+
 </style>
 </head>
 
 <body>
-
+  <div class="cursor-glow"></div>
   <!-- ── NAV ── -->
   <nav id="mainNav">
     <a href="#hero" class="nav-logo">KZT<span>.</span></a>
@@ -2113,6 +2170,7 @@
 
         <div class="hero-ctas reveal reveal-delay-4">
           <a href="#projects" class="btn-primary">View My Work →</a>
+          <a href="/resume.pdf" download class="btn-secondary">Download Resume ↓</a>
           <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
             class="btn-secondary">LinkedIn ↗</a>
@@ -2121,7 +2179,7 @@
 
       <div class="hero-right reveal reveal-delay-2">
         <div class="stat-card c1">
-          <div class="stat-num">12</div>
+          <div class="stat-num">11</div>
           <div class="stat-label">Months Experience</div>
         </div>
         <div class="stat-card c2">
@@ -2140,7 +2198,7 @@
     </div>
   </section>
 
-  <!-- ── ABOUT ── -->
+ <!-- ── ABOUT ── -->
   <section id="about">
     <div class="about-grid">
       <div class="about-left reveal">
@@ -2149,12 +2207,12 @@
 
         <div class="about-card">
           <div class="about-card-label">Education</div>
-          <div class="about-card-value">Dip. IT — Singapore Polytechnic</div>
+          <div class="about-card-value">Dip. IT, Singapore Polytechnic</div>
           <div class="about-card-sub">Software & Applications · Grad. April 2026</div>
         </div>
         <div class="about-card">
           <div class="about-card-label">Focus</div>
-          <div class="about-card-value">Software → AI → Cloud</div>
+          <div class="about-card-value">Cloud · AI · Testing & QA</div>
           <div class="about-card-sub">Building toward Solutions Architect</div>
         </div>
       </div>
@@ -2165,17 +2223,17 @@
           CRUD apps and call it a career. The internship had other plans.</p>
         <p>Eleven months at Reachfield taught me what no tutorial covers: enterprise systems don't look like tutorials.
           You inherit code from 2014. The spec lives in someone's head. The device you're integrating has three forum
-          posts about it, all unresolved.</p>
-        <p>Somewhere in that mess, I got handed a YOLO crowd-counting task — and that was the first time I realised
-          models aren't magic, they're just math that someone wrapped nicely. I built <strong>EmotionVision</strong>
-          next, then a <strong>Bedrock chatbot</strong>, and the pattern kept holding: the interesting work isn't
+          posts about it, all unresolved. And somewhere in production, there are 30+ critical bugs waiting to be found.</p>
+        <p>That last part stuck with me. I learned to test properly: think like a user, design test cases, classify severity, write bug reports that actually get fixed. It changed how I code. Now I break things on purpose before users do.</p>
+        <p>On the development side, I got handed a YOLO crowd-counting task, and that was the first time I realised
+          models aren't magic, they're just math that someone wrapped nicely. I built <strong>EmotionVision</strong> next
+          (TensorFlow + OpenCV), then deployed a <strong>Code-to-Cloud Architecture Visualizer</strong> (a full-stack React app on AWS Lambda, API Gateway, and Claude Bedrock) that taught me more about abstractions than any course could. The pattern kept holding: the interesting work isn't
           calling the API, it's understanding what the API is hiding.</p>
         <blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the API
-          is hiding."</blockquote>
-        <p>Cloud is where I'm headed next — CLF-C02 now, Solutions Architect after. Not because certifications matter,
-          but because I want to know where the abstractions leak before I have to find out at 2am.</p>
-        <p>I'm looking for a team that builds things worth building — and will let me ask too many questions about why
-          the abstraction exists before using it.</p>
+          is hiding, and what breaks when it doesn't."</blockquote>
+        <p>Cloud is where I'm headed next: CLF-C02 now, Solutions Architect after. Not because certifications matter,
+          but because I want to know where the abstractions leak, how to test distributed systems, and where the next bug is hiding before deployment.</p>
+        <p>I'm looking for a team building production-grade systems (whether that's cloud infrastructure, AI pipelines, or bulletproof QA). I want to ship things that don't break at 2am. And I'll ask too many questions about why the abstraction exists.</p>
       </div>
     </div>
   </section>
@@ -2348,7 +2406,7 @@
         </div>
       </div>
 
-      <!-- Mobile Apps -->
+     <!-- Mobile Apps -->
       <div class="project-card reveal reveal-delay-2">
         <div class="project-color-bar" style="background: linear-gradient(90deg, var(--coral), var(--orange));"></div>
         <div class="project-icon">📱</div>
@@ -2358,15 +2416,15 @@
           style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
           <span style="color:var(--coral);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
         </div>
-        <div class="project-desc">Two production apps — Work Order Management and Form Management — deployed to Google
-          Play and TestFlight. Bluetooth thermal printing, QR/hardware scanner, Face++ verification, PDF generation,
-          multi-flavour Android builds for K10 and F2 devices.</div>
+        <div class="project-desc">Two production-grade React Native applications (Work Order Management and Form Management) deployed to Google Play and TestFlight. Developed and tested multi-flavor Android builds using Android Studio; configured iOS builds and managed TestFlight deployment via Xcode. Integrated Bluetooth thermal printing, QR/hardware scanner, Face++ biometric verification, and PDF generation for K10 and F2 ruggedized devices.</div>
         <div class="project-stack">
           <span class="stack-tag">React Native</span>
-          <span class="stack-tag">Android</span>
+          <span class="stack-tag">Android Studio</span>
+          <span class="stack-tag">Xcode</span>
           <span class="stack-tag">iOS</span>
+          <span class="stack-tag">Android</span>
           <span class="stack-tag">Face++</span>
-          <span class="stack-tag">K10 HW</span>
+          <span class="stack-tag">Bluetooth</span>
         </div>
         <div class="project-links">
           <span class="link-btn private">🔒 Private Codebase</span>
@@ -2548,93 +2606,128 @@
     </div>
   </section>
 
-  <!-- ── CREDENTIALS ── -->
+ <!-- ── CREDENTIALS ── -->
 <section id="certifications">
   <div class="section-tag reveal">Credentials</div>
   <h2 class="section-title reveal">Certifications<br>& achievements.</h2>
-
+ 
   <div class="cert-tabs reveal reveal-delay-1">
     <div class="cert-tabs-buttons">
       <button class="cert-tab-btn active" data-tab="all">All</button>
       <button class="cert-tab-btn" data-tab="education">Education</button>
       <button class="cert-tab-btn" data-tab="cloud">Cloud</button>
-      <button class="cert-tab-btn" data-tab="data">Data</button>
+      <button class="cert-tab-btn" data-tab="testing">Testing</button>
+      <button class="cert-tab-btn" data-tab="analytics">Analytics</button>
       <button class="cert-tab-btn" data-tab="programming">Programming</button>
       <button class="cert-tab-btn" data-tab="awards">Awards</button>
     </div>
-
+ 
     <div class="cert-tabs-content">
       
       <!-- ALL -->
       <div class="cert-tab-pane active" data-tab="all">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Diploma in IT (Software & Applications)</div><div class="cert-tab-meta">Singapore Polytechnic · April 2026</div></div>
-          <a href="/diploma.jpg" target="_blank">View →</a>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">AWS Cloud Practitioner (CLF-C02)</div><div class="cert-tab-meta">Amazon Web Services · Q2 2026</div></div>
-          <a href="/TrainingComplete.pdf" target="_blank">View →</a>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">SP Energized Hackathon · 1st Place</div><div class="cert-tab-meta">Singapore Polytechnic · 2025</div></div>
-          <a href="/glucosg.jpeg" target="_blank">View →</a>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Certificate in Data & Analytics</div><div class="cert-tab-meta">Singapore Polytechnic · 2024</div></div>
-          <a href="/ElectiveCertificate.pdf" target="_blank">View →</a>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Microsoft Foundational C# Certification</div><div class="cert-tab-meta">Microsoft · 2024</div></div>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">AWS Cloud Quest: Cloud Practitioner</div><div class="cert-tab-meta">Amazon Web Services · 2026</div></div>
-          <a href="https://www.credly.com/badges/37e313d3-f25c-4846-87fc-8333a668c871/public_url" target="_blank">Verify →</a>
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Diploma in IT (Software & Applications)</div><div class="cert-tab-meta">Singapore Polytechnic · April 2026</div></div>
+            <a href="/diploma.jpg" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">AWS Cloud Practitioner (CLF-C02)</div><div class="cert-tab-meta">Amazon Web Services · Q2 2026</div></div>
+            <a href="/TrainingComplete.pdf" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Programming Foundations: Software Testing/QA</div><div class="cert-tab-meta">LinkedIn Learning · June 2026</div></div>
+            <a href="https://www.linkedin.com/learning/certificates/your-certificate-url" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">SP Energized Hackathon · 1st Place</div><div class="cert-tab-meta">Singapore Polytechnic · 2025</div></div>
+            <a href="/glucosg.jpeg" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Introduction to R</div><div class="cert-tab-meta">DataCamp · May 2026</div></div>
+            <a href="https://www.datacamp.com/certificate/your-certificate-url" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Certificate in Data & Analytics</div><div class="cert-tab-meta">Singapore Polytechnic · 2024</div></div>
+            <a href="/ElectiveCertificate.pdf" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Microsoft Foundational C# Certification</div><div class="cert-tab-meta">Microsoft · 2024</div></div>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">AWS Cloud Quest: Cloud Practitioner</div><div class="cert-tab-meta">Amazon Web Services · 2026</div></div>
+            <a href="https://www.credly.com/badges/37e313d3-f25c-4846-87fc-8333a668c871/public_url" target="_blank">Verify →</a>
+          </div>
         </div>
       </div>
-
+ 
       <!-- EDUCATION -->
       <div class="cert-tab-pane" data-tab="education">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Diploma in IT (Software & Applications)</div><div class="cert-tab-meta">Singapore Polytechnic · April 2026</div></div>
-          <a href="/diploma.jpg" target="_blank">View →</a>
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Diploma in IT (Software & Applications)</div><div class="cert-tab-meta">Singapore Polytechnic · April 2026</div></div>
+            <a href="/diploma.jpg" target="_blank">View →</a>
+          </div>
         </div>
       </div>
-
+ 
       <!-- CLOUD -->
       <div class="cert-tab-pane" data-tab="cloud">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">AWS Cloud Practitioner (CLF-C02)</div><div class="cert-tab-meta">Amazon Web Services · Q2 2026</div></div>
-          <a href="/TrainingComplete.pdf" target="_blank">View →</a>
-        </div>
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">AWS Cloud Quest: Cloud Practitioner</div><div class="cert-tab-meta">Amazon Web Services · 2026</div></div>
-          <a href="https://www.credly.com/badges/37e313d3-f25c-4846-87fc-8333a668c871/public_url" target="_blank">Verify →</a>
-        </div>
-      </div>
-
-      <!-- DATA -->
-      <div class="cert-tab-pane" data-tab="data">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Certificate in Data & Analytics</div><div class="cert-tab-meta">Singapore Polytechnic · 2024</div></div>
-          <a href="/ElectiveCertificate.pdf" target="_blank">View →</a>
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">AWS Cloud Practitioner (CLF-C02)</div><div class="cert-tab-meta">Amazon Web Services · Q2 2026</div></div>
+            <a href="/TrainingComplete.pdf" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">AWS Cloud Quest: Cloud Practitioner</div><div class="cert-tab-meta">Amazon Web Services · 2026</div></div>
+            <a href="https://www.credly.com/badges/37e313d3-f25c-4846-87fc-8333a668c871/public_url" target="_blank">Verify →</a>
+          </div>
         </div>
       </div>
-
+ 
+      <!-- TESTING -->
+      <div class="cert-tab-pane" data-tab="testing">
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Programming Foundations: Software Testing/QA</div><div class="cert-tab-meta">LinkedIn Learning · June 2026</div></div>
+            <a href="https://www.linkedin.com/learning/certificates/your-certificate-url" target="_blank">View →</a>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- ANALYTICS -->
+      <div class="cert-tab-pane" data-tab="analytics">
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Introduction to R</div><div class="cert-tab-meta">DataCamp · May 2026</div></div>
+            <a href="https://www.datacamp.com/certificate/your-certificate-url" target="_blank">View →</a>
+          </div>
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Certificate in Data & Analytics</div><div class="cert-tab-meta">Singapore Polytechnic · 2024</div></div>
+            <a href="/ElectiveCertificate.pdf" target="_blank">View →</a>
+          </div>
+        </div>
+      </div>
+ 
       <!-- PROGRAMMING -->
       <div class="cert-tab-pane" data-tab="programming">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">Microsoft Foundational C# Certification</div><div class="cert-tab-meta">Microsoft · 2024</div></div>
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">Microsoft Foundational C# Certification</div><div class="cert-tab-meta">Microsoft · 2024</div></div>
+          </div>
         </div>
       </div>
-
+ 
       <!-- AWARDS -->
       <div class="cert-tab-pane" data-tab="awards">
-        <div class="cert-tab-item">
-          <div><div class="cert-tab-name">SP Energized Hackathon · 1st Place</div><div class="cert-tab-meta">Singapore Polytechnic · 2025</div></div>
-          <a href="./public/glucosg.jpeg" target="_blank">View →</a>
+        <div class="cert-scroll-container">
+          <div class="cert-tab-item">
+            <div><div class="cert-tab-name">SP Energized Hackathon · 1st Place</div><div class="cert-tab-meta">Singapore Polytechnic · 2025</div></div>
+            <a href="/glucosg.jpeg" target="_blank">View →</a>
+          </div>
         </div>
       </div>
-
+ 
     </div>
   </div>
 </section>
@@ -2791,17 +2884,17 @@
       });
     });
 
-document.querySelectorAll('.cert-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.tab;
-    
-    document.querySelectorAll('.cert-tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.cert-tab-pane').forEach(p => p.classList.remove('active'));
-    
-    btn.classList.add('active');
-    document.querySelector(`.cert-tab-pane[data-tab="${tab}"]`).classList.add('active');
+ document.querySelectorAll('.cert-tab-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const tabName = button.getAttribute('data-tab');
+      
+      document.querySelectorAll('.cert-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.cert-tab-pane').forEach(pane => pane.classList.remove('active'));
+      
+      button.classList.add('active');
+      document.querySelector(`.cert-tab-pane[data-tab="${tabName}"]`).classList.add('active');
+    });
   });
-});
   </script>
 
   <!-- Initialize contact form -->
@@ -2809,6 +2902,13 @@ document.querySelectorAll('.cert-tab-btn').forEach(btn => {
     import { initializeContact } from './contact.js'
     initializeContact()
   </script>
+
+  <script>
+  document.addEventListener('mousemove', (e) => {
+    document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+    document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+  });
+</script>
 
 </body>
 
