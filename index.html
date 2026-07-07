@@ -19,25 +19,23 @@
       padding: 0;
     }
 
-    :root {
-      --bg: #0d1117;
-      --bg2: #161b22;
-      --bg3: #21262d;
-      --surface: #2d333b;
-      --border: rgba(240, 184, 56, 0.12);
-      --text: #f0f0f5;
-      --muted: #8b949e;
-      --lime: #f0b838;
-      --cyan: #79c0ff;
-      --coral: #f85149;
-      --purple: #d2a8ff;
-      --orange: #fb8500;
-      --font-display: 'Syne', 'Inter', -apple-system, sans-serif;
-      --font-body: 'DM Sans', 'Inter', -apple-system, sans-serif;
-      --font-mono: 'DM Mono', 'JetBrains Mono', ui-monospace, monospace;
-      --font-serif: 'Instrument Serif', Georgia, serif;
-    }
-
+:root {
+  --bg: #ffffff;
+  --bg2: #fafaf8;
+  --bg3: #f2f2ef;
+  --surface: #f5f5f2;
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1a1c19;
+  --muted: #5c5f58;
+  --lime: #6b7d5a;
+  --cyan: #6b7d5a;
+  --coral: #6b7d5a;
+  --purple: #6b7d5a;
+  --orange: #6b7d5a;
+  --font-display: 'Syne', 'Inter', -apple-system, sans-serif;
+  --font-body: 'DM Sans', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'DM Mono', 'JetBrains Mono', ui-monospace, monospace;
+}
     html {
       scroll-behavior: smooth;
     }
@@ -46,7 +44,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 16px;
+      font-size: 20px;
       line-height: 1;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -81,9 +79,9 @@
     em,
     i,
     .serif {
-      font-family: var(--font-serif);
-      font-style: italic;
-      letter-spacing: 0;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text);
     }
 
     ::selection {
@@ -106,20 +104,18 @@
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 60px;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
     }
 
     .nav-logo {
@@ -143,11 +139,11 @@
 
     .nav-links a {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 20px;
       color: var(--muted);
       text-decoration: none;
       padding: 6px 14px;
-      border-radius: 6px;
+      border-radius: 3px;
       transition: all 0.2s ease;
       letter-spacing: 0.3px;
     }
@@ -159,12 +155,12 @@
 
     .nav-cta {
       font-family: var(--font-mono);
-      font-size: 12px;
-      color: #000;
+      font-size: 17px;
+      color: white;
       background: var(--lime);
       text-decoration: none;
       padding: 7px 18px;
-      border-radius: 6px;
+      border-radius: 3px;
       font-weight: 500;
       transition: all 0.2s ease;
       letter-spacing: 0.3px;
@@ -226,7 +222,7 @@
     /* ── SECTIONS ── */
     section {
       padding: 100px 48px;
-      max-width: 1140px;
+      max-width: 1700px;
       margin: 0 auto;
     }
 
@@ -291,8 +287,8 @@
     }
 
     .hero-bio {
-      font-size: 17px;
-      color: var(--muted);
+      font-size: 25px;
+      color: #6b7d5a;
       line-height: 1.7;
       max-width: 500px;
       margin-bottom: 40px;
@@ -320,7 +316,7 @@
       font-size: 13px;
       font-weight: 500;
       padding: 12px 24px;
-      border-radius: 8px;
+      border-radius: 3px;
       text-decoration: none;
       transition: all 0.2s ease;
       letter-spacing: 0.3px;
@@ -329,9 +325,8 @@
     }
 
     .btn-primary:hover {
-      background: #d4ff1a;
+      background: #e0b73a;
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(200, 255, 0, 0.25);
     }
 
     .btn-secondary {
@@ -343,7 +338,7 @@
       font-family: var(--font-mono);
       font-size: 13px;
       padding: 12px 24px;
-      border-radius: 8px;
+      border-radius: 3px;
       text-decoration: none;
       border: 1px solid var(--border);
       transition: all 0.2s ease;
@@ -366,7 +361,7 @@
     .stat-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 4px;
       padding: 20px;
       transition: all 0.3s ease;
       position: relative;
@@ -391,7 +386,7 @@
     }
 
     .stat-card:hover {
-      border-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(0, 0, 0, 0.15);
       transform: translateY(-3px);
     }
 
@@ -482,7 +477,7 @@
     .about-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 4px;
       padding: 28px;
       margin-bottom: 16px;
     }
@@ -525,12 +520,10 @@
       0%,
       100% {
         opacity: 1;
-        box-shadow: 0 0 0 0 rgba(200, 255, 0, 0.4);
       }
 
       50% {
-        opacity: 0.8;
-        box-shadow: 0 0 0 6px rgba(200, 255, 0, 0);
+        opacity: 0.5;
       }
     }
 
@@ -550,8 +543,8 @@
       padding: 12px 20px;
       margin: 24px 0;
       background: var(--surface);
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
+      border-radius: 0 4px 4px 0;
+      font-style: normal;
       color: var(--text);
       font-size: 15px;
     }
@@ -565,7 +558,7 @@
     .exp-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 4px;
       padding: 32px;
       margin-bottom: 16px;
       display: grid;
@@ -595,7 +588,7 @@
     }
 
     .exp-card:hover {
-      border-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(0, 0, 0, 0.15);
     }
 
     .exp-role {
@@ -648,7 +641,7 @@
       white-space: nowrap;
       background: var(--bg3);
       padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 3px;
     }
 
     /* ── PROJECTS ── */
@@ -666,7 +659,7 @@
     .project-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 4px;
       padding: 28px;
       transition: all 0.3s ease;
       display: flex;
@@ -684,9 +677,8 @@
     }
 
     .project-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(0, 0, 0, 0.2);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
     .project-color-bar {
@@ -715,34 +707,14 @@
       width: fit-content;
     }
 
-    .badge-win {
-      background: rgba(200, 255, 0, 0.12);
-      color: var(--lime);
-      border: 1px solid rgba(200, 255, 0, 0.3);
-    }
-
-    .badge-ai {
-      background: rgba(0, 229, 255, 0.1);
-      color: var(--cyan);
-      border: 1px solid rgba(0, 229, 255, 0.25);
-    }
-
-    .badge-enterprise {
-      background: rgba(176, 108, 255, 0.1);
-      color: var(--purple);
-      border: 1px solid rgba(176, 108, 255, 0.25);
-    }
-
-    .badge-mobile {
-      background: rgba(255, 92, 92, 0.1);
-      color: var(--coral);
-      border: 1px solid rgba(255, 92, 92, 0.25);
-    }
-
+    .badge-win,
+    .badge-ai,
+    .badge-enterprise,
+    .badge-mobile,
     .badge-web {
-      background: rgba(255, 140, 66, 0.1);
-      color: var(--orange);
-      border: 1px solid rgba(255, 140, 66, 0.25);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
     .project-title {
@@ -755,7 +727,7 @@
     }
 
     .project-desc {
-      font-size: 14px;
+      font-size: 18px;
       color: var(--muted);
       line-height: 1.7;
       flex: 1;
@@ -771,7 +743,7 @@
 
     .stack-tag {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 16px;
       color: var(--muted);
       background: var(--bg3);
       padding: 3px 9px;
@@ -786,12 +758,12 @@
 
     .link-btn {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text);
       text-decoration: none;
       border: 1px solid var(--border);
       padding: 6px 14px;
-      border-radius: 6px;
+      border-radius: 3px;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
@@ -815,7 +787,7 @@
 
     .project-visual {
       background: var(--bg3);
-      border-radius: 12px;
+      border-radius: 4px;
       height: 240px;
       display: flex;
       align-items: center;
@@ -973,7 +945,6 @@
     .cert-tab-item {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
       padding: 16px 20px;
       display: flex;
       justify-content: space-between;
@@ -987,7 +958,7 @@
     }
 
     .cert-tab-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 4px;
@@ -995,7 +966,7 @@
 
     .cert-tab-meta {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 14px;
       color: var(--muted);
     }
 
@@ -1058,7 +1029,7 @@
       padding: 16px 20px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 4px;
       transition: all 0.2s ease;
       color: var(--text);
     }
@@ -1072,12 +1043,16 @@
       width: 38px;
       height: 38px;
       background: var(--bg3);
-      border-radius: 8px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      color: var(--muted);
       flex-shrink: 0;
+    }
+
+    .contact-link-item:hover .contact-link-icon {
+      color: var(--lime);
     }
 
     .contact-link-label {
@@ -1108,7 +1083,7 @@
     .avail-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 4px;
       padding: 32px;
       margin-bottom: 20px;
     }
@@ -1137,7 +1112,7 @@
       font-family: var(--font-mono);
       font-size: 12px;
       padding: 6px 14px;
-      border-radius: 6px;
+      border-radius: 3px;
       border: 1px solid var(--border);
       color: var(--muted);
     }
@@ -1262,7 +1237,7 @@
 
     .stack-tab:hover {
       color: var(--text);
-      background: rgba(200, 255, 0, 0.04);
+      background: rgba(107, 125, 90, 0.06);
       transform: translateY(-1px);
     }
 
@@ -1279,7 +1254,7 @@
     .stack-tab.active {
       color: var(--lime);
       border-bottom-color: var(--lime);
-      background: rgba(200, 255, 0, 0.06);
+      background: rgba(107, 125, 90, 0.08);
     }
 
     .stack-tab.active::after {
@@ -1330,7 +1305,7 @@
       grid-template-columns: 220px 1fr;
       gap: 32px;
       padding: 22px 4px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       align-items: baseline;
       transition: background 0.2s ease, padding-left 0.2s ease;
       position: relative;
@@ -1341,7 +1316,7 @@
     }
 
     .stack-row:hover {
-      background: rgba(200, 255, 0, 0.02);
+      background: rgba(107, 125, 90, 0.04);
       padding-left: 14px;
     }
 
@@ -1581,7 +1556,7 @@
       }
 
       .contact-text {
-        font-size: 14px;
+        font-size: 17px;
       }
 
       .contact-link-item {
@@ -1592,7 +1567,7 @@
       .contact-link-icon {
         width: 36px;
         height: 36px;
-        font-size: 14px;
+        font-size: 17px;
       }
 
       .contact-link-label {
@@ -1600,7 +1575,7 @@
       }
 
       .contact-link-value {
-        font-size: 11px;
+        font-size: 14px;
       }
 
       .avail-card {
@@ -1624,11 +1599,11 @@
       }
 
       .footer-logo {
-        font-size: 14px;
+        font-size: 20px;
       }
 
       .footer-copy {
-        font-size: 10px;
+        font-size: 16px;
       }
 
       .stack-row {
@@ -2045,7 +2020,7 @@
       }
 
       .nav-logo {
-        font-size: 16px;
+        font-size: 25px;
       }
 
       .hero-name {
@@ -2107,18 +2082,7 @@
       }
     }
 
-    .cursor-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      background: radial-gradient(600px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-          rgba(240, 184, 56, 0.09),
-          transparent 80%);
-    }
+
 
     /* Filter Bar */
     .projects-filter-bar {
@@ -2130,9 +2094,9 @@
 
     .filter-btn {
       padding: 10px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.15);
       background: transparent;
-      color: var(--text-muted, #999);
+      color: black;
       font-size: 14px;
       font-family: var(--font-mono);
       border-radius: 6px;
@@ -2141,14 +2105,15 @@
     }
 
     .filter-btn:hover {
-      border-color: rgba(0, 255, 255, 0.4);
-      color: var(--cyan, #00ffff);
+      border-color: var(--lime);
+      color: white;
+      background:#6b7d5a;
     }
 
     .filter-btn-active {
-      background: rgba(0, 255, 255, 0.15);
-      border-color: var(--cyan, #00ffff);
-      color: var(--cyan, #00ffff);
+      background:#6b7d5a;
+      border-color: var(--lime);
+      color: white;
     }
 
     /* Project card visibility */
@@ -2163,7 +2128,6 @@
 </head>
 
 <body>
-  <div class="cursor-glow"></div>
   <!-- ── NAV ── -->
   <nav id="mainNav">
     <a href="#hero" class="nav-logo">KZT<span>.</span></a>
@@ -2203,32 +2167,42 @@
         <div class="hero-title reveal reveal-delay-2">Junior AI & Software Developer</div>
         <p class="hero-bio reveal reveal-delay-3">
           SP graduate with <strong>1 year</strong> of production experience shipping enterprise Java, React Native apps,
-          and computer vision pipelines. Aspiring <strong>AI developer</strong> with eyes on cloud — currently prepping
+          and computer vision pipelines. Aspiring <strong>AI developer</strong> with eyes on cloud. Currently prepping
           <strong>AWS CLF-C02</strong>, Solutions Architect next.
-          <strong>Open to roles in Singapore</strong> — S Pass sponsorship welcome.
+          <strong>Open to roles in Singapore</strong>: S Pass sponsorship welcome.
         </p>
 
         <div class="hero-ctas reveal reveal-delay-4">
-          <a href="#projects" class="btn-primary">View My Work →</a>
-          <a href="/resume.pdf" download class="btn-secondary">Download Resume ↓</a>
-          <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">GitHub ↗</a>
-          <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
-            class="btn-secondary">LinkedIn ↗</a>
-        </div>
+  <a href="#projects" class="btn-primary">View My Work →</a>
+  <a href="/resume.pdf" download class="btn-secondary">Download Resume ↓</a>
+  <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+    </svg>
+    GitHub
+  </a>
+  <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
+    class="btn-secondary">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+    </svg>
+    LinkedIn
+  </a>
+</div>
       </div>
 
       <div class="hero-right reveal reveal-delay-2">
         <div class="stat-card c1">
-          <div class="stat-num">11</div>
-          <div class="stat-label">Months Experience</div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Year Experience</div>
         </div>
         <div class="stat-card c2">
           <div class="stat-num">4+</div>
           <div class="stat-label">languages shipped</div>
         </div>
         <div class="stat-card c3">
-          <div class="stat-num">🏆</div>
-          <div class="stat-label">SP Hackathon 2025<br>1st Place</div>
+          <div class="stat-num">1st</div>
+          <div class="stat-label">SP Hackathon 2025<br>Place</div>
         </div>
         <div class="stat-card c4">
           <div class="stat-num">2</div>
@@ -2257,33 +2231,14 @@
         </div>
       </div>
 
-      <div class="about-text reveal reveal-delay-1">
-        <div class="section-tag">My Story</div>
-        <p>I came into Singapore Polytechnic as a software development student. I thought I'd spend three years writing
-          CRUD apps and call it a career. The internship had other plans.</p>
-        <p>Eleven months at Reachfield taught me what no tutorial covers: enterprise systems don't look like tutorials.
-          You inherit code from 2014. The spec lives in someone's head. The device you're integrating has three forum
-          posts about it, all unresolved. And somewhere in production, there are 30+ critical bugs waiting to be found.
-        </p>
-        <p>That last part stuck with me. I learned to test properly: think like a user, design test cases, classify
-          severity, write bug reports that actually get fixed. It changed how I code. Now I break things on purpose
-          before users do.</p>
-        <p>On the development side, I got handed a YOLO crowd-counting task, and that was the first time I realised
-          models aren't magic, they're just math that someone wrapped nicely. I built <strong>EmotionVision</strong>
-          next
-          (TensorFlow + OpenCV), then deployed a <strong>Code-to-Cloud Architecture Visualizer</strong> (a full-stack
-          React app on AWS Lambda, API Gateway, and Claude Bedrock) that taught me more about abstractions than any
-          course could. The pattern kept holding: the interesting work isn't
-          calling the API, it's understanding what the API is hiding.</p>
-        <blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the API
-          is hiding, and what breaks when it doesn't."</blockquote>
-        <p>Cloud is where I'm headed next: CLF-C02 now, Solutions Architect after. Not because certifications matter,
-          but because I want to know where the abstractions leak, how to test distributed systems, and where the next
-          bug is hiding before deployment.</p>
-        <p>I'm looking for a team building production-grade systems (whether that's cloud infrastructure, AI pipelines,
-          or bulletproof QA). I want to ship things that don't break at 2am. And I'll ask too many questions about why
-          the abstraction exists.</p>
-      </div>
+     <div class="about-text reveal reveal-delay-1">
+  <div class="section-tag">My Story</div>
+  <p>I came into Singapore Polytechnic as a software development student, expecting three years of CRUD apps. The internship had other plans.</p>
+  <p>Eleven months at Reachfield taught me what no tutorial covers: enterprise systems don't look like tutorials. You inherit code from 2014, the spec lives in someone's head, and somewhere in production there are 30+ critical bugs waiting to be found. I learned to test properly there: think like a user, design test cases, classify severity, write bug reports that actually get fixed. It changed how I code. Now I break things on purpose before users do.</p>
+  <p>On the development side, I got handed a YOLO crowd-counting task and realised models aren't magic, they're just math wrapped nicely. I built <strong>EmotionVision</strong> next (TensorFlow + OpenCV), then a <strong>Code-to-Cloud Architecture Visualizer</strong> on AWS Lambda, API Gateway, and Bedrock. The pattern kept holding: the interesting work isn't calling the API, it's understanding what the API is hiding.</p>
+  <blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the API is hiding, and what breaks when it doesn't."</blockquote>
+  <p>Cloud is where I'm headed next. I'm currently preparing for the <strong>AWS Solutions Architect Associate</strong> certification. I want a team building production-grade systems: cloud infrastructure, AI pipelines, or QA that actually catches things before users do.</p>
+</div>
     </div>
   </section>
 
@@ -2343,9 +2298,10 @@
 
       <!-- GlucoSG — featured -->
       <div class="project-card featured reveal" data-category="hackathon">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--lime), var(--cyan));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
-          <div class="project-badge badge-win">🏆 1ST PLACE · SP ENERGIZED 2025</div>
+          <div class="project-badge badge-win">1ST PLACE · SP ENERGIZED 2025</div>
+
           <div class="project-title">GlucoSG</div>
           <div class="project-desc">Full-stack nutrition tracking app for Singapore's diabetic and pre-diabetic
             population. Glycemic index data tailored to Singapore's food landscape, meal logging, statistics dashboard,
@@ -2353,10 +2309,10 @@
           </div>
 
           <div
-          style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:var(--purple);">◆</span> Hackathon Project · Singapore Polytechnic · 2025
-        </div>
-          
+            style="font-family:var(--font-mono); font-size:16px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span style="color:#6b7d5a;">◆</span> <strong>Hackathon Project · Singapore Polytechnic · 2025</strong>
+          </div>
+
           <div class="project-stack">
             <span class="stack-tag">React / Vite</span>
             <span class="stack-tag">Node.js</span>
@@ -2368,9 +2324,8 @@
             <a href="https://github.com/ProjektKevin/Energizer-Hackathon-2025" target="_blank" rel="noopener"
               class="link-btn">GitHub ↗</a>
             <a href="https://www.youtube.com/watch?v=2WdttsRlXWM&feature=youtu.be" target="_blank" rel="noopener"
-              class="link-btn" style="border-color:rgba(255,92,92,0.4); color:var(--coral);">▶ YouTube</a>
-            <a href="/glucosg.jpeg" target="_blank" rel="noopener" class="link-btn"
-              style="border-color:rgba(200,255,0,0.4); color:var(--lime);">🏆 Certificate</a>
+              class="link-btn">▶ YouTube</a>
+            <a href="/glucosg.jpeg" target="_blank" rel="noopener" class="link-btn">Certificate</a>
           </div>
         </div>
         <div class="project-visual"
@@ -2383,16 +2338,16 @@
 
       <!-- EmotionVision — featured -->
       <div class="project-card featured reveal" data-category="computer-vision">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--cyan), var(--purple));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-ai">AI / COMPUTER VISION</div>
           <div class="project-title">EmotionVision</div>
           <div class="project-desc">Real-time emotion detection and crowd density analysis. Custom TensorFlow CNN,
             FastAPI inference server, OpenCV video pipeline, Supabase logging. End-to-end ML deployment — deployed on
             Render.</div>
-             <div
-            style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#2563eb;">◆</span> Portfolio Project · 03/2026
+          <div
+            style="font-family:var(--font-mono); font-size:16px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 03/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">TensorFlow</span>
@@ -2417,7 +2372,7 @@
 
       <!-- Code-to-Cloud — featured -->
       <div class="project-card featured reveal" data-category="cloud-architecture">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--purple), var(--cyan));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-ai">AI / CLOUD ARCHITECTURE</div>
           <div class="project-title">Code-to-Cloud V1</div>
@@ -2426,9 +2381,9 @@
             alignment. Built end-to-end on AWS: React frontend, API Gateway, Lambda, and Bedrock (Claude Haiku 4.5)
             doing the analysis. <em>V1 takes 5 to 10 seconds per analysis while the AI reasons through your code.</em>
           </div>
-           <div
-            style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#2563eb;">◆</span> Portfolio Project · 05/2026
+          <div
+            style="font-family:var(--font-mono); font-size:16px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 05/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">AWS Bedrock</span>
@@ -2457,10 +2412,9 @@
 
       <!-- Banking QA Automation Framework — FEATURED (FULL WIDTH) -->
       <div class="project-card featured reveal" data-category="testing-qa">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--purple), var(--cyan));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
-          <div class="project-badge" style="background-color: rgba(37, 99, 235, 0.2); color: #2563eb;">✅ 11/11 TESTS
-            PASSING · 100% COVERAGE</div>
+          <div class="project-badge badge-win">11/11 TESTS PASSING · 100% COVERAGE</div>
 
           <div class="project-title">Banking QA Automation Framework</div>
           <div class="project-desc">Enterprise-grade end-to-end testing framework for banking applications. Built on
@@ -2471,8 +2425,8 @@
             real-time.
           </div>
           <div
-            style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#2563eb;">◆</span> Portfolio Project · 06/2026
+            style="font-family:var(--font-mono); font-size:16px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 06/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">Java 17</span>
@@ -2486,7 +2440,7 @@
             <a href="https://github.com/khine282/banking-app-e2e-test-suite" target="_blank" rel="noopener"
               class="link-btn">GitHub ↗</a>
             <a href="https://khine282.github.io/banking-app-e2e-test-suite/" target="_blank" rel="noopener"
-              class="link-btn" style="border-color:rgba(37, 99, 235, 0.4); color:#2563eb;">📊 Live Dashboard</a>
+              class="link-btn">Live Dashboard</a>
           </div>
         </div>
         <div class="project-visual"
@@ -2507,21 +2461,21 @@
 
       <!-- SGEMS2 -->
       <div class="project-card reveal reveal-delay-1" data-category="internship">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--purple), var(--coral));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div class="project-icon">🏢</div>
         <div class="project-badge badge-enterprise">ENTERPRISE · PRODUCTION</div>
         <div class="project-title">SGEMS2</div>
         <div
           style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:var(--purple);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
+          <span style="color:var(--accent);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
         </div>
         <div class="project-desc">Security and estate management platform deployed across Singapore. Hibernate 5→6
           migration, Jakarta EE compliance, GPS/EXIF tracking, Face++ facial verification, QR systems, and full hardware
           integration for specialist field devices.</div>
-          <div
-            style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#2563eb;">◆</span> Internship Project · 2025
-          </div>
+        <div
+          style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+          <span style="color:#2563eb;">◆</span> Internship Project · 2025
+        </div>
         <div class="project-stack">
           <span class="stack-tag">Java 17</span>
           <span class="stack-tag">Jakarta EE</span>
@@ -2536,23 +2490,23 @@
 
       <!-- Mobile Apps -->
       <div class="project-card reveal reveal-delay-2" data-category="internship">
-        <div class="project-color-bar" style="background: linear-gradient(90deg, var(--coral), var(--orange));"></div>
+        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div class="project-icon">📱</div>
         <div class="project-badge badge-mobile">REACT NATIVE · DEPLOYED</div>
         <div class="project-title">SGEMS2 Mobile Apps</div>
         <div
           style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:var(--coral);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
+          <span style="color:var(--accent);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
         </div>
         <div class="project-desc">Two production-grade React Native applications (Work Order Management and Form
           Management) deployed to Google Play and TestFlight. Developed and tested multi-flavor Android builds using
           Android Studio; configured iOS builds and managed TestFlight deployment via Xcode. Integrated Bluetooth
           thermal printing, QR/hardware scanner, Face++ biometric verification, and PDF generation for K10 and F2
           ruggedized devices.</div>
-          <div
-            style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#2563eb;">◆</span> Internship Project · 2025
-          </div>
+        <div
+          style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+          <span style="color:#2563eb;">◆</span> Internship Project · 2025
+        </div>
         <div class="project-stack">
           <span class="stack-tag">React Native</span>
           <span class="stack-tag">Android Studio</span>
@@ -2589,7 +2543,7 @@
       <div class="stack-panel active" data-panel="languages">
         <div class="stack-row">
           <div class="stack-row-name">Java</div>
-          <div class="stack-row-context"><strong>11 months</strong> production · Jakarta EE on SGEMS2 enterprise
+          <div class="stack-row-context"><strong>1 Year</strong> production · Jakarta EE on SGEMS2 enterprise
             platform · Hibernate 5→6 / JDK 17 migration</div>
         </div>
         <div class="stack-row">
@@ -2929,7 +2883,13 @@
 
         <div class="contact-links-list">
           <a href="mailto:khinezarthwe282@gmail.com" class="contact-link-item">
-            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
             <div>
               <div class="contact-link-label">Email</div>
               <div class="contact-link-value">khinezarthwe282@gmail.com</div>
@@ -2938,7 +2898,13 @@
           </a>
           <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
             class="contact-link-item">
-            <div class="contact-link-icon">💼</div>
+            <div class="contact-link-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                </path>
+              </svg>
+            </div>
             <div>
               <div class="contact-link-label">LinkedIn</div>
               <div class="contact-link-value">khine-zar-thwe-282kzt</div>
@@ -2946,7 +2912,13 @@
             <div class="contact-link-arrow">→</div>
           </a>
           <a href="https://github.com/khine282" target="_blank" rel="noopener" class="contact-link-item">
-            <div class="contact-link-icon">🐙</div>
+            <div class="contact-link-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+                </path>
+              </svg>
+            </div>
             <div>
               <div class="contact-link-label">GitHub</div>
               <div class="contact-link-value">github.com/khine282</div>
@@ -3089,12 +3061,7 @@
     initializeContact()
   </script>
 
-  <script>
-    document.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
-      document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
-    });
-  </script>
+
 
   <script src="/modal.js"></script>
 
