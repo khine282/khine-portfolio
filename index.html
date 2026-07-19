@@ -19,23 +19,24 @@
       padding: 0;
     }
 
-:root {
-  --bg: #ffffff;
-  --bg2: #fafaf8;
-  --bg3: #f2f2ef;
-  --surface: #f5f5f2;
-  --border: rgba(0, 0, 0, 0.08);
-  --text: #1a1c19;
-  --muted: #5c5f58;
-  --lime: #6b7d5a;
-  --cyan: #6b7d5a;
-  --coral: #6b7d5a;
-  --purple: #6b7d5a;
-  --orange: #6b7d5a;
-  --font-display: 'Syne', 'Inter', -apple-system, sans-serif;
-  --font-body: 'DM Sans', 'Inter', -apple-system, sans-serif;
-  --font-mono: 'DM Mono', 'JetBrains Mono', ui-monospace, monospace;
-}
+    :root {
+      --bg: #ffffff;
+      --bg2: #fafaf8;
+      --bg3: #f2f2ef;
+      --surface: #f5f5f2;
+      --border: rgba(0, 0, 0, 0.08);
+      --text: #1a1c19;
+      --muted: #5c5f58;
+      --lime: #6b7d5a;
+      --cyan: #6b7d5a;
+      --coral: #6b7d5a;
+      --purple: #6b7d5a;
+      --orange: #6b7d5a;
+      --font-display: 'Syne', 'Inter', -apple-system, sans-serif;
+      --font-body: 'DM Sans', 'Inter', -apple-system, sans-serif;
+      --font-mono: 'DM Mono', 'JetBrains Mono', ui-monospace, monospace;
+    }
+
     html {
       scroll-behavior: smooth;
     }
@@ -104,18 +105,18 @@
 
     /* ── NAV ── */
     nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 48px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
     }
 
     .nav-logo {
@@ -180,6 +181,23 @@
       border: none;
       padding: 4px;
     }
+
+    .nav-progress-track {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 101;
+}
+
+.nav-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--lime);
+  transition: width 0.1s ease-out;
+}
 
     .nav-ham span {
       display: block;
@@ -2107,11 +2125,11 @@
     .filter-btn:hover {
       border-color: var(--lime);
       color: white;
-      background:#6b7d5a;
+      background: #6b7d5a;
     }
 
     .filter-btn-active {
-      background:#6b7d5a;
+      background: #6b7d5a;
       border-color: var(--lime);
       color: white;
     }
@@ -2145,6 +2163,9 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
+  <div class="nav-progress-track">
+  <div class="nav-progress-bar" id="navProgressBar"></div>
+</div>
 
   <div class="nav-mobile-menu" id="navMobile">
     <a href="#about" onclick="closeMobile()">About</a>
@@ -2166,53 +2187,57 @@
         </h1>
         <div class="hero-title reveal reveal-delay-2">Junior AI & Software Developer</div>
         <p class="hero-bio reveal reveal-delay-3">
-          SP graduate with <strong>1 year</strong> of production experience shipping enterprise Java, React Native apps,
-          and computer vision pipelines. Aspiring <strong>AI developer</strong> with eyes on cloud. Currently prepping
-          <strong>AWS CLF-C02</strong>, Solutions Architect next.
-          <strong>Open to roles in Singapore</strong>: S Pass sponsorship welcome.
+          SP graduate shipping <strong>enterprise Java, React Native apps</strong>, and computer vision pipelines
+          in production. Aspiring <strong>AI developer</strong> with eyes on cloud, currently prepping
+          <strong>AWS Solutions Architect Associate</strong>.
+
         </p>
 
         <div class="hero-ctas reveal reveal-delay-4">
-  <a href="#projects" class="btn-primary">View My Work →</a>
-  <a href="/resume.pdf" download class="btn-secondary">Download Resume ↓</a>
-  <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
-    </svg>
-    GitHub
-  </a>
-  <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
-    class="btn-secondary">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
-    </svg>
-    LinkedIn
-  </a>
-</div>
+          <a href="#projects" class="btn-primary">View My Work →</a>
+          <a href="/Khine_Zar_Thwe_Resume.pdf" download class="btn-secondary">Download Resume ↓</a>
+          <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.238 1.84 1.238 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.605-2.665-.303-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+              </path>
+            </svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
+            class="btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+              </path>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
       </div>
 
       <div class="hero-right reveal reveal-delay-2">
         <div class="stat-card c1">
-          <div class="stat-num">1</div>
-          <div class="stat-label">Year Experience</div>
-        </div>
-        <div class="stat-card c2">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">languages shipped</div>
-        </div>
-        <div class="stat-card c3">
           <div class="stat-num">1st</div>
           <div class="stat-label">SP Hackathon 2025<br>Place</div>
         </div>
-        <div class="stat-card c4">
+        <div class="stat-card c2">
           <div class="stat-num">2</div>
           <div class="stat-label">apps on Play Store<br>& TestFlight</div>
+        </div>
+        <div class="stat-card c3">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">languages shipped</div>
+        </div>
+        <div class="stat-card c4">
+          <div class="stat-num">30+</div>
+          <div class="stat-label">critical bugs caught<br>in UAT</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── ABOUT ── -->
+<!-- ── ABOUT ── -->
   <section id="about">
     <div class="about-grid">
       <div class="about-left reveal">
@@ -2226,19 +2251,23 @@
         </div>
         <div class="about-card">
           <div class="about-card-label">Focus</div>
-          <div class="about-card-value">Cloud · AI · Testing & QA</div>
-          <div class="about-card-sub">Building toward Solutions Architect</div>
+          <div class="about-card-value">Cloud & Backend Development</div>
+          <div class="about-card-sub">With a strong interest in AI, building toward Solutions Architect</div>
         </div>
       </div>
 
-     <div class="about-text reveal reveal-delay-1">
-  <div class="section-tag">My Story</div>
-  <p>I came into Singapore Polytechnic as a software development student, expecting three years of CRUD apps. The internship had other plans.</p>
-  <p>Eleven months at Reachfield taught me what no tutorial covers: enterprise systems don't look like tutorials. You inherit code from 2014, the spec lives in someone's head, and somewhere in production there are 30+ critical bugs waiting to be found. I learned to test properly there: think like a user, design test cases, classify severity, write bug reports that actually get fixed. It changed how I code. Now I break things on purpose before users do.</p>
-  <p>On the development side, I got handed a YOLO crowd-counting task and realised models aren't magic, they're just math wrapped nicely. I built <strong>EmotionVision</strong> next (TensorFlow + OpenCV), then a <strong>Code-to-Cloud Architecture Visualizer</strong> on AWS Lambda, API Gateway, and Bedrock. The pattern kept holding: the interesting work isn't calling the API, it's understanding what the API is hiding.</p>
-  <blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the API is hiding, and what breaks when it doesn't."</blockquote>
-  <p>Cloud is where I'm headed next. I'm currently preparing for the <strong>AWS Solutions Architect Associate</strong> certification. I want a team building production-grade systems: cloud infrastructure, AI pipelines, or QA that actually catches things before users do.</p>
-</div>
+      <div class="about-text reveal reveal-delay-1">
+        <div class="section-tag">My Story</div>
+        <p>I came into Singapore Polytechnic expecting three years of CRUD apps. The internship had other plans.</p>
+       <p>At Reachfield, I shipped enterprise Java and React Native apps, plus a YOLO crowd-counting task that got me
+  curious about AI. I also learned to think like a user: design test cases, classify severity, write bug reports
+  that actually get fixed (30+ critical bugs caught along the way). It changed how I build.</p>
+<blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the
+  API is hiding, and what breaks when it doesn't."</blockquote>
+<p>Cloud is where I'm headed next, on my own terms. I'm currently preparing for the <strong>AWS Solutions Architect
+    Associate</strong> certification, with AI as the thread running alongside it. I want a team building
+  production-grade systems: cloud infrastructure, QA, or backend, where I can keep growing into both.</p>
+      </div>
     </div>
   </section>
 
@@ -2986,74 +3015,8 @@
     </div>
   </footer>
   <!-- Your page scripts -->
-  <script>
-    // Hamburger nav
-    const ham = document.getElementById('navHam');
-    const mob = document.getElementById('navMobile');
-    ham.addEventListener('click', () => mob.classList.toggle('open'));
-    function closeMobile() { mob.classList.remove('open'); }
+  <script src="nav.js" defer></script>
 
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
-
-    // Trigger hero reveals immediately
-    document.querySelectorAll('#hero .reveal').forEach(el => {
-      setTimeout(() => el.classList.add('visible'), 100);
-    });
-
-    // Skill bars
-    const skillSection = document.getElementById('skills');
-    if (skillSection) {
-      let barsTriggered = false;
-      const skillObs = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !barsTriggered) {
-          barsTriggered = true;
-          document.querySelectorAll('.skill-fill').forEach((el, i) => {
-            const w = parseFloat(el.getAttribute('data-w'));
-            setTimeout(() => { el.style.transform = `scaleX(${w})`; }, 150 + i * 100);
-          });
-        }
-      }, { threshold: 0.2 });
-      skillObs.observe(skillSection);
-    }
-
-    // Nav scroll style
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        nav.style.borderBottomColor = 'rgba(255,255,255,0.1)';
-      } else {
-        nav.style.borderBottomColor = 'rgba(255,255,255,0.07)';
-      }
-    });
-
-    // Tech Stack tab switching
-    document.querySelectorAll('.stack-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-        document.querySelectorAll('.stack-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.stack-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelector(`.stack-panel[data-panel="${target}"]`).classList.add('active');
-      });
-    });
-
-    document.querySelectorAll('.cert-tab-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const tabName = button.getAttribute('data-tab');
-
-        document.querySelectorAll('.cert-tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.cert-tab-pane').forEach(pane => pane.classList.remove('active'));
-
-        button.classList.add('active');
-        document.querySelector(`.cert-tab-pane[data-tab="${tabName}"]`).classList.add('active');
-      });
-    });
-  </script>
 
   <!-- Initialize contact form -->
   <script type="module">
