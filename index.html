@@ -183,21 +183,21 @@
     }
 
     .nav-progress-track {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--border);
-  z-index: 101;
-}
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border);
+      z-index: 101;
+    }
 
-.nav-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--lime);
-  transition: width 0.1s ease-out;
-}
+    .nav-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--lime);
+      transition: width 0.1s ease-out;
+    }
 
     .nav-ham span {
       display: block;
@@ -302,9 +302,31 @@
       color: var(--muted);
       margin-bottom: 28px;
       letter-spacing: -0.5px;
+      position: relative;
+      height: 1.3em;
+      overflow: hidden;
     }
 
-    .hero-bio {
+    .title-rotator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .title-rotator.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .title-rotator.exit {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+
+    HTML chang .hero-bio {
       font-size: 18px;
       color: #6b7d5a;
       line-height: 1.7;
@@ -318,11 +340,11 @@
       font-weight: 500;
     }
 
-    .hero-ctas {
+    /* .hero-ctas {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-    }
+    } */
 
     .btn-primary {
       display: inline-flex;
@@ -1420,10 +1442,7 @@
         font-size: clamp(16px, 2.2vw, 22px);
       }
 
-      .hero-bio {
-        font-size: 15px;
-      }
-
+  
       .hero-right {
         grid-template-columns: 1fr 1fr;
         gap: 12px;
@@ -1696,13 +1715,15 @@
       .hero-bio {
         font-size: 14px;
         line-height: 1.5;
-        margin-bottom: 24px;
+        margin-bottom: 40px;
         max-width: 100%;
+        
       }
 
       .hero-ctas {
         flex-direction: column;
-        gap: 10px;
+        gap: 10px;     
+        margin-top: 100px;   
       }
 
       .btn-primary,
@@ -2164,8 +2185,8 @@
     </button>
   </nav>
   <div class="nav-progress-track">
-  <div class="nav-progress-bar" id="navProgressBar"></div>
-</div>
+    <div class="nav-progress-bar" id="navProgressBar"></div>
+  </div>
 
   <div class="nav-mobile-menu" id="navMobile">
     <a href="#about" onclick="closeMobile()">About</a>
@@ -2185,7 +2206,11 @@
         <h1 class="hero-name reveal reveal-delay-1">
           Khine<br>Zar<br><span class="accent">Thwe.</span>
         </h1>
-        <div class="hero-title reveal reveal-delay-2">Junior AI & Software Developer</div>
+        <div class="hero-title reveal reveal-delay-2">
+          <span class="title-rotator active">Junior AI & Software Developer</span>
+          <span class="title-rotator">QA & Test Engineer</span>
+          <span class="title-rotator">Cloud Developer</span>
+        </div>
         <p class="hero-bio reveal reveal-delay-3">
           Software developer shipping <strong>enterprise Java, React Native apps</strong>, and computer vision pipelines
           in production. Aspiring <strong>AI developer</strong> with eyes on cloud, currently prepping
@@ -2237,7 +2262,7 @@
     </div>
   </section>
 
-<!-- ── ABOUT ── -->
+  <!-- ── ABOUT ── -->
   <section id="about">
     <div class="about-grid">
       <div class="about-left reveal">
@@ -2259,14 +2284,15 @@
       <div class="about-text reveal reveal-delay-1">
         <div class="section-tag">My Story</div>
         <p>I came into Singapore Polytechnic expecting three years of CRUD apps. The internship had other plans.</p>
-       <p>At Reachfield, I shipped enterprise Java and React Native apps, plus a YOLO crowd-counting task that got me
-  curious about AI. I also learned to think like a user: design test cases, classify severity, write bug reports
-  that actually get fixed (30+ critical bugs caught along the way). It changed how I build.</p>
-<blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the
-  API is hiding, and what breaks when it doesn't."</blockquote>
-<p>Cloud is where I'm headed next, on my own terms. I'm currently preparing for the <strong>AWS Solutions Architect
-    Associate</strong> certification, with AI as the thread running alongside it. I want a team building
-  production-grade systems: cloud infrastructure, QA, or backend, where I can keep growing into both.</p>
+        <p>At Reachfield, I shipped enterprise Java and React Native apps, plus a YOLO crowd-counting task that got me
+          curious about AI. I also learned to think like a user: design test cases, classify severity, write bug reports
+          that actually get fixed (30+ critical bugs caught along the way). It changed how I build.</p>
+        <blockquote>"The world doesn't need more people who can call an API. It needs people who understand what the
+          API is hiding, and what breaks when it doesn't."</blockquote>
+        <p>Cloud is where I'm headed next, on my own terms. I'm currently preparing for the <strong>AWS Solutions
+            Architect
+            Associate</strong> certification, with AI as the thread running alongside it. I want a team building
+          production-grade systems: cloud infrastructure, QA, or backend, where I can keep growing into both.</p>
       </div>
     </div>
   </section>

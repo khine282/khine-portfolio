@@ -71,3 +71,16 @@ window.addEventListener('scroll', () => {
   const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
   progressBar.style.width = pct + '%';
 });
+
+const rotators = document.querySelectorAll('.title-rotator');
+if (rotators.length > 1) {
+  let current = 0;
+  setInterval(() => {
+    const next = (current + 1) % rotators.length;
+    rotators[current].classList.remove('active');
+    rotators[current].classList.add('exit');
+    rotators[next].classList.add('active');
+    setTimeout(() => rotators[current].classList.remove('exit'), 500);
+    current = next;
+  }, 2800);
+}
