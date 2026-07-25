@@ -1084,11 +1084,30 @@
       border-color: var(--lime);
     }
 
+    .cert-tab-item.in-progress {
+      border-style: dashed;
+      opacity: 0.85;
+    }
+
     .cert-tab-name {
       font-size: 16px;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 4px;
+    }
+
+    .cert-tab-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 3px 7px;
+      margin-left: 16px;
+      white-space: nowrap;
+      text-transform: uppercase;
     }
 
     .cert-tab-meta {
@@ -3078,6 +3097,13 @@
         <!-- ALL (sorted latest → oldest) -->
         <div class="cert-tab-pane active" data-tab="all">
           <div class="cert-scroll-container">
+            <div class="cert-tab-item in-progress">
+              <div>
+                <div class="cert-tab-name">AWS Certified Solutions Architect – Associate (SAA-C03)</div>
+                <div class="cert-tab-meta">Amazon Web Services · Target: Sep 2026</div>
+              </div>
+              <span class="cert-tab-badge">In Progress</span>
+            </div>
             <div class="cert-tab-item">
               <div>
                 <div class="cert-tab-name">AWS Certified AI Practitioner (AIF-C01)</div>
@@ -3171,6 +3197,13 @@
         <!-- CLOUD -->
         <div class="cert-tab-pane" data-tab="cloud">
           <div class="cert-scroll-container">
+            <div class="cert-tab-item in-progress">
+              <div>
+                <div class="cert-tab-name">AWS Certified Solutions Architect – Associate (SAA-C03)</div>
+                <div class="cert-tab-meta">Amazon Web Services · Target: Sep 2026</div>
+              </div>
+              <span class="cert-tab-badge">In Progress</span>
+            </div>
             <div class="cert-tab-item">
               <div>
                 <div class="cert-tab-name">AWS Cloud Practitioner (CLF-C02) Training Complete</div>
