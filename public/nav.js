@@ -14,14 +14,35 @@ function closeMobile() { mob.classList.remove('open'); }
 
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Auto-stagger: give each .reveal a delay based on its position among
+// sibling .reveal elements, so grids/rows cascade in instead of popping
+// together. Elements with an explicit .reveal-delay-* class keep theirs.
+if (!prefersReducedMotion) {
+  const grouped = new Map();
+  reveals.forEach(el => {
+    if (/reveal-delay-/.test(el.className)) return;
+    const parent = el.parentElement;
+    const idx = (grouped.get(parent) || 0);
+    grouped.set(parent, idx + 1);
+    if (idx > 0) el.style.transitionDelay = Math.min(idx * 60, 300) + 'ms';
+  });
+}
+
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-// Trigger hero reveals immediately
+// Trigger hero reveals immediately (CSS delay classes handle the cascade)
 document.querySelectorAll('#hero .reveal').forEach(el => {
-  setTimeout(() => el.classList.add('visible'), 100);
+  setTimeout(() => el.classList.add('visible'), 120);
 });
 
 // Skill bars
