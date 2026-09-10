@@ -1415,27 +1415,6 @@
       font-weight: 600;
     }
 
-    .exp-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .exp-tag {
-      font-family: var(--font-mono);
-      font-size: var(--fs-tiny);
-      color: var(--accent);
-      border: 1px solid var(--accent-border);
-      background: var(--accent-tint);
-      padding: 3px 10px;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .exp-tag:hover {
-      box-shadow: 0 0 10px var(--accent-border), 0 0 2px var(--accent-border);
-    }
-
     .exp-date {
       font-family: var(--font-mono);
       font-size: var(--fs-micro);
@@ -2518,10 +2497,6 @@
         margin-bottom: 12px;
       }
 
-      .exp-tag {
-        padding: 2px 8px;
-      }
-
       .exp-date {
         padding: 4px 8px;
       }
@@ -2917,6 +2892,48 @@
     .chatbot-toggle svg {
       width: 28px;
       height: 28px;
+      animation: chatbotWiggle 4s ease-in-out infinite;
+      transform-origin: 50% 60%;
+    }
+
+    /* brief playful nudge with a long rest between */
+    @keyframes chatbotWiggle {
+      0%, 70%, 100% { transform: rotate(0) scale(1); }
+      74% { transform: rotate(-12deg) scale(1.08); }
+      78% { transform: rotate(10deg) scale(1.08); }
+      82% { transform: rotate(-7deg) scale(1.04); }
+      86% { transform: rotate(5deg) scale(1.02); }
+      90% { transform: rotate(0) scale(1); }
+    }
+
+    /* soft pulsing halo on the button */
+    .chatbot-toggle::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--lime);
+      opacity: 0.45;
+      z-index: -1;
+      animation: chatbotHalo 2.6s ease-out infinite;
+    }
+
+    @keyframes chatbotHalo {
+      0% { transform: scale(1); opacity: 0.45; }
+      70%, 100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* calm down once the chat is open, and respect reduced-motion */
+    .chatbot-toggle[aria-expanded="true"] svg,
+    .chatbot-toggle[aria-expanded="true"]::before {
+      animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .chatbot-toggle svg,
+      .chatbot-toggle::before {
+        animation: none;
+      }
     }
 
     .chatbot-panel {
@@ -3067,6 +3084,61 @@
       height: 16px;
     }
 
+    /* teaser bubble next to the toggle button */
+    .chatbot-teaser {
+      position: fixed;
+      right: 24px;
+      bottom: 104px;
+      max-width: 236px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 32px 12px 14px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--text);
+      cursor: pointer;
+      z-index: 199;
+      animation: teaserIn 0.35s ease;
+    }
+
+    .chatbot-teaser::after {
+      content: "";
+      position: absolute;
+      right: 24px;
+      bottom: -7px;
+      width: 13px;
+      height: 13px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transform: rotate(45deg);
+    }
+
+    .chatbot-teaser-close {
+      position: absolute;
+      top: 5px;
+      right: 7px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .chatbot-teaser-close:hover {
+      color: var(--text);
+    }
+
+    @keyframes teaserIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @media (max-width: 480px) {
       .chatbot-toggle {
         bottom: 16px;
@@ -3077,11 +3149,447 @@
         bottom: 84px;
         right: 16px;
       }
+
+      .chatbot-teaser {
+        bottom: 96px;
+        right: 16px;
+        max-width: 200px;
+      }
+    }
+
+    /* ── PAGE PRELOADER ── */
+    #preloader[hidden] {
+      display: none;
+    }
+
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      background: var(--bg);
+      transition: transform 0.65s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.45s ease;
+    }
+
+    #preloader.preloader--done {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    .preloader-mark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(34px, 7vw, 58px);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text);
+      animation: preloaderPulse 1.6s ease-in-out infinite;
+    }
+
+    .preloader-mark span {
+      color: var(--accent);
+    }
+
+    @keyframes preloaderPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+
+    .preloader-track {
+      width: min(300px, 74vw);
+      height: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .preloader-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      transform: scaleX(0);
+      transform-origin: left center;
+      box-shadow: 0 0 14px var(--accent-border), 0 0 4px var(--accent-border);
+    }
+
+    .preloader-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .preloader-meta #preloaderPct {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    /* loading-screen owl mascot — line art in the accent colour */
+    .owl {
+      color: var(--accent);
+      overflow: visible;
+    }
+
+    .owl g {
+      transform-box: fill-box;
+    }
+
+    .owl-body {
+      transform-origin: 50% 100%;
+      animation: owlBob 2.6s ease-in-out infinite;
+    }
+
+    .owl-head {
+      transform-origin: 50% 88%;
+      animation: owlTilt 5.5s ease-in-out infinite;
+    }
+
+    .owl-eyes {
+      transform-origin: 50% 50%;
+      animation: owlBlink 3.6s ease-in-out infinite;
+    }
+
+    .owl-wing-l {
+      transform-origin: 100% 0%;
+      animation: owlWingL 3.2s ease-in-out infinite;
+    }
+
+    .owl-wing-r {
+      transform-origin: 0% 0%;
+      animation: owlWingR 3.2s ease-in-out infinite;
+    }
+
+    @keyframes owlBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2.5px); }
+    }
+
+    @keyframes owlTilt {
+      0%, 100% { transform: rotate(0deg); }
+      30% { transform: rotate(-7deg); }
+      62% { transform: rotate(5deg); }
+    }
+
+    @keyframes owlBlink {
+      0%, 88%, 100% { transform: scaleY(1); }
+      92%, 95% { transform: scaleY(0.12); }
+    }
+
+    @keyframes owlWingL {
+      0%, 78%, 100% { transform: rotate(0deg); }
+      87% { transform: rotate(-9deg); }
+      93% { transform: rotate(3deg); }
+    }
+
+    @keyframes owlWingR {
+      0%, 78%, 100% { transform: rotate(0deg); }
+      87% { transform: rotate(9deg); }
+      93% { transform: rotate(-3deg); }
+    }
+
+    /* little flourish as the curtain lifts */
+    #preloader.preloader--done .owl-wing-l {
+      animation: none;
+      transform: rotate(-32deg);
+      transition: transform 0.35s ease;
+    }
+
+    #preloader.preloader--done .owl-wing-r {
+      animation: none;
+      transform: rotate(32deg);
+      transition: transform 0.35s ease;
+    }
+
+    #preloader.preloader--done .owl-eyes {
+      animation: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .preloader-mark { animation: none; }
+      .owl-body, .owl-head, .owl-eyes, .owl-wing-l, .owl-wing-r { animation: none; }
+      #preloader { transition: opacity 0.2s ease; }
+      #preloader.preloader--done { transform: none; }
+    }
+
+    /* ── HERO PHOTO "hover to enlarge" HINT ── */
+    .hero-photo-hint {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.3);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      pointer-events: none;
+      transform: translateX(-50%);
+      transition: opacity 0.25s ease;
+      animation: hintBob 2.4s ease-in-out infinite;
+    }
+
+    .hero-photo-hint svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--accent);
+    }
+
+    @keyframes hintBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(3px); }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .hero-photo-hint { display: flex; }
+      #hero:has(.hero-photo-crop:hover) .hero-photo-hint { opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-photo-hint { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-photo-hint { animation: none; }
+    }
+
+    /* ── ROAMING OWL MASCOT ── */
+    .owl-pet {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 52px;
+      height: 60px;
+      z-index: 150;
+      cursor: grab;
+      touch-action: none;
+      transform: translate(28px, 60vh);
+      transition: transform 1.6s cubic-bezier(0.45, 0, 0.25, 1);
+      will-change: transform;
+    }
+
+    .owl-pet.is-dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    .owl-pet.is-dragging .owl-wing-l { animation: owlFlapL 0.22s ease-in-out infinite; }
+    .owl-pet.is-dragging .owl-wing-r { animation: owlFlapR 0.22s ease-in-out infinite; }
+
+    .owl-pet.is-leaving {
+      opacity: 0;
+      transition: opacity 0.45s ease;
+    }
+
+    .owl-pet-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+      filter: drop-shadow(0 6px 9px rgba(0, 0, 0, 0.18));
+    }
+
+    .owl-pet.face-left .owl-pet-svg {
+      transform: scaleX(-1);
+    }
+
+    /* fast wing-flap + forward lean while travelling */
+    .owl-pet.is-flying .owl-wing-l { animation: owlFlapL 0.26s ease-in-out infinite; }
+    .owl-pet.is-flying .owl-wing-r { animation: owlFlapR 0.26s ease-in-out infinite; }
+    .owl-pet.is-flying .owl-body { animation: none; transform: rotate(7deg); }
+
+    @keyframes owlFlapL {
+      0%, 100% { transform: rotate(-4deg); }
+      50% { transform: rotate(-30deg); }
+    }
+
+    @keyframes owlFlapR {
+      0%, 100% { transform: rotate(4deg); }
+      50% { transform: rotate(30deg); }
+    }
+
+    /* looks straight at you on hover */
+    .owl-pet.is-curious .owl-head { animation: none; transform: rotate(0); }
+
+    .owl-pet-dismiss {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .owl-pet:hover .owl-pet-dismiss { display: flex; }
+    .owl-pet-dismiss:hover { color: var(--text); }
+
+    .owl-pet-bubble {
+      position: absolute;
+      bottom: calc(100% + 9px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 210px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.3);
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      line-height: 1.4;
+      color: var(--text);
+      text-align: center;
+      animation: owlBubbleIn 0.24s ease;
+    }
+
+    .owl-pet-bubble::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--surface);
+    }
+
+    @keyframes owlBubbleIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
   </style>
 </head>
 
 <body>
+  <div id="preloader" role="status" aria-live="polite" aria-label="Loading" hidden>
+    <svg class="owl" viewBox="0 0 80 92" width="74" height="86" aria-hidden="true" fill="none"
+      stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="14" y1="85" x2="66" y2="85" />
+      <path d="M33 79 v6 M33 85 l-3 2.5 M33 85 l3 2.5" />
+      <path d="M47 79 v6 M47 85 l-3 2.5 M47 85 l3 2.5" />
+      <g class="owl-body">
+        <path d="M20 22 L30 8 L34 24" />
+        <path d="M60 22 L50 8 L46 24" />
+        <path d="M16 36 C16 19 26 10 40 10 C54 10 64 19 64 36 C64 49 61 63 54 71 C49 77 45 79 40 79 C35 79 31 77 26 71 C19 63 16 49 16 36 Z" />
+        <path class="owl-wing owl-wing-l" d="M18 34 C13 47 14 61 24 70" />
+        <path class="owl-wing owl-wing-r" d="M62 34 C67 47 66 61 56 70" />
+        <path d="M32 52 L40 58 L48 52" opacity="0.45" />
+        <path d="M33 62 L40 67 L47 62" opacity="0.32" />
+        <g class="owl-head">
+          <g class="owl-eyes">
+            <circle cx="31" cy="33" r="9.5" />
+            <circle cx="49" cy="33" r="9.5" />
+            <circle cx="31" cy="33" r="3.4" fill="currentColor" stroke="none" />
+            <circle cx="49" cy="33" r="3.4" fill="currentColor" stroke="none" />
+          </g>
+          <path d="M37 39 L43 39 L40 44 Z" fill="currentColor" stroke="none" />
+        </g>
+      </g>
+    </svg>
+    <div class="preloader-mark">KZT<span>.</span></div>
+    <div class="preloader-track"><div class="preloader-bar" id="preloaderBar"></div></div>
+    <div class="preloader-meta"><span>Loading</span><span id="preloaderPct">0</span><span>%</span></div>
+  </div>
+  <script>
+    (function () {
+      var root = document.getElementById('preloader');
+      if (!root) { window.__preloaderDone = true; return; }
+
+      function signalDone() {
+        window.__preloaderDone = true;
+        document.dispatchEvent(new Event('preloader:done'));
+      }
+
+      function finish(instant) {
+        document.documentElement.style.overflow = '';
+        if (instant) {
+          if (root.parentNode) root.parentNode.removeChild(root);
+        } else {
+          root.classList.add('preloader--done');
+          setTimeout(function () { if (root.parentNode) root.parentNode.removeChild(root); }, 750);
+        }
+        signalDone();
+      }
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var seen = false;
+      try { seen = sessionStorage.getItem('kzt_loaded') === '1'; } catch (e) {}
+
+      // reduced-motion users and repeat visits (same tab session) skip straight in
+      if (reduce || seen) { finish(true); return; }
+      try { sessionStorage.setItem('kzt_loaded', '1'); } catch (e) {}
+
+      document.documentElement.style.overflow = 'hidden';
+      root.hidden = false;
+
+      // keep the loader on screen for at least this long so it reads as a
+      // deliberate moment even when the page is already cached / instant
+      var MIN_MS = 1800;
+
+      var bar = document.getElementById('preloaderBar');
+      var num = document.getElementById('preloaderPct');
+      var shown = 0, target = 0, loaded = false, ending = false;
+      var start = (window.performance && performance.now) ? performance.now() : Date.now();
+
+      function now() { return (window.performance && performance.now) ? performance.now() : Date.now(); }
+
+      function tick() {
+        var elapsed = now() - start;
+        if (loaded && elapsed >= MIN_MS) {
+          target = 100;
+        } else {
+          // march toward 95% over the minimum display window
+          target = Math.min(95, (elapsed / MIN_MS) * 95);
+        }
+        shown += (target - shown) * 0.15;
+        if (target === 100 && 100 - shown < 0.4) shown = 100;
+        var v = Math.min(100, Math.round(shown));
+        if (num) num.textContent = v;
+        if (bar) bar.style.transform = 'scaleX(' + (v / 100) + ')';
+        if (v >= 100) {
+          if (!ending) { ending = true; setTimeout(function () { finish(false); }, 240); }
+          return;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      function markLoaded() { loaded = true; target = 100; }
+      if (document.readyState === 'complete') markLoaded();
+      else window.addEventListener('load', markLoaded);
+
+      // failsafes: never trap the visitor behind the loader
+      setTimeout(markLoaded, 4000);
+      setTimeout(function () { if (root.parentNode) finish(true); }, 6500);
+    })();
+  </script>
   <div class="bg-grid" aria-hidden="true">
     <span class="aurora a1"></span>
     <span class="aurora a2"></span>
@@ -3144,6 +3652,13 @@
             <img src="/photo.webp" width="1200" height="900"
               alt="Khine Zar Thwe" loading="eager" decoding="async"
               onerror="document.querySelectorAll('.hero-photo,.hero-photo-full').forEach(function(el){el.remove()})">
+          </div>
+          <div class="hero-photo-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+            Hover to enlarge
           </div>
         </div>
         <h1 class="hero-name reveal reveal-delay-2">
@@ -3327,23 +3842,6 @@
             <div class="exp-highlight-line">Led UAT &amp; bug triage — <strong>30+ critical bugs</strong> logged, severity-classified, resolved cross-team</div>
             <div class="exp-highlight-line">Hands-on with <strong>Playwright, pytest, API testing &amp; Django Test</strong> for automated coverage</div>
           </div>
-        </div>
-        <div class="exp-tags">
-          <span class="exp-tag">Java / Jakarta EE</span>
-          <span class="exp-tag">React Native</span>
-          <span class="exp-tag">TensorFlow</span>
-          <span class="exp-tag">OpenCV</span>
-          <span class="exp-tag">FastAPI</span>
-          <span class="exp-tag">Hibernate 6</span>
-          <span class="exp-tag">Spring Boot</span>
-          <span class="exp-tag">Microservices</span>
-          <span class="exp-tag">Node.js / Express</span>
-          <span class="exp-tag">MySQL</span>
-          <span class="exp-tag">Face++ API</span>
-          <span class="exp-tag">K10 / F2 HW</span>
-          <span class="exp-tag">Android / iOS</span>
-          <span class="exp-tag">UAT / Bug Triage</span>
-          <span class="exp-tag">CI/CD</span>
         </div>
       </div>
       <div class="exp-date">Apr 2025 – Apr 2026<br> </div>
@@ -4221,6 +4719,11 @@
     </svg>
   </button>
 
+  <div class="chatbot-teaser" id="chatbotTeaser" hidden>
+    <button class="chatbot-teaser-close" id="chatbotTeaserClose" aria-label="Dismiss">✕</button>
+    👋 Ask me anything about Khine — projects, skills, experience
+  </div>
+
   <div class="chatbot-panel" id="chatbotPanel">
     <div class="chatbot-header">
       <div>
@@ -4231,7 +4734,7 @@
     </div>
     <div class="chatbot-messages" id="chatbotMessages"></div>
     <form class="chatbot-input-row" id="chatbotForm">
-      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask a question…" autocomplete="off">
+      <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask anything about Khine…" autocomplete="off">
       <button type="submit" class="chatbot-send" id="chatbotSend" aria-label="Send">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
@@ -4354,6 +4857,36 @@
       window.addEventListener('load', refreshAll);
     })();
   </script>
+
+  <!-- ── ROAMING OWL MASCOT ── -->
+  <div class="owl-pet" id="owlPet" hidden>
+    <button class="owl-pet-dismiss" id="owlPetDismiss" aria-label="Send the owl away">✕</button>
+    <div class="owl-pet-bubble" id="owlPetBubble" hidden></div>
+    <svg class="owl owl-pet-svg" viewBox="0 0 80 84" aria-hidden="true" fill="none"
+      stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M33 74 v5 M33 79 l-3 2.5 M33 79 l3 2.5" />
+      <path d="M47 74 v5 M47 79 l-3 2.5 M47 79 l3 2.5" />
+      <g class="owl-body">
+        <path d="M20 22 L30 8 L34 24" />
+        <path d="M60 22 L50 8 L46 24" />
+        <path d="M16 36 C16 19 26 10 40 10 C54 10 64 19 64 36 C64 49 61 63 54 71 C49 76 45 78 40 78 C35 78 31 76 26 71 C19 63 16 49 16 36 Z" />
+        <path class="owl-wing owl-wing-l" d="M18 34 C13 47 14 61 24 70" />
+        <path class="owl-wing owl-wing-r" d="M62 34 C67 47 66 61 56 70" />
+        <path d="M32 52 L40 58 L48 52" opacity="0.45" />
+        <path d="M33 62 L40 67 L47 62" opacity="0.32" />
+        <g class="owl-head">
+          <g class="owl-eyes">
+            <circle cx="31" cy="33" r="9.5" />
+            <circle cx="49" cy="33" r="9.5" />
+            <circle cx="31" cy="33" r="3.4" fill="currentColor" stroke="none" />
+            <circle cx="49" cy="33" r="3.4" fill="currentColor" stroke="none" />
+          </g>
+          <path d="M37 39 L43 39 L40 44 Z" fill="currentColor" stroke="none" />
+        </g>
+      </g>
+    </svg>
+  </div>
+  <script src="owl.js" defer></script>
 
 
 </body>

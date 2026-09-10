@@ -30,20 +30,35 @@ if (!prefersReducedMotion) {
   });
 }
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-reveals.forEach(el => observer.observe(el));
+// Hold the reveal animations until the preloader has cleared, so the
+// entrance actually plays instead of finishing behind the loading screen.
+let revealsStarted = false;
+function startReveals() {
+  if (revealsStarted) return;
+  revealsStarted = true;
 
-// Trigger hero reveals immediately (CSS delay classes handle the cascade)
-document.querySelectorAll('#hero .reveal').forEach(el => {
-  setTimeout(() => el.classList.add('visible'), 120);
-});
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Trigger hero reveals immediately (CSS delay classes handle the cascade)
+  document.querySelectorAll('#hero .reveal').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 120);
+  });
+}
+
+if (window.__preloaderDone) {
+  startReveals();
+} else {
+  document.addEventListener('preloader:done', startReveals, { once: true });
+  setTimeout(startReveals, 5000); // failsafe if the preloader never signals
+}
 
 // Skill bars
 const skillSection = document.getElementById('skills');

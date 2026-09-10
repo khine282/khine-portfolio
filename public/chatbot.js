@@ -7,9 +7,45 @@ const form = document.getElementById('chatbotForm');
 const input = document.getElementById('chatbotInput');
 const messagesEl = document.getElementById('chatbotMessages');
 const sendBtn = document.getElementById('chatbotSend');
+const teaser = document.getElementById('chatbotTeaser');
+const teaserClose = document.getElementById('chatbotTeaserClose');
 
 let history = [];
 let waiting = false;
+
+let teaserDismissed = false;
+try { teaserDismissed = localStorage.getItem('chatbotTeaserDismissed') === '1'; } catch (e) {}
+
+// keep the teaser in sync: visible whenever the chat is closed (unless the
+// user permanently dismissed it with the ✕), hidden while the chat is open
+function syncTeaser() {
+  if (!teaser) return;
+  teaser.hidden = teaserDismissed || panel.classList.contains('open');
+}
+
+function hideTeaser() {
+  if (teaser) teaser.hidden = true;
+}
+
+if (document.readyState === 'complete') syncTeaser();
+else window.addEventListener('load', syncTeaser);
+
+if (teaser) {
+  teaser.addEventListener('click', (e) => {
+    if (e.target === teaserClose) return;
+    hideTeaser();
+    if (!panel.classList.contains('open')) toggle.click();
+  });
+}
+
+if (teaserClose) {
+  teaserClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    teaserDismissed = true;
+    hideTeaser();
+    try { localStorage.setItem('chatbotTeaserDismissed', '1'); } catch (err) {}
+  });
+}
 
 function addMessage(role, text) {
   const el = document.createElement('div');
@@ -29,6 +65,7 @@ function setWaiting(state) {
 toggle.addEventListener('click', () => {
   const isOpen = panel.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
+  syncTeaser();
   if (isOpen) {
     input.focus();
     if (messagesEl.children.length === 0) {
@@ -40,6 +77,7 @@ toggle.addEventListener('click', () => {
 closeBtn.addEventListener('click', () => {
   panel.classList.remove('open');
   toggle.setAttribute('aria-expanded', 'false');
+  syncTeaser();
 });
 
 form.addEventListener('submit', async (e) => {
