@@ -38,7 +38,11 @@ export function initSmoothScroll() {
       const target = document.querySelector(hash)
       if (!target) return
       e.preventDefault()
-      lenis.scrollTo(target, { offset: -(navH + 12), duration: 0.8 })
+      // Sections already carry their own top padding before the heading,
+      // so subtract it out — otherwise the nav offset stacks on top of
+      // that padding and lands well below the heading.
+      const targetPadTop = parseFloat(getComputedStyle(target).paddingTop) || 0
+      lenis.scrollTo(target, { offset: targetPadTop - (navH + 12), duration: 0.8 })
     })
   })
 
