@@ -2407,7 +2407,8 @@
       }
 
       .hero-name {
-        line-height: 0.95;
+        font-size: clamp(30px, 8.5vw, 40px);
+        line-height: 0.98;
         margin-bottom: 12px;
       }
 
@@ -2416,23 +2417,35 @@
         margin-bottom: 16px;
       }
 
+      .hero-left .hero-photo {
+        margin-bottom: 18px;
+      }
+
       .hero-bio {
         line-height: 1.6;
-        margin-bottom: 40px;
+        margin-bottom: 24px;
         max-width: 100%;
       }
 
+      /* compact CTA block: primary + résumé full width, the two
+         social links share the last row — 3 rows instead of 4 */
       .hero-ctas {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 10px;
       }
 
       .btn-primary,
       .btn-secondary {
-        width: 100%;
+        width: auto;
         justify-content: center;
-        font-size: 14px;
-        padding: 12px 20px;
+        font-size: 13px;
+        padding: 12px 14px;
+      }
+
+      .hero-ctas > .btn-primary,
+      .hero-ctas > a[download] {
+        grid-column: 1 / -1;
       }
 
       .hero-right {
@@ -2458,11 +2471,12 @@
       }
 
       .section-title {
-        margin-bottom: 16px;
+        font-size: clamp(23px, 6.6vw, 30px);
+        margin-bottom: 14px;
       }
 
       .section-sub {
-        margin-bottom: 40px;
+        margin-bottom: 26px;
       }
 
       .edu-card {
@@ -2685,7 +2699,7 @@
     /* SMALL PHONES: 360px and below */
     @media (max-width: 360px) {
       section {
-        padding: 40px 12px;
+        padding: 44px 16px;
       }
 
       :root {
@@ -2693,7 +2707,7 @@
       }
 
       nav {
-        padding: 0 12px;
+        padding: 0 16px;
       }
 
       .nav-logo {
@@ -2703,11 +2717,17 @@
       .btn-primary,
       .btn-secondary {
         font-size: 12px;
-        padding: 10px 16px;
+        padding: 11px 14px;
       }
 
+      /* keep the stats a 2x2 grid even on the smallest phones —
+         a single tall column buries everything below it */
       .hero-right {
-        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .stat-num {
+        font-size: 20px;
       }
     }
 
@@ -3431,15 +3451,16 @@
 
     .owl-pet-dismiss {
       position: absolute;
-      top: -7px;
-      right: -7px;
-      width: 18px;
-      height: 18px;
+      top: -10px;
+      right: -10px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--surface);
-      border: 1px solid var(--border-strong);
-      color: var(--muted);
-      font-size: 10px;
+      border: 1.5px solid var(--border-strong);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      color: var(--text-soft);
+      font-size: 14px;
       line-height: 1;
       cursor: pointer;
       display: none;
@@ -3447,8 +3468,56 @@
       justify-content: center;
     }
 
-    .owl-pet:hover .owl-pet-dismiss { display: flex; }
-    .owl-pet-dismiss:hover { color: var(--text); }
+    /* generous invisible hit area around the little ✕ */
+    .owl-pet-dismiss::after {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+    }
+
+    .owl-pet:hover .owl-pet-dismiss,
+    .owl-pet.is-docked .owl-pet-dismiss {
+      display: flex;
+    }
+
+    .owl-pet-dismiss:hover {
+      color: var(--accent-contrast);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* nav-bar owl button — appears only while the owl is sent away */
+    .nav-owl-restore {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      border-radius: 3px;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      animation: owlNavIn 0.3s ease;
+    }
+
+    .nav-owl-restore[hidden] {
+      display: none;
+    }
+
+    .nav-owl-restore:hover {
+      border-color: var(--lime);
+      transform: translateY(-1px);
+    }
+
+    @keyframes owlNavIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
     .owl-pet-bubble {
       position: absolute;
@@ -3483,6 +3552,60 @@
     @keyframes owlBubbleIn {
       from { opacity: 0; transform: translateX(-50%) translateY(5px); }
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes owlBubbleFade {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    /* ── MOBILE: loading screen + owl ── */
+    @media (max-width: 480px) {
+      #preloader {
+        gap: 16px;
+        padding: 24px;
+      }
+
+      #preloader > .owl {
+        width: 58px;
+        height: 66px;
+      }
+
+      .preloader-mark {
+        font-size: clamp(30px, 9vw, 40px);
+      }
+
+      .preloader-track {
+        width: min(260px, 78vw);
+        height: 7px;
+      }
+
+      .preloader-meta { font-size: 11px; }
+      .preloader-meta #preloaderPct { font-size: 15px; }
+    }
+
+    @media (max-width: 640px) {
+      /* the owl docks in the corner on phones instead of roaming */
+      .owl-pet {
+        width: 44px;
+        height: 50px;
+        cursor: pointer;
+      }
+
+      .owl-pet-bubble {
+        left: 0;
+        transform: none;
+        max-width: min(230px, 64vw);
+        font-size: 12px;
+        text-align: left;
+        animation: owlBubbleFade 0.2s ease;
+      }
+
+      .owl-pet-bubble::after {
+        left: 16px;
+        transform: none;
+      }
     }
   </style>
   <script type="module" crossorigin src="/assets/index-B1lK8SDD.js"></script>
@@ -3612,6 +3735,8 @@
 
     </ul>
     <div class="nav-actions">
+      <button type="button" class="nav-owl-restore" id="owlRestoreNav" title="Bring back the owl"
+        aria-label="Bring back the owl" hidden>🦉</button>
       <a href="#contact" class="nav-cta">Get in Touch</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
