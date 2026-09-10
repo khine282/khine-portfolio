@@ -51,13 +51,6 @@
       --accent-tint: rgba(107, 125, 90, 0.07);
       --accent-border: rgba(107, 125, 90, 0.5);
 
-      /* open-book spread (about section) */
-      --paper: #fcfcfa;
-      --page-edge: #ecece7;
-      --spine-a: #dcdcd6;
-      --spine-b: #efefe9;
-      --page-shadow: rgba(30, 32, 26, 0.16);
-
       --lime: var(--accent);
       --coral: var(--accent);
       --orange: var(--accent);
@@ -76,8 +69,10 @@
       --fs-small:   clamp(15px,   0.75vw + 12.4px, 17.5px); /* dense UI text */
       --fs-body:    clamp(17px,   0.95vw + 13.6px, 20px);   /* default reading text */
       --fs-body-lg: clamp(18.5px, 1.25vw + 14.4px, 23px);   /* lead paragraphs / bio */
-      --fs-h-sm:    clamp(21px,   1.9vw + 14.5px,  28px);   /* card titles, roles */
-      --fs-h-md:    clamp(26px,   3.5vw + 14px,    44px);   /* sub-section headings */
+      --fs-h-sm:    clamp(18.5px, 1.67vw + 12.8px, 24.6px); /* card titles, roles */
+      --fs-h-md:    clamp(19px,   1.1vw + 13.5px, 28px);   /* sub-section headings */
+      --fs-h-lg:    clamp(21px,   1.3vw + 15px,   32px);   /* main section titles */
+      --fs-display: clamp(26px,   2vw + 17px,     42px);   /* hero name + closing contact heading */
 
       /* aurora background blobs (light) — sage + blue + pale sage + centre glow */
       --aurora-1: #aec49f;
@@ -116,13 +111,6 @@
       --accent-tint: rgba(142, 168, 122, 0.10);
       --accent-border: rgba(142, 168, 122, 0.45);
 
-      /* open-book spread (about section) */
-      --paper: #1a1d22;
-      --page-edge: #262a31;
-      --spine-a: #2b2f37;
-      --spine-b: #1c1f25;
-      --page-shadow: rgba(0, 0, 0, 0.5);
-
       /* aurora background blobs (dark) — sage + blue + deep sage + centre glow */
       --aurora-1: #47613c;
       --aurora-2: #37596b;
@@ -138,6 +126,15 @@
       scroll-behavior: smooth;
       scroll-padding-top: calc(var(--nav-h) + 12px);
       background: var(--bg);
+    }
+
+    /* Render the desktop layout ~20% smaller by default, so at 100% browser
+       zoom the page sits at what used to feel like 80%. Left untouched below
+       1000px, where the dedicated mobile/tablet rules already handle sizing. */
+    @media (min-width: 1000px) {
+      html {
+        zoom: 0.8;
+      }
     }
 
     body {
@@ -333,7 +330,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 max(64px, calc((100vw - 1680px) / 2 + 64px));
+      padding: 0 max(88px, calc((100vw - 1680px) / 2 + 88px));
       height: var(--nav-h);
       background: var(--nav-bg);
       backdrop-filter: blur(20px);
@@ -362,7 +359,7 @@
 
     .nav-links a {
       font-family: var(--font-mono);
-      font-size: 17px;
+      font-size: var(--fs-small);
       font-weight: 500;
       color: var(--text-soft);
       text-decoration: none;
@@ -385,7 +382,7 @@
 
     .nav-cta {
       font-family: var(--font-mono);
-      font-size: 16px;
+      font-size: var(--fs-small);
       color: var(--accent-contrast);
       background: var(--accent);
       text-decoration: none;
@@ -457,7 +454,7 @@
 
     .nav-mobile-theme span {
       font-family: var(--font-mono);
-      font-size: 16px;
+      font-size: var(--fs-small);
       color: var(--muted);
     }
 
@@ -505,7 +502,7 @@
     .nav-mobile-menu a {
       display: block;
       font-family: var(--font-mono);
-      font-size: 16px;
+      font-size: var(--fs-small);
       font-weight: 500;
       color: var(--text-soft);
       text-decoration: none;
@@ -519,9 +516,12 @@
 
     /* ── SECTIONS ── */
     section {
-      padding: 100px 64px;
+      padding: 100px 88px;
       max-width: 1680px;
       margin: 0 auto;
+      /* offsets the section's own top padding so a direct #hash jump
+         lands near the heading, not in the empty padded space above it */
+      scroll-margin-top: -76px;
     }
 
     /* ── HERO ── */
@@ -535,10 +535,17 @@
       position: relative;
     }
 
+    /* Counter the page-wide zoom: 0.8 so the hero still fills the screen. */
+    @media (min-width: 1000px) {
+      #hero {
+        min-height: calc(100vh / 0.8);
+      }
+    }
+
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      /* gap: 60px; */
       align-items: stretch;
     }
 
@@ -552,7 +559,7 @@
 
     .hero-eyebrow {
       font-family: var(--font-mono);
-      font-size: 23px;
+      font-size: var(--fs-body-lg);
       color: var(--lime);
       letter-spacing: 2px;
       margin-bottom: 16px;
@@ -571,7 +578,7 @@
 
     .hero-name {
       font-family: var(--font-display);
-      font-size: 90px;
+      font-size: var(--fs-display);
       font-weight: 700;
       line-height: 0.92;
       letter-spacing: -0.035em;
@@ -616,7 +623,7 @@
     }
 
     .hero-bio {
-      font-size: var(--fs-body-lg);
+      font-size: var(--fs-body);
       color: var(--text-soft);
       line-height: 1.7;
       max-width: 500px;
@@ -667,7 +674,7 @@
       background: var(--accent);
       color: var(--accent-contrast);
       font-family: var(--font-mono);
-      font-size: 18px;
+      font-size: var(--fs-small);
       font-weight: 500;
       padding: 12px 24px;
       border-radius: 3px;
@@ -695,7 +702,7 @@
       background: transparent;
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 18px;
+      font-size: var(--fs-small);
       padding: 12px 24px;
       border-radius: 3px;
       text-decoration: none;
@@ -735,7 +742,6 @@
     }
 
     .hero-left .hero-name {
-      font-size: clamp(40px, 5.6vw, 70px);
       line-height: 1.02;
       margin-bottom: 22px;
     }
@@ -879,7 +885,7 @@
 
     .stat-num {
       font-family: var(--font-display);
-      font-size: 44px;
+      font-size: var(--fs-h-md);
       font-weight: 500;
       line-height: 1;
       margin-bottom: 8px;
@@ -887,7 +893,7 @@
     }
 
     .stat-label {
-      font-size: 20px;
+      font-size: var(--fs-small);
       color: var(--muted);
       font-family: var(--font-mono);
       letter-spacing: 0.3px;
@@ -916,7 +922,7 @@
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4vw + 6px, 56px);
+      font-size: var(--fs-h-lg);
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.025em;
@@ -998,79 +1004,39 @@
       color: var(--text-soft);
     }
 
-    /* right column — an open book: the recto (right-hand) page,
-       with the binding/spine down its left edge and a stack of
-       page-edges down its right. Nothing is hidden. */
+    /* right column — a grid of skill cards, one per capability area */
     .about-spec {
-      position: relative;
-      margin-left: 18px;
-      padding: 44px 48px 46px 42px;
-      background:
-        /* faint gutter shading near the spine */
-        linear-gradient(90deg, rgba(0, 0, 0, 0.06), transparent 6%),
-        var(--paper);
-      border: 1px solid var(--border);
-      border-left: none;
-      border-radius: 0 4px 4px 0;
-      box-shadow:
-        2px 3px 0 -1px var(--page-edge),
-        4px 6px 0 -1px var(--page-edge),
-        6px 9px 0 -1px var(--page-edge),
-        18px 22px 40px -12px var(--page-shadow);
-    }
-
-    /* the spine / binding */
-    .about-spec::before {
-      content: '';
-      position: absolute;
-      top: -3px;
-      bottom: -3px;
-      left: -18px;
-      width: 18px;
-      border-radius: 3px 0 0 3px;
-      background: linear-gradient(90deg, var(--spine-a) 0%, var(--spine-b) 55%, var(--paper) 100%);
-      box-shadow: inset -1px 0 2px rgba(0, 0, 0, 0.12);
-    }
-
-    /* soft page-curl shadow rising out of the gutter */
-    .about-spec::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 46px;
-      pointer-events: none;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.10), transparent);
-    }
-
-    .book-folio {
-      display: block;
-      margin-top: 30px;
-      text-align: right;
-      font-family: var(--font-mono);
-      font-size: var(--fs-micro);
-      letter-spacing: 3px;
-      text-transform: lowercase;
-      color: var(--text-dim);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
     }
 
     .spec-row {
       position: relative;
-      display: grid;
-      grid-template-columns: 148px 1fr;
-      gap: 30px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+      transition: border-color 0.2s ease;
     }
 
-    .spec-row:first-child { padding-top: 4px; }
+    .spec-row:hover {
+      border-color: var(--border-strong);
+    }
 
     .spec-row.focus {
-      border-left: 2px solid var(--accent);
-      margin: 0 -20px;
-      padding: 24px 20px;
-      background: linear-gradient(90deg, var(--accent-tint), transparent 70%);
+      border-color: var(--accent-border);
+      background: linear-gradient(160deg, var(--accent-tint), var(--surface) 65%);
+    }
+
+    .spec-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .spec-key {
@@ -1087,7 +1053,7 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      margin-top: 10px;
+      flex-shrink: 0;
       font-family: var(--font-mono);
       font-size: var(--fs-micro);
       letter-spacing: 1px;
@@ -1121,15 +1087,8 @@
     .spec-desc {
       font-size: var(--fs-small);
       line-height: 1.6;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .spec-tech {
-      font-family: var(--font-mono);
-      font-size: 23px;
-      letter-spacing: 0.3px;
       color: var(--muted);
+      margin-bottom: 10px;
     }
 
     .spec-proof {
@@ -1138,7 +1097,7 @@
       gap: 7px;
       margin-top: 14px;
       font-family: var(--font-mono);
-      font-size: 20px;
+      font-size: var(--fs-small);
       letter-spacing: 0.5px;
       color: var(--muted);
       text-decoration: none;
@@ -1155,10 +1114,6 @@
       gap: 11px;
     }
 
-    .spec-row:last-of-type {
-      border-bottom: none;
-    }
-
     @media (max-width: 960px) {
       .about-grid {
         grid-template-columns: 1fr;
@@ -1167,37 +1122,11 @@
       .about-rail {
         position: static;
       }
-      .about-spec {
-        padding: 34px 32px 34px 30px;
-      }
     }
 
     @media (max-width: 620px) {
-      .about-spec {
-        margin-left: 12px;
-        padding: 26px 22px 26px 22px;
-        box-shadow:
-          2px 3px 0 -1px var(--page-edge),
-          4px 6px 0 -1px var(--page-edge),
-          12px 16px 26px -10px var(--page-shadow);
-      }
-      .about-spec::before {
-        left: -12px;
-        width: 12px;
-      }
       .spec-row {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .spec-row.focus {
-        margin: 0 -12px;
-        padding: 20px 12px;
-      }
-      .spec-key br {
-        display: none;
-      }
-      .spec-status {
-        margin-top: 6px;
+        padding: 20px;
       }
     }
 
@@ -1207,6 +1136,54 @@
       border-top: 1px solid var(--border);
     }
 
+    .edu-timeline {
+      margin-top: 28px;
+    }
+
+    .edu-entry {
+      position: relative;
+      padding-left: 34px;
+    }
+
+    .edu-entry + .edu-entry {
+      margin-top: 16px;
+    }
+
+    /* connector drawn node-to-node: from this entry's node (49px) down through
+       the 16px gap to the next entry's node. Anchored on the node offset, not
+       card height, so content changes never break it. Accent → faint = recency. */
+    .edu-entry:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 49px;
+      bottom: -65px;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, var(--accent), var(--border-strong));
+    }
+
+    .edu-node {
+      position: absolute;
+      left: 7px;
+      top: 42px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-tint);
+      z-index: 2;
+    }
+
+    /* older / secondary entry — hollow node to mark it as the earlier chapter */
+    .edu-entry-sub .edu-node {
+      background: var(--bg);
+      border-color: var(--border-strong);
+      box-shadow: none;
+    }
+
     .edu-card {
       position: relative;
       overflow: hidden;
@@ -1214,7 +1191,6 @@
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 38px 42px;
-      margin-top: 16px;
       transition: border-color 0.3s ease;
     }
 
@@ -1254,7 +1230,7 @@
 
     .edu-degree {
       font-family: var(--font-mono);
-      font-size: 25px;
+      font-size: var(--fs-small);
       color: var(--accent);
       margin-top: 9px;
     }
@@ -1270,34 +1246,29 @@
       flex-shrink: 0;
     }
 
-    .edu-label {
+    .edu-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .edu-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-family: var(--font-mono);
       font-size: var(--fs-micro);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--muted);
-      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      white-space: nowrap;
     }
 
-    .edu-coursework {
-      margin-top: 26px;
-      padding-top: 26px;
-      border-top: 1px solid var(--border);
-    }
-
-    .edu-modules {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .edu-modules span {
-      font-family: var(--font-mono);
-      font-size: 20px;
-      color: var(--text-soft);
-      background: var(--bg3);
-      padding: 5px 11px;
-      border-radius: 4px;
+    .edu-status svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
     }
 
     .edu-links {
@@ -1309,22 +1280,22 @@
       border-top: 1px solid var(--border);
     }
 
+    /* green pill, matching the Tech Stack tags */
     .edu-links a {
       font-family: var(--font-mono);
-      font-size: 20px;
-      letter-spacing: 0.5px;
-      color: var(--text-soft);
+      font-size: var(--fs-tiny);
+      letter-spacing: 0.3px;
+      color: var(--accent);
       text-decoration: none;
-      border: 1px solid var(--border-strong);
-      padding: 9px 16px;
-      border-radius: 3px;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      border: 1px solid var(--accent-border);
+      background: var(--accent-tint);
+      padding: 5px 12px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
     }
 
     .edu-links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-tint);
+      box-shadow: 0 0 10px var(--accent-border), 0 0 2px var(--accent-border);
     }
 
     .status-dot {
@@ -1405,6 +1376,45 @@
       margin-bottom: 16px;
     }
 
+    .exp-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .exp-highlight {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 18px 20px;
+    }
+
+    .exp-highlight-cat {
+      font-family: var(--font-mono);
+      font-size: var(--fs-small);
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .exp-highlight-line {
+      font-size: var(--fs-tiny);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .exp-highlight-line + .exp-highlight-line {
+      margin-top: 6px;
+    }
+
+    .exp-highlight-line strong {
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
     .exp-tags {
       display: flex;
       flex-wrap: wrap;
@@ -1413,17 +1423,17 @@
 
     .exp-tag {
       font-family: var(--font-mono);
-      font-size: var(--fs-micro);
-      color: var(--muted);
-      border: 1px solid var(--border);
+      font-size: var(--fs-tiny);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      background: var(--accent-tint);
       padding: 3px 10px;
       border-radius: 4px;
       transition: all 0.2s ease;
     }
 
     .exp-tag:hover {
-      color: var(--text);
-      border-color: var(--text);
+      box-shadow: 0 0 10px var(--accent-border), 0 0 2px var(--accent-border);
     }
 
     .exp-date {
@@ -1520,7 +1530,7 @@
     }
 
     .project-desc {
-      font-size: var(--fs-body-lg);
+      font-size: var(--fs-small);
       color: var(--text-soft);
       line-height: 1.7;
       flex: 1;
@@ -1536,11 +1546,17 @@
 
     .stack-tag {
       font-family: var(--font-mono);
-      font-size: var(--fs-micro);
-      color: var(--muted);
-      background: var(--bg3);
+      font-size: var(--fs-tiny);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      background: var(--accent-tint);
       padding: 3px 9px;
       border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .stack-tag:hover {
+      box-shadow: 0 0 10px var(--accent-border), 0 0 2px var(--accent-border);
     }
 
     .project-links {
@@ -1604,7 +1620,7 @@
 
     .project-visual-label {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: var(--fs-micro);
       letter-spacing: 2px;
       color: var(--muted);
     }
@@ -1627,7 +1643,7 @@
 
     .skill-cat-label {
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: var(--fs-micro);
       letter-spacing: 2px;
       color: var(--muted);
       text-transform: uppercase;
@@ -1764,7 +1780,7 @@
 
     .cert-tab-badge {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: var(--fs-micro);
       font-weight: 600;
       letter-spacing: 0.04em;
       color: var(--muted);
@@ -1825,8 +1841,8 @@
 
     .contact-heading {
       font-family: var(--font-display);
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 600;
+      font-size: var(--fs-display);
+      font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.05;
       margin-bottom: 24px;
@@ -1950,7 +1966,7 @@
     footer {
       background: var(--bg2);
       border-top: 1px solid var(--border);
-      padding: 28px max(64px, calc((100vw - 1680px) / 2 + 64px));
+      padding: 28px max(88px, calc((100vw - 1680px) / 2 + 88px));
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1972,7 +1988,7 @@
 
     .footer-copy {
       font-family: var(--font-mono);
-      font-size: 18px;
+      font-size: var(--fs-tiny);
       color: var(--muted);
     }
 
@@ -2038,7 +2054,7 @@
       border: none;
       color: var(--text-dim);
       font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: var(--fs-tiny);
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -2108,7 +2124,7 @@
     }
 
     .stack-tab-count {
-      font-size: 11px;
+      font-size: var(--fs-micro);
       opacity: 0.4;
       margin-left: 8px;
       font-weight: 400;
@@ -2179,7 +2195,7 @@
 
     .stack-row-name {
       font-family: var(--font-mono);
-      font-size: var(--fs-body-lg);
+      font-size: var(--fs-body);
       color: var(--text);
       font-weight: 600;
       letter-spacing: -0.01em;
@@ -2187,9 +2203,9 @@
 
     .stack-row-context {
       font-family: var(--font-body);
-      font-size: var(--fs-body-lg);
+      font-size: var(--fs-small);
       color: var(--text-soft);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     .stack-row-context strong {
@@ -2240,10 +2256,6 @@
         gap: 18px;
       }
 
-      .hero-left .hero-name {
-        font-size: clamp(34px, 8vw, 56px);
-      }
-
       .hero-title {
         font-size: clamp(16px, 2.2vw, 22px);
       }
@@ -2257,17 +2269,16 @@
         padding: 16px;
       }
 
-      .stat-num {
-        font-size: 30px;
-      }
-
       .spec-row {
-        padding: 22px 0;
+        padding: 22px;
       }
 
       .edu-card {
         padding: 26px;
       }
+
+      .edu-node { top: 30px; }
+      .edu-entry:not(:last-child)::before { top: 37px; bottom: -53px; }
 
       .exp-card {
         grid-template-columns: 1fr;
@@ -2342,7 +2353,6 @@
       }
 
       .contact-heading {
-        font-size: clamp(28px, 4vw, 48px);
         letter-spacing: -1px;
       }
 
@@ -2370,10 +2380,6 @@
         align-items: flex-start;
         padding: 20px 24px;
         gap: 8px;
-      }
-
-      .footer-logo {
-        font-size: 16px;
       }
 
       .footer-copy {
@@ -2422,7 +2428,6 @@
       }
 
       .hero-name {
-        font-size: clamp(30px, 8vw, 48px);
         line-height: 0.95;
         margin-bottom: 12px;
       }
@@ -2461,7 +2466,6 @@
       }
 
       .stat-num {
-        font-size: 26px;
         margin-bottom: 4px;
       }
 
@@ -2486,6 +2490,9 @@
         padding: 22px;
       }
 
+      .edu-node { top: 26px; }
+      .edu-entry:not(:last-child)::before { top: 33px; bottom: -49px; }
+
       .exp-card {
         padding: 16px;
         gap: 12px;
@@ -2503,6 +2510,12 @@
       .exp-desc {
         margin-bottom: 12px;
         line-height: 1.6;
+      }
+
+      .exp-highlights {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 12px;
       }
 
       .exp-tag {
@@ -2543,10 +2556,6 @@
       .project-visual-icon {
         font-size: 40px;
         margin-bottom: 8px;
-      }
-
-      .project-visual-label {
-        font-size: 12px;
       }
 
       .stack-tag {
@@ -2618,7 +2627,6 @@
       }
 
       .contact-heading {
-        font-size: clamp(24px, 5.4vw, 34px);
         letter-spacing: 0;
         margin-bottom: 16px;
       }
@@ -2717,18 +2725,10 @@
         font-size: 20px;
       }
 
-      .hero-name {
-        font-size: clamp(24px, 6vw, 40px);
-      }
-
       .btn-primary,
       .btn-secondary {
         font-size: 12px;
         padding: 10px 16px;
-      }
-
-      .section-title {
-        font-size: clamp(24px, 5.4vw + 6px, 34px);
       }
 
       .hero-right {
@@ -2737,7 +2737,9 @@
     }
 
     .cert-scroll-container {
-      max-height: 320px;
+      /* fallback height (~4 rows) before JS measures the real row height
+         and pins it to exactly 4 — see the credentials script */
+      max-height: 376px;
       overflow-y: auto;
       padding-right: 8px;
     }
@@ -2766,14 +2768,83 @@
 
     @media (max-width: 768px) {
       .cert-scroll-container {
-        max-height: 290px;
+        max-height: 352px;
       }
     }
 
     @media (max-width: 480px) {
       .cert-scroll-container {
-        max-height: 270px;
+        max-height: 320px;
       }
+    }
+
+    /* ── scroll affordance for the credentials list ──
+       The list is taller than its window, so these cues make the scroll
+       obvious; JS adds .is-scrollable / .at-end and both fade out once the
+       reader reaches the bottom. */
+    .cert-tab-pane {
+      position: relative;
+    }
+
+    /* soft fade along the bottom edge — signals "more below" */
+    .cert-tab-pane::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 56px;
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent, var(--bg) 94%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cert-tab-pane.is-scrollable:not(.at-end)::after {
+      opacity: 1;
+    }
+
+    /* animated "scroll" pill, bottom-centre of the list */
+    .cert-scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      font-family: var(--font-mono);
+      font-size: var(--fs-micro);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-contrast);
+      background: var(--accent);
+      border-radius: 999px;
+      box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.45);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+
+    .cert-tab-pane.is-scrollable:not(.at-end) .cert-scroll-hint {
+      opacity: 1;
+    }
+
+    .cert-scroll-hint svg {
+      width: 12px;
+      height: 12px;
+      animation: cert-hint-bounce 1.4s ease-in-out infinite;
+    }
+
+    @keyframes cert-hint-bounce {
+      0%, 100% { transform: translateY(-1px); }
+      50%      { transform: translateY(2px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cert-scroll-hint svg { animation: none; }
     }
 
 
@@ -2791,7 +2862,7 @@
       border: 1px solid var(--border-strong);
       background: transparent;
       color: var(--text);
-      font-size: 15px;
+      font-size: var(--fs-small);
       font-family: var(--font-mono);
       border-radius: 6px;
       cursor: pointer;
@@ -2824,8 +2895,8 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 56px;
-      height: 56px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       background: var(--lime);
       color: #fff;
@@ -2844,13 +2915,13 @@
     }
 
     .chatbot-toggle svg {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
     }
 
     .chatbot-panel {
       position: fixed;
-      bottom: 92px;
+      bottom: 104px;
       right: 24px;
       width: min(360px, calc(100vw - 32px));
       height: min(500px, calc(100vh - 140px));
@@ -3176,55 +3247,50 @@
 
       <div class="about-spec reveal reveal-delay-1">
         <div class="spec-row">
-          <div>
-            <div class="spec-key">Backend<br>Development</div>
+          <div class="spec-header">
+            <div class="spec-key">Backend Development</div>
             <div class="spec-status">shipped</div>
           </div>
-          <div>
-            <p class="spec-desc">Enterprise Java in production &mdash; APIs, ORM migrations, async services.</p>
-            <div class="spec-tech">Java · Jakarta EE · Spring Boot · FastAPI · PostgreSQL</div>
-            <a class="spec-proof" href="#experience">SGEMS2 enterprise platform</a>
-          </div>
+          <p class="spec-desc">Enterprise Java in production &mdash; APIs, ORM migrations, async services.</p>
+          <a class="spec-proof" href="#experience">SGEMS2 enterprise platform</a>
         </div>
 
         <div class="spec-row">
-          <div>
-            <div class="spec-key">Full-Stack<br>Development</div>
+          <div class="spec-header">
+            <div class="spec-key">Full-Stack Development</div>
             <div class="spec-status">shipped</div>
           </div>
-          <div>
-            <p class="spec-desc">React &amp; React Native, front to back. Two apps on Play Store &amp; TestFlight.</p>
-            <div class="spec-tech">React · React Native · Node · REST · SQL</div>
-            <a class="spec-proof" href="#projects">Work Order &amp; Form Management apps</a>
-          </div>
+          <p class="spec-desc">React &amp; React Native, front to back. Two apps on Play Store &amp; TestFlight.</p>
+          <a class="spec-proof" href="#projects">Work Order &amp; Form Management apps</a>
         </div>
 
         <div class="spec-row">
-          <div>
-            <div class="spec-key">AI &amp;<br>Computer Vision</div>
+          <div class="spec-header">
+            <div class="spec-key">AI &amp; Computer Vision</div>
             <div class="spec-status">shipped</div>
           </div>
-          <div>
-            <p class="spec-desc">Real-time CV pipeline in production. Custom-trained models.</p>
-            <div class="spec-tech">TensorFlow · OpenCV · MediaPipe · YOLO</div>
-            <a class="spec-proof" href="#projects">Emotion &amp; crowd-density pipeline</a>
+          <p class="spec-desc">Real-time CV pipeline in production. Custom-trained models.</p>
+          <a class="spec-proof" href="#projects">Emotion &amp; crowd-density pipeline</a>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-header">
+            <div class="spec-key">Testing &amp; QA</div>
+            <div class="spec-status">shipped</div>
           </div>
+          <p class="spec-desc">Unit to end-to-end &mdash; API tests, browser automation, and framework-native test suites.</p>
+          <a class="spec-proof" href="#projects">Banking QA Automation Framework</a>
         </div>
 
         <div class="spec-row focus">
-          <div>
-            <div class="spec-key">Cloud &amp;<br>Agentic AI</div>
+          <div class="spec-header">
+            <div class="spec-key">Cloud &amp; Agentic AI</div>
             <div class="spec-status">focus</div>
           </div>
-          <div>
-            <p class="spec-desc">Where I&rsquo;m heading &mdash; LLM agents, tools, and the serverless cloud they run on.</p>
-            <div class="spec-tech">AWS · Bedrock · Lambda · Docker · CI/CD</div>
-            <a class="spec-proof" href="#contact"
-              onclick="var t=document.getElementById('chatbotToggle'); if(t){t.click();return false;}">the assistant on this page</a>
-          </div>
+          <p class="spec-desc">Where I&rsquo;m heading &mdash; LLM agents, tools, and the serverless cloud they run on.</p>
+          <a class="spec-proof" href="#contact"
+            onclick="var t=document.getElementById('chatbotToggle'); if(t){t.click();return false;}">the assistant on this page</a>
         </div>
-
-        <span class="book-folio">— what i work with —</span>
       </div>
 
     </div>
@@ -3240,12 +3306,27 @@
       <div>
         <div class="exp-role">Junior AI Developer</div>
         <div class="exp-company">Reachfield IT Solutions · Singapore</div>
-        <div class="exp-desc">
-          Worked across the full stack of SGEMS2 — an enterprise security and estate management platform deployed at
-          facilities across Singapore. Migrated Hibernate 5→6, rewrote DAOs for Jakarta EE compliance, built two
-          production React Native apps (Work Order + Form Management), integrated K10/F2 hardware devices, and developed
-          a real-time computer vision pipeline for emotion detection and crowd density analysis. Both mobile apps
-          shipped to Google Play and TestFlight.
+        <div class="exp-highlights">
+          <div class="exp-highlight">
+            <div class="exp-highlight-cat">Frontend &amp; Mobile</div>
+            <div class="exp-highlight-line"><strong>2 apps</strong> shipped to Play Store &amp; TestFlight — Work Order + Form Management</div>
+            <div class="exp-highlight-line">Automated <strong>CI/CD</strong> pipeline + hardware integrations (Face++, thermal printers, QR/GPS) for 200+ field staff</div>
+          </div>
+          <div class="exp-highlight">
+            <div class="exp-highlight-cat">Backend &amp; Data</div>
+            <div class="exp-highlight-line">Migrated <strong>Hibernate 5→6 &amp; JDK 11→17</strong>, rewrote 50+ DAO/Service classes for Jakarta EE</div>
+            <div class="exp-highlight-line">Multi-service <strong>Python/Node/SQL</strong> backend, optimized queries across 50K+ records</div>
+          </div>
+          <div class="exp-highlight">
+            <div class="exp-highlight-cat">AI &amp; Computer Vision</div>
+            <div class="exp-highlight-line"><strong>85%+ accuracy</strong> YOLO crowd-counting &amp; intrusion detection across 30+ live streams</div>
+            <div class="exp-highlight-line"><strong>FastAPI</strong> microservice for real-time emotion detection, custom 7-class CNN deployed on Render</div>
+          </div>
+          <div class="exp-highlight">
+            <div class="exp-highlight-cat">Testing &amp; QA</div>
+            <div class="exp-highlight-line">Led UAT &amp; bug triage — <strong>30+ critical bugs</strong> logged, severity-classified, resolved cross-team</div>
+            <div class="exp-highlight-line">Hands-on with <strong>Playwright, pytest, API testing &amp; Django Test</strong> for automated coverage</div>
+          </div>
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Java / Jakarta EE</span>
@@ -3254,10 +3335,15 @@
           <span class="exp-tag">OpenCV</span>
           <span class="exp-tag">FastAPI</span>
           <span class="exp-tag">Hibernate 6</span>
+          <span class="exp-tag">Spring Boot</span>
+          <span class="exp-tag">Microservices</span>
+          <span class="exp-tag">Node.js / Express</span>
           <span class="exp-tag">MySQL</span>
           <span class="exp-tag">Face++ API</span>
           <span class="exp-tag">K10 / F2 HW</span>
           <span class="exp-tag">Android / iOS</span>
+          <span class="exp-tag">UAT / Bug Triage</span>
+          <span class="exp-tag">CI/CD</span>
         </div>
       </div>
       <div class="exp-date">Apr 2025 – Apr 2026<br> </div>
@@ -4069,32 +4155,46 @@
   <!-- ── EDUCATION ── -->
   <section id="education">
     <div class="section-tag reveal">Education</div>
-    <h2 class="section-title reveal">Where I learned<br>the fundamentals.</h2>
 
-    <div class="edu-card reveal reveal-delay-1">
-      <div class="edu-head">
-        <div>
-          <div class="edu-school">Singapore Polytechnic</div>
-          <div class="edu-degree">Diploma in Information Technology &mdash; Software &amp; Applications</div>
+    <div class="edu-timeline reveal reveal-delay-1">
+      <div class="edu-entry">
+        <span class="edu-node" aria-hidden="true"></span>
+        <div class="edu-card">
+          <div class="edu-head">
+            <div>
+              <div class="edu-school">Singapore Polytechnic</div>
+              <div class="edu-degree">Diploma in Information Technology &mdash; Software &amp; Applications</div>
+            </div>
+            <div class="edu-meta">
+              <div class="edu-date">2023 &ndash; Apr 2026</div>
+              <div class="edu-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Graduated
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-links">
+            <a href="/diploma.jpg" target="_blank" rel="noopener">View diploma &rarr;</a>
+            <a href="/GPA%20final%20year%20result_Khine%20Zar%20Thwe.pdf" target="_blank" rel="noopener">Final-year results &rarr;</a>
+          </div>
         </div>
-        <div class="edu-date">2023 &ndash; Apr 2026</div>
       </div>
 
-      <div class="edu-coursework">
-        <div class="edu-label">Core coursework</div>
-        <div class="edu-modules">
-          <span>Software Engineering</span>
-          <span>OOP &amp; Data Structures</span>
-          <span>Databases</span>
-          <span>Web &amp; Mobile Development</span>
-          <span>Data &amp; Analytics</span>
-          <span>Cloud Fundamentals</span>
+      <div class="edu-entry edu-entry-sub">
+        <span class="edu-node" aria-hidden="true"></span>
+        <div class="edu-card">
+          <div class="edu-head">
+            <div>
+              <div class="edu-school">University of Medicine 1</div>
+              <div class="edu-degree">Pre-medical science &middot; Yangon, Myanmar</div>
+            </div>
+            <div class="edu-meta">
+              <div class="edu-date">2017 &ndash; 2019</div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="edu-links">
-        <a href="/diploma.jpg" target="_blank" rel="noopener">View diploma &rarr;</a>
-        <a href="/GPA%20final%20year%20result_Khine%20Zar%20Thwe.pdf" target="_blank" rel="noopener">Final-year results &rarr;</a>
       </div>
     </div>
   </section>
@@ -4191,6 +4291,68 @@
         });
       });
     });
+  </script>
+
+  <script>
+    // Credentials list — make the in-card scroll obvious. Adds a bouncing
+    // "Scroll" pill + bottom fade whenever a tab's list overflows its window,
+    // and hides them once the reader reaches the end.
+    (function () {
+      var panes = document.querySelectorAll('#certifications .cert-tab-pane');
+      if (!panes.length) return;
+
+      var chevron =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" ' +
+        'stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+      var VISIBLE_ROWS = 4;
+
+      panes.forEach(function (pane) {
+        var box = pane.querySelector('.cert-scroll-container');
+        if (!box) return;
+
+        var hint = document.createElement('div');
+        hint.className = 'cert-scroll-hint';
+        hint.innerHTML = chevron + '<span>Scroll</span>';
+        pane.appendChild(hint);
+
+        pane._certUpdate = function () {
+          // Pin the window to exactly VISIBLE_ROWS rows (measured, so it
+          // survives zoom / font-loading / breakpoints). Panes with fewer
+          // rows just fit all of them.
+          var items = box.querySelectorAll('.cert-tab-item');
+          if (items.length > VISIBLE_ROWS && box.offsetParent !== null) {
+            var h = 0;
+            for (var i = 0; i < VISIBLE_ROWS; i++) {
+              var cs = getComputedStyle(items[i]);
+              h += items[i].offsetHeight + parseFloat(cs.marginBottom || 0);
+            }
+            box.style.maxHeight = Math.round(h + 14) + 'px'; // +14 → 5th row peeks
+          } else {
+            box.style.maxHeight = '';
+          }
+
+          var scrollable = box.scrollHeight - box.clientHeight > 4;
+          var atEnd = box.scrollTop + box.clientHeight >= box.scrollHeight - 4;
+          pane.classList.toggle('is-scrollable', scrollable);
+          pane.classList.toggle('at-end', atEnd);
+        };
+
+        box.addEventListener('scroll', pane._certUpdate, { passive: true });
+        pane._certUpdate();
+      });
+
+      // Hidden panes report zero height, so re-measure when a tab is shown,
+      // and whenever the layout changes.
+      function refreshAll() {
+        panes.forEach(function (p) { if (p._certUpdate) p._certUpdate(); });
+      }
+      document.querySelectorAll('.cert-tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { requestAnimationFrame(refreshAll); });
+      });
+      window.addEventListener('resize', refreshAll);
+      window.addEventListener('load', refreshAll);
+    })();
   </script>
 
 
