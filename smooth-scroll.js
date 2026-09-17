@@ -6,7 +6,9 @@ import 'lenis/dist/lenis.css'
 // native. Disabled entirely when the visitor asks for reduced motion.
 export function initSmoothScroll() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (reduced) return
+  const mobile = window.matchMedia('(max-width: 768px)').matches
+  // mobile scrolling stays fully native — no momentum, no eased anchor jumps
+  if (reduced || mobile) return
 
   const lenis = new Lenis({
     lerp: 0.18, // higher = snappier / closer to native (0.1 ≈ glidey, 0.2 ≈ tight)
