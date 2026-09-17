@@ -3055,6 +3055,46 @@
       font-style: italic;
     }
 
+    .chatbot-msg-bot strong {
+      color: var(--lime);
+      font-weight: 600;
+    }
+
+    .chatbot-msg-bot code {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 12.5px;
+    }
+
+    .chatbot-msg-bot ul {
+      margin: 4px 0 2px;
+      padding-left: 18px;
+    }
+
+    .chatbot-msg-bot li {
+      margin: 2px 0;
+    }
+
+    .chatbot-msg-bot li::marker {
+      color: var(--lime);
+    }
+
+    .chatbot-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 13px;
+      background: var(--lime);
+      margin-left: 1px;
+      vertical-align: -2px;
+      animation: chatbotBlink 0.8s step-end infinite;
+    }
+
+    @keyframes chatbotBlink {
+      50% { opacity: 0; }
+    }
+
     .chatbot-input-row {
       display: flex;
       gap: 8px;
@@ -3102,6 +3142,37 @@
     .chatbot-send svg {
       width: 16px;
       height: 16px;
+    }
+
+    .chatbot-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-self: flex-start;
+      max-width: 100%;
+    }
+
+    .chatbot-chip {
+      background: var(--bg3);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .chatbot-chip:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    .chatbot-chip:disabled {
+      opacity: 0.5;
+      cursor: default;
     }
 
     /* teaser bubble next to the toggle button */
@@ -3607,8 +3678,318 @@
         transform: none;
       }
     }
+
+    /* ── MOBILE: snappier reveals + collapsible cards ── */
+    @media (max-width: 768px) {
+      /* content shows near-instantly on scroll instead of a long slide-in;
+         per-section stagger (transition-delay set in JS) is kept */
+      .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-pop,
+      .section-title.reveal:not(.visible),
+      .section-sub.reveal:not(.visible),
+      .project-card.reveal:not(.visible),
+      .stat-card.reveal:not(.visible),
+      .hero-aside.reveal:not(.visible) {
+        transform: none !important;
+        filter: none !important;
+        transition-property: opacity !important;
+        transition-duration: 0.18s !important;
+        transition-timing-function: ease !important;
+      }
+
+      /* keep project media compact (some cards set a tall inline min-height) */
+      .project-visual {
+        min-height: 0 !important;
+        height: 150px !important;
+      }
+      .project-visual video,
+      .project-visual img {
+        max-height: 150px !important;
+        height: auto !important;
+        width: auto !important;
+        max-width: 100%;
+      }
+
+      /* flatten the experience highlight cards — dividers separate the rows */
+      #experience .exp-highlight {
+        background: none;
+        border: none;
+        padding: 0;
+      }
+      #experience .exp-highlight + .exp-highlight {
+        border-top: 1px solid var(--border);
+        margin-top: 12px;
+        padding-top: 12px;
+      }
+
+      /* accordion built by mobile-collapse.js */
+      details.m-acc {
+        padding: 0;
+      }
+      /* inside a card (projects / education / about row): rule off the summary */
+      .project-card details.m-acc,
+      .edu-card details.m-acc {
+        border-top: 1px solid var(--border);
+        margin-top: 14px;
+        padding-top: 4px;
+      }
+      details.m-acc > summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 6px 0;
+      }
+      details.m-acc > summary::-webkit-details-marker { display: none; }
+      details.m-acc > summary::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid var(--muted);
+        border-bottom: 2px solid var(--muted);
+        transform: rotate(45deg);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+        margin-right: 4px;
+      }
+      details.m-acc[open] > summary::after { transform: rotate(-135deg); }
+      details.m-acc > summary > * {
+        margin-bottom: 0 !important;
+        flex: 1;
+        min-width: 0;
+      }
+      details.m-acc[open] > :not(summary) {
+        animation: mAccOpen 0.22s ease;
+      }
+      @keyframes mAccOpen {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* a plain "Details" summary (projects) */
+      .m-acc-label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+    }
+
+    /* desktop: the accordions render fully open with no chrome */
+    @media (min-width: 769px) {
+      details.m-acc {
+        display: contents;
+      }
+      details.m-acc > summary.m-acc-sum-plain {
+        display: none;
+      }
+      details.m-acc > summary {
+        list-style: none;
+        pointer-events: none;
+      }
+      details.m-acc > summary::-webkit-details-marker { display: none; }
+      details.m-acc > summary::after { display: none; }
+      .m-acc-label { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MOBILE DESIGN SYSTEM — consolidated, ≤768px only.
+       Laptop view is untouched. One type scale, one spacing rhythm,
+       flat editorial cards, decoration stripped.
+       ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* --- one tight type scale (collapses the fluid clamps) --- */
+      :root {
+        --fs-micro: 11.5px;
+        --fs-tiny: 11.5px;
+        --fs-small: 13.5px;
+        --fs-body: 15px;
+        --fs-body-lg: 15px;
+        --fs-h-sm: 17px;
+        --fs-h-md: 17px;
+        --fs-h-lg: 21px;
+        --fs-display: 30px;
+        --aurora-opacity: 0.22;
+      }
+
+      /* --- one spacing rhythm + one left edge --- */
+      section {
+        padding: 46px 20px !important;
+        max-width: 100%;
+      }
+      #hero {
+        min-height: 0 !important;
+        padding: 92px 20px 40px !important;
+      }
+      .section-title { margin-bottom: 12px !important; line-height: 1.1; }
+      .section-title br { display: none; }
+      .section-sub { margin-bottom: 24px !important; max-width: 100%; }
+      .section-tag { margin-bottom: 10px !important; letter-spacing: 2px; }
+      .section-tag::after { display: none !important; }
+
+      /* --- strip decoration --- */
+      .project-color-bar,
+      .exp-card::after,
+      .edu-card::after,
+      .hero-photo-hint { display: none !important; }
+
+      /* --- flatten every card into an editorial list --- */
+      .exp-card,
+      .spec-row,
+      .project-card,
+      .project-card.featured,
+      .edu-card,
+      .cert-tab-item,
+      .stat-card {
+        background: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        transform: none !important;
+      }
+
+      /* Experience (single card) */
+      #experience .exp-card { display: block !important; }
+      #experience .exp-role { font-size: 18px; margin-bottom: 2px; }
+      #experience .exp-company { margin-bottom: 4px; }
+      #experience .exp-date {
+        background: none !important;
+        padding: 0 !important;
+        font-size: var(--fs-tiny);
+        display: block;
+        margin: 6px 0 18px;
+      }
+      #experience .exp-highlights {
+        display: block !important;
+        margin-bottom: 0 !important;
+        border-top: 1px solid var(--border);
+      }
+
+      /* About — vertical divided list */
+      .about-grid { display: block !important; }
+      .about-rail { position: static !important; }
+      .about-now { margin-top: 22px; padding-top: 18px; }
+      .about-spec {
+        display: block !important;
+        margin-top: 22px;
+        border-top: 1px solid var(--border);
+      }
+      #about .spec-row { padding: 14px 0 !important; }
+      #about .spec-row + .spec-row { border-top: 1px solid var(--border); }
+      #about .spec-row:first-child { padding-top: 4px !important; }
+
+      /* Projects — vertical divided list, no side-by-side */
+      .projects-grid { display: block !important; }
+      .projects-grid > .project-card {
+        grid-column: auto !important;
+        display: block !important;
+        padding: 22px 0 !important;
+        border-top: 1px solid var(--border) !important;
+      }
+      .projects-grid > .project-card:first-child {
+        border-top: none !important;
+        padding-top: 0 !important;
+      }
+      .project-badge {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 8px;
+        color: var(--muted) !important;
+        letter-spacing: 1.5px;
+      }
+      .project-title { font-size: 18px; margin-bottom: 10px; }
+      .project-desc { margin-bottom: 14px; }
+      .project-visual { display: none !important; }
+      .project-stack { gap: 5px; margin-bottom: 14px; }
+      .stack-tag,
+      .edu-links a {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        color: var(--muted) !important;
+        font-size: var(--fs-tiny);
+      }
+      .project-stack .stack-tag + .stack-tag::before {
+        content: "·";
+        margin-right: 5px;
+        color: var(--border-strong);
+      }
+      .project-links { gap: 8px; }
+      .link-btn { padding: 7px 12px; font-size: var(--fs-tiny); }
+
+      /* Filter bar — quieter, wraps onto rows */
+      .projects-filter-bar {
+        gap: 6px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+      }
+      .filter-btn { font-size: 12px; padding: 6px 12px; }
+
+      /* Tech stack — divided rows */
+      .stack-row {
+        display: block !important;
+        padding: 12px 0 !important;
+        border-top: 1px solid var(--border);
+      }
+      .stack-row:first-child { border-top: none; }
+      .stack-row-name { font-size: 14px; margin-bottom: 2px; }
+      .stack-tabs { gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+
+      /* Certifications — flat divided rows */
+      .cert-tab-item {
+        padding: 14px 0 !important;
+        border-top: 1px solid var(--border) !important;
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+      }
+      .cert-tab-name { font-size: 14px; }
+      .cert-tabs-buttons { flex-wrap: wrap; overflow-x: visible; }
+      /* no nested scroll box on mobile — let the list flow */
+      .cert-scroll-container { max-height: none !important; overflow: visible !important; padding-right: 0 !important; }
+      .cert-scroll-hint { display: none !important; }
+      #certifications .cert-tab-pane::after { display: none !important; }
+
+      /* Education — slimmer timeline */
+      .edu-entry { padding-left: 22px; }
+      .edu-node { left: 5px; width: 10px; height: 10px; top: 6px; box-shadow: 0 0 0 3px var(--accent-tint); }
+      .edu-entry:not(:last-child)::before { left: 5px; top: 20px; bottom: -22px; }
+      .edu-entry + .edu-entry { margin-top: 22px; }
+      .edu-head { gap: 8px 16px; }
+      .edu-school { font-size: 17px; }
+      .edu-degree { margin-top: 4px; }
+      .edu-date { background: none !important; padding: 0 !important; }
+      .edu-links { gap: 12px; margin-top: 14px; padding-top: 12px; }
+
+      /* Contact — single column, tighter */
+      .contact-layout { display: block !important; }
+      .contact-heading { letter-spacing: 0 !important; }
+
+      /* Hero — compact */
+      .hero-grid { display: block !important; }
+      .hero-left .hero-photo,
+      .hero-photo { width: 132px !important; margin-bottom: 16px !important; }
+      .hero-name { font-size: var(--fs-display) !important; margin-bottom: 14px !important; }
+      .hero-eyebrow { font-size: var(--fs-tiny) !important; letter-spacing: 1.5px; margin: 22px 0 10px; }
+      .hero-title { font-size: 14px !important; margin-bottom: 14px !important; }
+      .hero-bio { margin-bottom: 22px !important; }
+      .hero-aside { margin-top: 6px; }
+      .hero-right { gap: 1px !important; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+      .stat-card { background: var(--bg2) !important; padding: 14px !important; }
+      .stat-num { font-size: 19px; margin-bottom: 2px; }
+      .stat-label { font-size: 11.5px; }
+
+      /* Footer */
+      footer { padding: 22px 20px !important; }
+
+      /* no smooth/continuous scroll on mobile — jumps are instant */
+      html { scroll-behavior: auto !important; }
+    }
   </style>
-  <script type="module" crossorigin src="/assets/index-B1lK8SDD.js"></script>
+  <script type="module" crossorigin src="/assets/index-DD8WW1Ov.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-fOJvfYOR.css">
 </head>
 
@@ -4875,6 +5256,7 @@
   <!-- Your page scripts -->
   <script src="nav.js" defer></script>
   <script src="chatbot.js" defer></script>
+  <script src="mobile-collapse.js" defer></script>
 
 
   <!-- Initialize contact form + smooth scrolling -->
