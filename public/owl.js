@@ -1,7 +1,7 @@
 // Owl mascot. On desktop it roams the lower viewport and can be dragged;
 // on phones / reduced-motion it docks in a corner. Hovering shows a
-// "click me · drag me" label; click/tap cycles through Khine's story + a
-// few tips. The ✕ sends it away for this visit — an owl button then shows in
+// "click me to see the latest wonder" label; click/tap opens Khine's latest
+// LinkedIn post. The ✕ sends it away for this visit — an owl button then shows in
 // the nav bar to bring it back (reload / owlReset() also work).
 (function () {
   var pet = document.getElementById('owlPet');
@@ -90,23 +90,10 @@
     clearTimeout(landTimer);
   }
 
-  // clicking the owl cycles through these — Khine's story first (bite-sized),
-  // then a few practical pointers, then it loops
-  var tips = [
-    "fun fact: i was pre-med back in myanmar",
-    "2nd year i knew i wanted out — picked tech, like every student does",
-    "so i packed up and moved to singapore for it",
-    "somehow thrived here as an intl student",
-    "now? turns out cloud dev is the part i'm actually passionate about",
-    "also i'm a leo, if that explains anything",
-    "psst — click khine's photo up top, it opens full-size",
-    "the projects section is the good stuff, keep scrolling",
-    "wanna know more? the chat bubble's got you",
-    "the certifications list scrolls — more hiding down there",
-    "try the theme toggle up in the nav"
-  ];
-  var tipIdx = 0;
-  var LABEL = docked ? "tap me" : "click me · drag me";
+  // clicking the owl opens Khine's latest LinkedIn post — swap this link
+  // for the new one ("…" on the post → Copy link to post) after each post
+  var LATEST_POST = "https://lnkd.in/p/g_rzgp8Y";
+  var LABEL = docked ? "tap me to see the latest wonder ✨" : "click me to see the latest wonder ✨";
 
   function hideBubble() {
     if (bubble) bubble.hidden = true;
@@ -130,9 +117,8 @@
     return true;
   };
 
-  function nextTip() {
-    showBubble(tips[tipIdx % tips.length], 4500);
-    tipIdx++;
+  function openLatestPost() {
+    window.open(LATEST_POST, '_blank', 'noopener');
   }
 
   pet.addEventListener('mouseenter', function () {
@@ -190,7 +176,7 @@
     pet.style.transition = '';
     try { pet.releasePointerCapture(e.pointerId); } catch (err) {}
     paused = false;
-    if (!moved) { nextTip(); }        // it was a tap, not a drag
+    if (!moved) { openLatestPost(); }        // it was a tap, not a drag
     if (docked) return;
     if (moved) {
       clearTimeout(roamTimer);
