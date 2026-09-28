@@ -688,13 +688,6 @@ button { font: inherit; color: inherit; }
   border-color: var(--text);
 }
 
-/* a hiding utility — must beat the grid/flex display of the tile variants */
-.project-card.hidden { display: none !important; }
-
-.proj { gap: 20px; }
-
-.proj .top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-
 .badge {
   display: inline-block;
   font: 500 var(--fs-label) var(--mono);
@@ -708,59 +701,231 @@ button { font: inherit; color: inherit; }
 
 .badge.ghost { background: color-mix(in srgb, currentColor 12%, transparent); color: inherit; }
 
-.meta { font: 500 var(--fs-small) var(--mono); opacity: 0.75; }
+/* filters sit in a slim column beside the ring, which gets the rest */
+.projects-layout { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; align-items: center; }
 
-.proj h3 { font-size: clamp(30px, 2.8vw, 44px); letter-spacing: -0.04em; line-height: 1; }
-.proj .desc { font-size: var(--fs-small); line-height: 1.6; }
-
-/* featured project: copy on the left, demo on the right */
-.proj.feat {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24px;
-  align-items: stretch;
+@media (min-width: 901px) {
+  .projects-layout .filters { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .projects-layout .filter-btn {
+    position: relative;
+    padding: 8px 0 8px 18px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--muted);
+    text-align: left;
+    transition: color 0.2s;
+  }
+  .projects-layout .filter-btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 8px;
+    height: 2px;
+    background: var(--line-strong);
+    transition: width 0.2s, background 0.2s;
+  }
+  .projects-layout .filter-btn:hover { color: var(--text); }
+  .projects-layout .filter-btn-active,
+  .projects-layout .filter-btn-active:hover { background: none; color: var(--text); font-weight: 800; }
+  .projects-layout .filter-btn-active::before { width: 12px; background: var(--orange); }
 }
 
-.proj.feat .copy { display: flex; flex-direction: column; gap: 14px; }
-.proj.feat .copy .links { margin-top: auto; }
+@media (max-width: 900px) {
+  .projects-layout { grid-template-columns: minmax(0, 1fr); }
+}
 
-.media {
+/* the ring: names circle it, the demo plays in the middle (orbit.js) */
+.orbit { --d: min(calc(100% - 80px), 880px); position: relative; width: var(--d); aspect-ratio: 1; margin: 12px auto 0; }
+
+/* without JS (or before it runs) the projects are a plain list */
+.orbit:not(.orbit-ready) { aspect-ratio: auto; width: 100%; }
+.orbit-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; }
+.orbit-proj { display: grid; gap: 8px; align-content: start; }
+.orbit-proj .orbit-desc { font-size: var(--fs-small); color: var(--text-soft); }
+.orbit-ready .orbit-list { display: none; }
+
+.orbit-ring { position: absolute; inset: 7%; border-radius: 50%; border: 1px dashed var(--line-strong); pointer-events: none; }
+.orbit-ring.inner { inset: 21%; border-style: solid; border-color: var(--line); }
+
+.orbit-name {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  font: 700 clamp(14px, 1.5vw, 18px) var(--sans);
+  cursor: pointer;
+  transition: color 0.25s, background 0.25s, opacity 0.25s;
+}
+.orbit-name::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  transition: background 0.25s, transform 0.25s;
+}
+.orbit-name:hover { color: var(--text); }
+.orbit-name.on { background: var(--text); color: var(--bg); }
+.orbit-name.on::before { background: var(--orange); transform: scale(1.4); }
+.orbit-name.dim { opacity: 0.25; }
+
+.orbit-core { position: absolute; left: 50%; top: 50%; width: 56%; transform: translate(-50%, -50%); text-align: center; }
+
+.orbit-screen {
   position: relative;
+  aspect-ratio: 16 / 10;
   border-radius: 18px;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.18);
-  display: grid;
-  place-items: center;
-  min-height: 300px;
+  background: #000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
+.orbit-media { position: absolute; inset: 0; transition: opacity 0.35s; }
+.orbit-media.fade { opacity: 0; }
+.orbit-media video,
+.orbit-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-.media video,
-.media img {
-  width: 100%;
+/* placeholder for projects without a recording */
+.orbit-ph {
   height: 100%;
-  max-height: 460px;
-  object-fit: contain;
-  transition: transform 0.8s var(--ease);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  color: #fff;
+  background: radial-gradient(circle at 30% 20%, var(--orange) 0, #16151c 70%);
 }
-
-.proj:hover .media video { transform: scale(1.03); }
-
-.media.stack { display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 10px; background: rgba(22, 21, 28, 0.08); }
-.media.stack img { height: auto; border-radius: 10px; cursor: zoom-in; }
-.media.stack img:hover { transform: scale(1.02); }
-
-.pass {
+.orbit-ph.private { background: repeating-linear-gradient(135deg, #1c1b24 0 14px, #16151c 14px 28px); }
+.orbit-ph strong { font: 800 clamp(22px, 3vw, 34px) var(--sans); letter-spacing: -0.02em; }
+.orbit-ph small { font-size: 13px; opacity: 0.7; }
+.orbit-lock {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  width: fit-content;
-  padding: 7px 12px;
-  border-radius: 10px;
-  border: 1.5px dashed color-mix(in srgb, currentColor 40%, transparent);
-  font: 500 var(--fs-small) var(--mono);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+  font: 500 var(--fs-label) var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.pass code { font-weight: 700; }
+.orbit-count,
+.orbit-expand {
+  position: absolute;
+  top: 10px;
+  z-index: 3;
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 500 12px var(--mono);
+}
+.orbit-count { left: 12px; }
+.orbit-expand { right: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s; }
+.orbit-expand:hover { background: var(--orange); }
+.orbit-expand[hidden] { display: none; }
+
+/* full write-up slides over the demo */
+.orbit-detail {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  padding: clamp(16px, 2.2vw, 26px);
+  overflow-y: auto;
+  text-align: left;
+  color: #f3f0ea;
+  background: rgba(15, 15, 19, 0.92);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.orbit-detail.on { opacity: 1; transform: none; pointer-events: auto; }
+.orbit-detail h4 { font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+.orbit-detail p { font-size: clamp(13px, 1.15vw, 15px); line-height: 1.55; color: #dcd8e3; }
+.orbit-detail .orbit-chips { margin-top: 12px; }
+.orbit-detail .orbit-chips span { border-color: rgba(243, 240, 234, 0.25); color: #f3f0ea; }
+
+.orbit-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.orbit-chips span { padding: 2px 9px; border: 1px solid var(--line-strong); border-radius: 999px; font: 500 12px var(--mono); color: var(--muted); }
+
+.orbit-info { margin-top: 18px; transition: opacity 0.3s, transform 0.3s; }
+.orbit-info.fade { opacity: 0; transform: translateY(6px); }
+.orbit-badge { font: 500 12px var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); }
+.orbit-info h3 { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.02em; margin: 4px 0 6px; }
+.orbit-info p { font-size: clamp(14px, 1.2vw, 16px); line-height: 1.45; color: var(--text-soft); }
+
+.orbit-links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 10px; font-weight: 700; font-size: 15px; }
+.orbit-info .orbit-links { justify-content: center; }
+.orbit-links a { color: inherit; text-decoration: none; border-bottom: 1.5px solid var(--orange); }
+.orbit-priv { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 500; }
+.orbit-more {
+  padding: 3px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: none;
+  color: var(--text);
+  font: 700 14px var(--sans);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.orbit-more:hover,
+.orbit-more.on { background: var(--text); color: var(--bg); }
+
+/* expanded demo */
+.orbit-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 4vw;
+  background: rgba(10, 10, 14, 0.88);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.orbit-lb.on { opacity: 1; pointer-events: auto; }
+.orbit-lb-box { width: min(1200px, 100%); }
+.orbit-lb video,
+.orbit-lb img { display: block; width: 100%; max-height: 80vh; object-fit: contain; border-radius: 14px; background: #000; }
+.orbit-lb-cap { display: flex; justify-content: space-between; margin-top: 12px; color: #f3f0ea; font-weight: 700; }
+.orbit-lb-cap span { font: 500 13px var(--mono); opacity: 0.7; }
+.orbit-lb-x {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: #f3f0ea;
+  color: #16151c;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* phones: the ring doesn't fit, so the demo sits on top and names become a tap row */
+@media (max-width: 760px) {
+  .orbit.orbit-ready { width: 100%; aspect-ratio: auto; display: flex; flex-direction: column-reverse; gap: 18px; }
+  .orbit-ring { display: none; }
+  .orbit-core { position: static; width: 100%; transform: none; }
+  .orbit-names { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  .orbit-name { position: static; font-size: 14px; border: 1px solid var(--line-strong); }
+}
 
 /* ── TECH STACK ─────────────────────────────────────────────────────── */
 .stack-tile { justify-content: flex-start; }
@@ -1219,7 +1384,6 @@ footer .links a:hover span { color: var(--bg); }
   .w4 { grid-column: span 2; }
   .pills { display: none; }
   .ham { display: grid; }
-  .proj.feat { grid-template-columns: 1fr; }
   .w4 .tech { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1235,7 +1399,6 @@ footer .links a:hover span { color: var(--bg); }
   .cta { display: none; }
   .sec { padding-top: 64px; }
   .w2 .tech, .w4 .tech { grid-template-columns: 1fr; }
-  .media { min-height: 220px; }
   .now-row { grid-template-columns: 90px 1fr; }
   .chatbot-toggle { right: 16px; bottom: 16px; }
   .chatbot-panel { right: 14px; bottom: 92px; }
@@ -1247,8 +1410,6 @@ footer .links a:hover span { color: var(--bg); }
 /* ── PHONE POLISH (≤620px) ───────────────────────────────────────────
    Keep it a bento, not one endless column: small tiles pair up, long
    content is condensed, tab rows swipe sideways. */
-.more-btn { display: none; }
-
 @media (max-width: 620px) {
   .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bento > .tile { grid-column: span 2; grid-row: auto; }
@@ -1274,31 +1435,6 @@ footer .links a:hover span { color: var(--bg); }
   .cert-tabs-buttons::-webkit-scrollbar { display: none; }
   .filter-btn,
   .cert-tab-btn { flex: none; min-height: 40px; }
-
-  /* projects: demo first, description trimmed with "Read more" */
-  .proj.feat .media { order: -1; min-height: 0; max-height: 300px; }
-  .media.stack img + img { display: none; }
-  .proj .desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .proj .desc.open { display: block; }
-  .more-btn {
-    display: inline-flex;
-    align-self: flex-start;
-    margin-top: -6px;
-    padding: 8px 0;
-    border: 0;
-    background: none;
-    font-weight: 700;
-    font-size: var(--fs-small);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    cursor: pointer;
-  }
-  .meta { font-size: 14px; }
 
   /* stack: compact name chips instead of a sentence per item */
   .stack-tile .tech { display: flex; flex-wrap: wrap; gap: 6px; }
