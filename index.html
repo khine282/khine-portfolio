@@ -146,8 +146,8 @@
         <div class="tile c-yellow t-marquee w2" aria-label="Tech I ship with">
           <span class="label">Shipped with</span>
           <div class="marquee" aria-hidden="true"><div>
-            <span>AWS Bedrock</span><span>Lambda</span><span>Java 17</span><span>React Native</span><span>FastAPI</span><span>TensorFlow</span><span>Selenium</span><span>PostgreSQL</span>
-            <span>AWS Bedrock</span><span>Lambda</span><span>Java 17</span><span>React Native</span><span>FastAPI</span><span>TensorFlow</span><span>Selenium</span><span>PostgreSQL</span>
+            <span>AWS Bedrock</span><span>Prompt engineering</span><span>Lambda</span><span>Java 17</span><span>React Native</span><span>FastAPI</span><span>TensorFlow</span><span>Selenium</span><span>PostgreSQL</span>
+            <span>AWS Bedrock</span><span>Prompt engineering</span><span>Lambda</span><span>Java 17</span><span>React Native</span><span>FastAPI</span><span>TensorFlow</span><span>Selenium</span><span>PostgreSQL</span>
           </div></div>
         </div>
 
@@ -177,7 +177,7 @@
         </div>
         <div class="tile spec">
           <div><span class="num">03</span></div>
-          <div><span class="state">Shipped</span><h3>AI &amp; Computer Vision</h3><p class="soft">Real-time CV pipeline in production. Custom-trained models.</p></div>
+          <div><span class="state">Shipped</span><h3>AI, LLMs &amp; Vision</h3><p class="soft">Real-time CV pipeline in production, custom-trained models, and LLM apps built with prompt engineering.</p></div>
           <a class="proof" href="#projects">Emotion &amp; crowd-density pipeline</a>
         </div>
         <div class="tile spec">
@@ -273,6 +273,7 @@
           <button class="filter-btn" data-filter="internship">Internship</button>
           <button class="filter-btn" data-filter="hackathon">Hackathon</button>
           <button class="filter-btn" data-filter="testing-qa">Testing/QA</button>
+          <button class="filter-btn" data-filter="llm">AI / LLM</button>
           <button class="filter-btn" data-filter="computer-vision">Computer Vision</button>
           <button class="filter-btn" data-filter="cloud-architecture">Cloud</button>
           <button class="filter-btn" data-filter="ecommerce-cms">E-commerce</button>
@@ -315,6 +316,27 @@
             </div>
           </div>
           <div class="media"><video data-lazy data-src="/code-to-cloud-demo.mp4" muted loop playsinline controls preload="none" aria-label="Code-to-Cloud demo"></video></div>
+        </article>
+
+        <article class="tile c-orange proj feat w2 project-card" data-category="llm">
+          <div class="copy">
+            <div class="top"><span class="badge">Prompt engineering · LLM</span></div>
+            <h3>Multilingual IT Helpdesk Triage</h3>
+            <p class="meta">Learning project · DeepLearning.AI course</p>
+            <p class="desc">Type an IT problem in Burmese, English, Chinese, Malay or a mix: the app detects the language,
+              classifies the issue, notices frustration, sets a priority, writes a one-line English summary for IT and
+              replies in the user's own language, asking a follow-up when the message is too vague. Built to practise
+              the ChatGPT Prompt Engineering for Developers course on Gemini: delimiters, structured JSON output,
+              few-shot prompting, condition checks, temperature 0, plus a 20-message evaluation set.</p>
+            <div class="chips"><span>Python</span><span>Gemini API</span><span>Streamlit</span><span>Prompt engineering</span><span>JSON output</span></div>
+            <div class="links">
+              <a href="https://supportdesk-triage-kai.streamlit.app" target="_blank" rel="noopener"><span>Live demo ↗</span></a>
+              <a href="https://github.com/khine282/helpdesk-triage" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
+            </div>
+          </div>
+          <div class="media stack">
+            <img src="/helpdesk-triage.png" alt="Helpdesk triage app classifying an English message as a high-priority software issue" loading="lazy" onclick="openModal(this.src, this.alt)">
+          </div>
         </article>
 
         <article class="tile c-pink proj feat w2 project-card" data-category="computer-vision">
@@ -385,7 +407,7 @@
           <div class="chips"><span>C#</span><span>ASP.NET Core</span><span>EF Core</span><span>SQL Server</span><span>JWT</span><span>Azure</span></div>
         </article>
 
-        <article class="tile proj w2 project-card" data-category="internship">
+        <article class="tile proj project-card" data-category="internship">
           <div class="top"><span class="badge ghost">Enterprise · Production</span></div>
           <div>
             <h3>SGEMS2</h3>
@@ -398,7 +420,7 @@
           <div class="links"><span class="private" style="padding:8px 14px;border-radius:999px;border:1.5px dashed var(--line-strong);font-weight:700;font-size:var(--fs-small)">Private codebase</span></div>
         </article>
 
-        <article class="tile proj w2 project-card" data-category="internship">
+        <article class="tile proj project-card" data-category="internship">
           <div class="top"><span class="badge ghost">React Native · Deployed</span></div>
           <div>
             <h3>SGEMS2 Mobile Apps</h3>
@@ -477,7 +499,19 @@
             <li><b>Linux</b><span>Ubuntu server admin</span></li>
           </ul>
         </div>
-        <div class="tile stack-tile w2">
+        <div class="tile c-orange stack-tile w2">
+          <h3>LLM &amp; GenAI <small>07</small></h3>
+          <ul class="tech">
+            <li><b>Prompt engineering</b><span>Delimiters, structured JSON output, few-shot, condition checks — <strong>DeepLearning.AI course</strong>, applied in the helpdesk triage app</span></li>
+            <li><b>Amazon Bedrock</b><span>Claude with streaming — the assistant on this site, Code-to-Cloud</span></li>
+            <li><b>Claude API</b><span>LLM apps and analysis pipelines</span></li>
+            <li><b>Gemini API</b><span>Multilingual triage app · Burmese, English, Chinese, Malay</span></li>
+            <li><b>RAG</b><span>Retrieval-augmented generation for grounded answers</span></li>
+            <li><b>LangChain</b><span>Chaining prompts, tools and retrieval</span></li>
+            <li><b>Streamlit / Whisper</b><span>Quick LLM demos · speech-to-text</span></li>
+          </ul>
+        </div>
+        <div class="tile stack-tile w4">
           <h3>Data <small>04</small></h3>
           <ul class="tech">
             <li><b>PostgreSQL</b><span>Bedrock chatbot and portfolio projects · Neon serverless</span></li>
@@ -530,6 +564,13 @@
               </div>
               <a href="https://www.credly.com/badges/4962f7d9-43ab-4c1f-bad1-f97f3610f073/public_url"
                 target="_blank">Verify →</a>
+            </div>
+            <div class="cert-tab-item">
+              <div>
+                <div class="cert-tab-name">ChatGPT Prompt Engineering for Developers</div>
+                <div class="cert-tab-meta">DeepLearning.AI · Short course</div>
+              </div>
+              <a href="https://github.com/khine282/helpdesk-triage" target="_blank" rel="noopener">Project →</a>
             </div>
             <div class="cert-tab-item">
               <div>
@@ -639,6 +680,13 @@
               </div>
               <a href="https://www.credly.com/badges/4962f7d9-43ab-4c1f-bad1-f97f3610f073/public_url"
                 target="_blank">Verify →</a>
+            </div>
+            <div class="cert-tab-item">
+              <div>
+                <div class="cert-tab-name">ChatGPT Prompt Engineering for Developers</div>
+                <div class="cert-tab-meta">DeepLearning.AI · Short course</div>
+              </div>
+              <a href="https://github.com/khine282/helpdesk-triage" target="_blank" rel="noopener">Project →</a>
             </div>
             <div class="cert-tab-item">
               <div>
