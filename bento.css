@@ -82,6 +82,10 @@ html { font-size-adjust: ex-height 0.52; }
 
 html {
   background: var(--bg);
+  /* faint dot grid, fixed so content scrolls over it */
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--text) 16%, transparent) 1.1px, transparent 1.6px);
+  background-size: 22px 22px;
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
@@ -93,6 +97,13 @@ html {
    the browser zoomed out one step; phones keep their own sizing */
 @media (min-width: 1024px) {
   html { zoom: 0.8; }
+}
+
+/* dark mode: a faint aurora across the top of the page */
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(60% 40% at 20% 0%, rgba(255, 107, 53, 0.14), transparent 70%),
+    radial-gradient(50% 35% at 85% 5%, rgba(201, 184, 255, 0.16), transparent 70%) no-repeat;
 }
 
 body {
@@ -418,7 +429,26 @@ button { font: inherit; color: inherit; }
 }
 
 /* ── HERO ───────────────────────────────────────────────────────────── */
-.hero { padding-top: clamp(20px, 3vw, 40px); }
+.hero { position: relative; isolation: isolate; padding-top: clamp(20px, 3vw, 40px); }
+
+/* soft orange / lilac / lime glow drifting behind the home tiles */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -12%;
+  right: -12%;
+  top: -160px;
+  height: 820px;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 48% at 22% 42%, rgba(255, 107, 53, 0.3), transparent 70%),
+    radial-gradient(34% 44% at 78% 30%, rgba(201, 184, 255, 0.55), transparent 70%),
+    radial-gradient(30% 40% at 55% 80%, rgba(198, 243, 107, 0.25), transparent 70%);
+  filter: blur(30px);
+  animation: heroGlow 16s ease-in-out infinite alternate;
+}
+@keyframes heroGlow { to { transform: translate3d(4%, 3%, 0) scale(1.08); } }
 
 .t-intro { padding: 36px 38px; }
 .t-intro .label { color: var(--lime); opacity: 1; display: flex; align-items: center; gap: 10px; }
