@@ -22,6 +22,7 @@ export function initBento() {
   certTabs()
   zoomTiles()
   lazyVideos()
+  readMore()
   owlEyes()
   owlGuide()
 }
@@ -270,6 +271,24 @@ function lazyVideos() {
     { rootMargin: '200px 0px' }
   )
   vids.forEach((v) => io.observe(v))
+}
+
+// phones trim project descriptions to a few lines; this adds the toggle
+// (the button is hidden by CSS on larger screens)
+function readMore() {
+  document.querySelectorAll('.proj .desc').forEach((desc) => {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'more-btn'
+    btn.textContent = 'Read more'
+    btn.setAttribute('aria-expanded', 'false')
+    btn.addEventListener('click', () => {
+      const open = desc.classList.toggle('open')
+      btn.textContent = open ? 'Show less' : 'Read more'
+      btn.setAttribute('aria-expanded', String(open))
+    })
+    desc.after(btn)
+  })
 }
 
 function owlEyes() {
