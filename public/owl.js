@@ -28,8 +28,12 @@
 
   window.owlReset = function () { setHidden(false); location.reload(); };
 
-  function vw() { return window.innerWidth; }
-  function vh() { return window.innerHeight; }
+  // the page is scaled with CSS zoom on larger screens (bento.css); the
+  // owl's own coordinates live inside that scale, so convert screen pixels
+  function zoom() { return parseFloat(getComputedStyle(document.documentElement).zoom) || 1; }
+  function px(v) { return v / zoom(); }
+  function vw() { return px(window.innerWidth); }
+  function vh() { return px(window.innerHeight); }
 
   var DOCK_X = 12;
   function dockY() { return vh() - (docked ? 74 : 150); }
@@ -147,10 +151,10 @@
     if (e.target.closest('.owl-pet-dismiss') || e.target.closest('.owl-pet-bubble')) return;
     dragging = true;
     moved = false;
-    downX = e.clientX;
-    downY = e.clientY;
-    grabX = e.clientX - x;
-    grabY = e.clientY - y;
+    downX = px(e.clientX);
+    downY = px(e.clientY);
+    grabX = px(e.clientX) - x;
+    grabY = px(e.clientY) - y;
     paused = true;
     clearTimeout(roamTimer);
     clearTimeout(landTimer);
@@ -162,10 +166,10 @@
 
   pet.addEventListener('pointermove', function (e) {
     if (!dragging) return;
-    if (Math.abs(e.clientX - downX) > 4 || Math.abs(e.clientY - downY) > 4) moved = true;
-    if (moved) pet.classList.toggle('face-left', e.clientX < downX);
-    x = Math.max(4, Math.min(e.clientX - grabX, vw() - 56));
-    y = Math.max(4, Math.min(e.clientY - grabY, vh() - 64));
+    if (Math.abs(px(e.clientX) - downX) > 4 || Math.abs(px(e.clientY) - downY) > 4) moved = true;
+    if (moved) pet.classList.toggle('face-left', px(e.clientX) < downX);
+    x = Math.max(4, Math.min(px(e.clientX) - grabX, vw() - 56));
+    y = Math.max(4, Math.min(px(e.clientY) - grabY, vh() - 64));
     place();
   });
 

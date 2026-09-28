@@ -64,7 +64,8 @@ export function initOrbit() {
   let hovering = false
   let visible = false
   let active = projects.map(() => true) // filter state
-  const paused = () => hovering || lb.isOpen() || detail.classList.contains('on')
+  let pinned = false // no demo to show, so the write-up stays open instead
+  const paused = () => hovering || lb.isOpen() || (detail.classList.contains('on') && !pinned)
 
   // ── spin the names around the ring ──
   let angle = -Math.PI / 2
@@ -114,6 +115,7 @@ export function initOrbit() {
     })
     count.textContent = `${String(i + 1).padStart(2, '0')} / ${String(projects.length).padStart(2, '0')}`
     expand.hidden = !(p.video || p.image)
+    pinned = false
     hideDetail()
 
     const old = [...screen.querySelectorAll('.orbit-media')]
@@ -127,11 +129,13 @@ export function initOrbit() {
       setTimeout(() => o.remove(), 400)
     })
 
-    detail.innerHTML = `<h4>About ${p.name}</h4><p>${p.desc}</p><div class="orbit-chips">${p.chips}</div>`
+    detail.innerHTML = `${p.priv ? `<span class="orbit-detail-lock">${lockSvg} Private codebase</span>` : ''}<h4>About ${p.name}</h4><p>${p.desc}</p><div class="orbit-chips">${p.chips}</div>`
+    pinned = !(p.video || p.image)
+    if (pinned) detail.classList.add('on')
     info.classList.add('fade')
     setTimeout(() => {
       info.innerHTML = `<span class="orbit-badge">${p.badge}</span><h3>${p.name}</h3><p>${p.one}</p>
-        <div class="orbit-links"><button class="orbit-more" type="button" aria-expanded="false">Details</button>${p.links}${
+        <div class="orbit-links">${pinned ? '' : '<button class="orbit-more" type="button" aria-expanded="false">Details</button>'}${p.links}${
           p.priv ? `<span class="orbit-priv">${lockSvg} Private codebase</span>` : ''
         }</div>`
       info.classList.remove('fade')
@@ -156,6 +160,7 @@ export function initOrbit() {
     moreBtn()?.setAttribute('aria-expanded', 'true')
   }
   function hideDetail() {
+    if (pinned) return
     detail.classList.remove('on')
     moreBtn()?.classList.remove('on')
     moreBtn()?.setAttribute('aria-expanded', 'false')
@@ -166,6 +171,7 @@ export function initOrbit() {
   }
   function wireMore() {
     const more = moreBtn()
+    if (!more) return
     more.addEventListener('mouseenter', showDetail)
     more.addEventListener('mouseleave', laterHide)
     more.addEventListener('click', () => (detail.classList.contains('on') ? hideDetail() : showDetail()))

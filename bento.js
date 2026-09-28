@@ -109,9 +109,11 @@ function revealTiles() {
 function spotlight() {
   document.querySelectorAll('.tile').forEach((t) =>
     t.addEventListener('pointermove', (e) => {
+      // divide out the page's CSS zoom (bento.css) — pointer and rect are in screen px
+      const z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1
       const r = t.getBoundingClientRect()
-      t.style.setProperty('--x', `${e.clientX - r.left}px`)
-      t.style.setProperty('--y', `${e.clientY - r.top}px`)
+      t.style.setProperty('--x', `${(e.clientX - r.left) / z}px`)
+      t.style.setProperty('--y', `${(e.clientY - r.top) / z}px`)
     })
   )
 }
