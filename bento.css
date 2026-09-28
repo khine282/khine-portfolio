@@ -89,6 +89,12 @@ html {
   transition: background 0.3s ease;
 }
 
+/* laptops and desktops: render the whole page at 80% so it reads like
+   the browser zoomed out one step; phones keep their own sizing */
+@media (min-width: 1024px) {
+  html { zoom: 0.8; }
+}
+
 body {
   font-size: var(--fs-body);
   line-height: 1.55;
