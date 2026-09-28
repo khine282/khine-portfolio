@@ -232,6 +232,15 @@ button { font: inherit; color: inherit; }
 .sec { padding: 90px 0 0; }
 .sec:last-of-type { padding-bottom: 60px; }
 
+/* phones jump natively (no Lenis): skip the section's top padding so the
+   heading lands just under the nav, like on desktop */
+@media (max-width: 768px) {
+  .sec { scroll-margin-top: calc(12px - 90px); }
+}
+@media (max-width: 620px) {
+  .sec { scroll-margin-top: calc(12px - 64px); }
+}
+
 .sec-head {
   display: flex;
   align-items: flex-end;

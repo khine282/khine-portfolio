@@ -28,11 +28,10 @@ export function initSmoothScroll() {
     .querySelectorAll('.cert-scroll-container, .chatbot-messages')
     .forEach((el) => el.setAttribute('data-lenis-prevent', ''))
 
-  // Route in-page anchor links through Lenis so jumps are eased too,
-  // and land clear of the fixed nav.
-  const navH =
-    parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 76
-
+  // Route in-page anchor links through Lenis so jumps are eased too.
+  // Lenis already clears the fixed nav (it honours the page's
+  // scroll-padding-top), so only the section's own top padding is skipped,
+  // landing the heading just under the nav.
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (e) => {
       const hash = link.getAttribute('href')
@@ -40,11 +39,8 @@ export function initSmoothScroll() {
       const target = document.querySelector(hash)
       if (!target) return
       e.preventDefault()
-      // Sections already carry their own top padding before the heading,
-      // so subtract it out — otherwise the nav offset stacks on top of
-      // that padding and lands well below the heading.
       const targetPadTop = parseFloat(getComputedStyle(target).paddingTop) || 0
-      lenis.scrollTo(target, { offset: targetPadTop - (navH + 12), duration: 0.8 })
+      lenis.scrollTo(target, { offset: targetPadTop - 12, duration: 0.8 })
     })
   })
 
