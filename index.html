@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300..500;1,300..500&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..500&family=Instrument+Serif:ital@0;1&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Mono:ital,wght@0,300..500;1,300..500&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..500&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet">
   <style>
     *,
@@ -74,15 +74,6 @@
       --fs-h-lg:    clamp(21px,   1.3vw + 15px,   32px);   /* main section titles */
       --fs-display: clamp(26px,   2vw + 17px,     42px);   /* hero name + closing contact heading */
 
-      /* aurora background blobs (light) — sage + blue + pale sage + centre glow */
-      --aurora-1: #aec49f;
-      --aurora-2: #9cbccb;
-      --aurora-3: #c7d3bc;
-      --aurora-4: #8ea87a;
-      --aurora-opacity: 0.5;
-      --aurora-glow-opacity: 0.28;
-      --aurora-blend: multiply;
-      --vignette: rgba(20, 24, 18, 0.06);
 
       /* motion */
       --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -111,15 +102,6 @@
       --accent-tint: rgba(142, 168, 122, 0.10);
       --accent-border: rgba(142, 168, 122, 0.45);
 
-      /* aurora background blobs (dark) — sage + blue + deep sage + centre glow */
-      --aurora-1: #47613c;
-      --aurora-2: #37596b;
-      --aurora-3: #2c4a3e;
-      --aurora-4: #8ea87a;
-      --aurora-opacity: 0.45;
-      --aurora-glow-opacity: 0.4;
-      --aurora-blend: screen;
-      --vignette: rgba(0, 0, 0, 0.38);
     }
 
     html {
@@ -155,103 +137,8 @@
       font-optical-sizing: auto;
     }
 
-    /* ── AURORA BACKGROUND ──
-       Fixed, sits behind all content. Large blurred colour blobs that
-       slowly drift and breathe. Pure CSS, GPU-friendly (transform only),
-       tuned low-contrast so text stays readable on top. */
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
-      isolation: isolate;
-      background-color: var(--bg);
-    }
-
-    .aurora {
-      position: absolute;
-      width: 62vw;
-      height: 62vw;
-      min-width: 520px;
-      min-height: 520px;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: var(--aurora-opacity);
-      mix-blend-mode: var(--aurora-blend);
-      will-change: transform;
-    }
-
-    .aurora.a1 {
-      background: radial-gradient(circle at 50% 50%, var(--aurora-1), transparent 68%);
-      top: -22vw;
-      left: -14vw;
-      animation: aurora-1 26s ease-in-out infinite alternate;
-    }
-
-    .aurora.a2 {
-      background: radial-gradient(circle at 50% 50%, var(--aurora-2), transparent 68%);
-      bottom: -26vw;
-      right: -16vw;
-      animation: aurora-2 34s ease-in-out infinite alternate;
-    }
-
-    .aurora.a3 {
-      background: radial-gradient(circle at 50% 50%, var(--aurora-3), transparent 68%);
-      top: 26vh;
-      left: 38vw;
-      width: 46vw;
-      height: 46vw;
-      animation: aurora-3 42s ease-in-out infinite alternate;
-    }
-
-    /* centre glow — sits mid-viewport, slowly pulses so the page
-       feels lit from behind */
-    .aurora.a4 {
-      background: radial-gradient(circle at 50% 50%, var(--aurora-4), transparent 62%);
-      top: 50%;
-      left: 50%;
-      width: 70vw;
-      height: 70vw;
-      margin: -35vw 0 0 -35vw;
-      opacity: var(--aurora-glow-opacity);
-      filter: blur(120px);
-      animation: aurora-pulse 12s ease-in-out infinite alternate;
-    }
-
-    /* vignette — darkens the edges so the centre reads brighter */
-    .bg-grid::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: normal;
-      background: radial-gradient(ellipse 90% 80% at 50% 42%, transparent 45%, var(--vignette) 100%);
-    }
-
-    @keyframes aurora-pulse {
-      from { transform: translate(-4vw, 0) scale(0.9); opacity: calc(var(--aurora-glow-opacity) * 0.65); }
-      to   { transform: translate(4vw, 2vh) scale(1.15); opacity: var(--aurora-glow-opacity); }
-    }
-
-    @keyframes aurora-1 {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(14vw, 8vh) scale(1.18); }
-    }
-
-    @keyframes aurora-2 {
-      from { transform: translate(0, 0) scale(1.1); }
-      to   { transform: translate(-12vw, -10vh) scale(0.9); }
-    }
-
-    @keyframes aurora-3 {
-      from { transform: translate(-8vw, 4vh) scale(0.95); }
-      to   { transform: translate(10vw, -8vh) scale(1.2); }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .aurora { animation: none !important; }
 
       .reveal,
       .reveal-left,
@@ -2362,7 +2249,7 @@
       }
 
       .footer-copy {
-        font-size: 12px;
+        font-size: var(--fs-micro);
       }
 
       .stack-row {
@@ -2373,7 +2260,7 @@
 
       .stack-tab {
         padding: 10px 12px;
-        font-size: 12px;
+        font-size: var(--fs-micro);
       }
     }
 
@@ -2439,7 +2326,7 @@
       .btn-secondary {
         width: auto;
         justify-content: center;
-        font-size: 13px;
+        font-size: var(--fs-tiny);
         padding: 12px 14px;
       }
 
@@ -2634,7 +2521,7 @@
       .contact-link-icon {
         width: 34px;
         height: 34px;
-        font-size: 15px;
+        font-size: var(--fs-small);
         border-radius: 6px;
       }
 
@@ -2669,11 +2556,11 @@
       }
 
       .footer-logo {
-        font-size: 15px;
+        font-size: var(--fs-small);
       }
 
       .footer-copy {
-        font-size: 12px;
+        font-size: var(--fs-micro);
       }
 
       .stack-tabs {
@@ -2683,7 +2570,7 @@
 
       .stack-tab {
         padding: 8px 10px;
-        font-size: 12px;
+        font-size: var(--fs-micro);
         letter-spacing: 1px;
       }
 
@@ -2716,7 +2603,7 @@
 
       .btn-primary,
       .btn-secondary {
-        font-size: 12px;
+        font-size: var(--fs-micro);
         padding: 11px 14px;
       }
 
@@ -2992,14 +2879,14 @@
 
     .chatbot-header-title {
       font-family: var(--font-display);
-      font-size: 15px;
+      font-size: var(--fs-small);
       font-weight: 700;
       color: var(--text);
     }
 
     .chatbot-header-sub {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: var(--fs-micro);
       color: var(--muted);
       margin-top: 2px;
     }
@@ -3028,7 +2915,7 @@
     }
 
     .chatbot-msg {
-      font-size: 14px;
+      font-size: var(--fs-tiny);
       line-height: 1.5;
       padding: 10px 14px;
       border-radius: 10px;
@@ -3065,7 +2952,7 @@
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 1px 5px;
-      font-size: 12.5px;
+      font-size: var(--fs-micro);
     }
 
     .chatbot-msg-bot ul {
@@ -3111,7 +2998,7 @@
       padding: 10px 12px;
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: var(--fs-tiny);
       outline: none;
     }
 
@@ -3159,7 +3046,7 @@
       border-radius: 999px;
       padding: 7px 12px;
       font-family: var(--font-body);
-      font-size: 12.5px;
+      font-size: var(--fs-micro);
       line-height: 1.3;
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease;
@@ -3187,7 +3074,7 @@
       padding: 12px 32px 12px 14px;
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
       font-family: var(--font-body);
-      font-size: 13.5px;
+      font-size: var(--fs-tiny);
       line-height: 1.45;
       color: var(--text);
       cursor: pointer;
@@ -3215,7 +3102,7 @@
       background: none;
       border: none;
       color: var(--muted);
-      font-size: 13px;
+      font-size: var(--fs-tiny);
       line-height: 1;
       cursor: pointer;
       padding: 2px;
@@ -3313,7 +3200,7 @@
       align-items: baseline;
       gap: 6px;
       font-family: var(--font-mono);
-      font-size: 12px;
+      font-size: var(--fs-micro);
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
@@ -3427,7 +3314,7 @@
       border: 1px solid var(--border-strong);
       box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.3);
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: var(--fs-micro);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
@@ -3531,7 +3418,7 @@
       border: 1.5px solid var(--border-strong);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
       color: var(--text-soft);
-      font-size: 14px;
+      font-size: var(--fs-tiny);
       line-height: 1;
       cursor: pointer;
       display: none;
@@ -3603,7 +3490,7 @@
       border: 1px solid var(--border-strong);
       box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.3);
       font-family: var(--font-body);
-      font-size: 12.5px;
+      font-size: var(--fs-micro);
       line-height: 1.4;
       color: var(--text);
       text-align: center;
@@ -3652,8 +3539,8 @@
         height: 7px;
       }
 
-      .preloader-meta { font-size: 11px; }
-      .preloader-meta #preloaderPct { font-size: 15px; }
+      .preloader-meta { font-size: var(--fs-micro); }
+      .preloader-meta #preloaderPct { font-size: var(--fs-small); }
     }
 
     @media (max-width: 640px) {
@@ -3668,7 +3555,7 @@
         left: 0;
         transform: none;
         max-width: min(230px, 64vw);
-        font-size: 12px;
+        font-size: var(--fs-micro);
         text-align: left;
         animation: owlBubbleFade 0.2s ease;
       }
@@ -3770,7 +3657,7 @@
       /* a plain "Details" summary (projects) */
       .m-acc-label {
         font-family: var(--font-mono);
-        font-size: 12px;
+        font-size: var(--fs-micro);
         letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
@@ -3811,7 +3698,6 @@
         --fs-h-md: 17px;
         --fs-h-lg: 21px;
         --fs-display: 30px;
-        --aurora-opacity: 0.22;
       }
 
       /* --- one spacing rhythm + one left edge --- */
@@ -3927,7 +3813,7 @@
         margin-bottom: 18px;
         flex-wrap: wrap;
       }
-      .filter-btn { font-size: 12px; padding: 6px 12px; }
+      .filter-btn { font-size: var(--fs-micro); padding: 6px 12px; }
 
       /* Tech stack — divided rows */
       .stack-row {
@@ -3936,7 +3822,7 @@
         border-top: 1px solid var(--border);
       }
       .stack-row:first-child { border-top: none; }
-      .stack-row-name { font-size: 14px; margin-bottom: 2px; }
+      .stack-row-name { font-size: var(--fs-tiny); margin-bottom: 2px; }
       .stack-tabs { gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
 
       /* Certifications — flat divided rows */
@@ -3946,7 +3832,7 @@
         border-bottom: none !important;
         margin-bottom: 0 !important;
       }
-      .cert-tab-name { font-size: 14px; }
+      .cert-tab-name { font-size: var(--fs-tiny); }
       .cert-tabs-buttons { flex-wrap: wrap; overflow-x: visible; }
       /* no nested scroll box on mobile — let the list flow */
       .cert-scroll-container { max-height: none !important; overflow: visible !important; padding-right: 0 !important; }
@@ -3974,13 +3860,13 @@
       .hero-photo { width: 132px !important; margin-bottom: 16px !important; }
       .hero-name { font-size: var(--fs-display) !important; margin-bottom: 14px !important; }
       .hero-eyebrow { font-size: var(--fs-tiny) !important; letter-spacing: 1.5px; margin: 22px 0 10px; }
-      .hero-title { font-size: 14px !important; margin-bottom: 14px !important; }
+      .hero-title { font-size: var(--fs-tiny) !important; margin-bottom: 14px !important; }
       .hero-bio { margin-bottom: 22px !important; }
       .hero-aside { margin-top: 6px; }
       .hero-right { gap: 1px !important; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
       .stat-card { background: var(--bg2) !important; padding: 14px !important; }
       .stat-num { font-size: 19px; margin-bottom: 2px; }
-      .stat-label { font-size: 11.5px; }
+      .stat-label { font-size: var(--fs-micro); }
 
       /* Footer */
       footer { padding: 22px 20px !important; }
@@ -3989,6 +3875,8 @@
       html { scroll-behavior: auto !important; }
     }
   </style>
+  <!-- Owl World theme — layered on top of the base styles above -->
+  <link rel="stylesheet" href="./owl-world.css">
 </head>
 
 <body>
@@ -4094,11 +3982,26 @@
       setTimeout(function () { if (root.parentNode) finish(true); }, 6500);
     })();
   </script>
-  <div class="bg-grid" aria-hidden="true">
-    <span class="aurora a1"></span>
-    <span class="aurora a2"></span>
-    <span class="aurora a3"></span>
-    <span class="aurora a4"></span>
+  <!-- ── SKY SCENE (fixed backdrop: sun/moon, stars, drifting clouds) ── -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="cloud" viewBox="0 0 200 90">
+      <path d="M38 82c-19 0-32-12-32-27 0-14 12-26 28-26 3-16 18-27 36-27 15 0 28 8 34 20 5-3 11-4 17-4 19 0 34 13 36 30 17 1 31 12 31 27 0 4-1 7-3 7H38z" />
+    </symbol>
+  </svg>
+  <div class="sky" aria-hidden="true">
+    <div class="sky-stars"></div>
+    <div class="sky-stars sky-stars-2"></div>
+    <span class="sky-shooting"></span>
+    <div class="sky-orb"></div>
+    <div class="sky-layer sky-far">
+      <svg class="cloud c1"><use href="#cloud" /></svg>
+      <svg class="cloud c2"><use href="#cloud" /></svg>
+      <svg class="cloud c3"><use href="#cloud" /></svg>
+    </div>
+    <div class="sky-layer sky-near">
+      <svg class="cloud c4"><use href="#cloud" /></svg>
+      <svg class="cloud c5"><use href="#cloud" /></svg>
+    </div>
   </div>
   <!-- ── NAV ── -->
   <nav id="mainNav">
@@ -4115,7 +4018,14 @@
     </ul>
     <div class="nav-actions">
       <button type="button" class="nav-owl-restore" id="owlRestoreNav" title="Bring back the owl"
-        aria-label="Bring back the owl" hidden>🦉</button>
+        aria-label="Bring back the owl" hidden>
+        <svg viewBox="0 0 80 84" width="22" height="22" fill="none" stroke="currentColor" stroke-width="4"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 22 L30 8 L34 24 M60 22 L50 8 L46 24" />
+          <path d="M16 36 C16 19 26 10 40 10 C54 10 64 19 64 36 C64 49 61 63 54 71 C49 76 45 78 40 78 C35 78 31 76 26 71 C19 63 16 49 16 36 Z" />
+          <circle cx="31" cy="34" r="8" /><circle cx="49" cy="34" r="8" />
+        </svg>
+      </button>
       <a href="#contact" class="nav-cta">Get in Touch</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -4152,32 +4062,24 @@
   <!-- ── HERO ── -->
   <section id="hero">
     <div class="hero-grid">
-      <div class="hero-left">
-        <div class="hero-photo reveal reveal-delay-1">
-          <div class="hero-photo-crop">
-            <img src="/photo.webp" width="1200" height="900"
-              alt="Khine Zar Thwe" loading="eager" decoding="async"
-              onerror="document.querySelectorAll('.hero-photo,.hero-photo-full').forEach(function(el){el.remove()})">
-          </div>
-          <div class="hero-photo-hint" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-            Hover to enlarge
-          </div>
-        </div>
-        <h1 class="hero-name reveal reveal-delay-2">
+      <div class="hero-left hero-card reveal reveal-delay-1">
+        <div class="hero-eyebrow"><span class="status-dot" aria-hidden="true"></span>Available for hire · Singapore</div>
+        <p class="hero-hello">hi, I&rsquo;m</p>
+        <h1 class="hero-name">
           Khine Zar <span class="accent">Thwe.</span>
         </h1>
-        <p class="hero-bio reveal reveal-delay-3">
+        <div class="hero-title">
+          <span class="title-rotator active">Junior AI & Software Developer</span>
+          <span class="title-rotator">QA & Test Engineer</span>
+          <span class="title-rotator">Cloud Developer</span>
+        </div>
+        <p class="hero-bio">
           Software developer shipping <strong>enterprise Java, React Native apps</strong>, and computer vision pipelines
           in production. Aspiring <strong>AI developer</strong> with eyes on cloud, currently prepping
           <strong>AWS Solutions Architect Associate</strong>.
-
         </p>
 
-        <div class="hero-ctas reveal reveal-delay-4">
+        <div class="hero-ctas">
           <a href="#projects" class="btn-primary">View My Work →</a>
           <a href="/Khine_Zar_Thwe_Resume.pdf" download class="btn-secondary">Download Resume ↓</a>
           <a href="https://github.com/khine282" target="_blank" rel="noopener" class="btn-secondary">
@@ -4198,42 +4100,69 @@
             LinkedIn
           </a>
         </div>
-
       </div>
 
-      <div class="hero-aside reveal reveal-delay-1">
-        <div class="hero-eyebrow">Available for hire · Singapore</div>
-        <div class="hero-title">
-          <span class="title-rotator active">Junior AI & Software Developer</span>
-          <span class="title-rotator">QA & Test Engineer</span>
-          <span class="title-rotator">Cloud Developer</span>
-        </div>
+      <div class="hero-aside reveal reveal-delay-2">
+        <div class="hero-stage">
+          <span class="hero-ring" aria-hidden="true"></span>
+          <span class="hero-spark s1" aria-hidden="true">✦</span>
+          <span class="hero-spark s2" aria-hidden="true">✦</span>
+          <span class="hero-spark s3" aria-hidden="true">✧</span>
+          <div class="hero-photo">
+            <div class="hero-photo-crop">
+              <img src="/photo.webp" width="1200" height="900"
+                alt="Khine Zar Thwe" loading="eager" decoding="async"
+                onerror="document.querySelectorAll('.hero-photo,.hero-photo-full').forEach(function(el){el.remove()})">
+            </div>
+            <div class="hero-photo-hint" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+              Hover to enlarge
+            </div>
+          </div>
 
-        <div class="hero-right">
-          <div class="stat-card c1">
-            <div class="stat-num">1st</div>
-            <div class="stat-label">SP Hackathon 2025<br>Place</div>
-          </div>
-          <div class="stat-card c2">
-            <div class="stat-num">2</div>
-            <div class="stat-label">apps on Play Store<br>& TestFlight</div>
-          </div>
-          <div class="stat-card c3">
-            <div class="stat-num">4+</div>
-            <div class="stat-label">languages shipped</div>
-          </div>
-          <div class="stat-card c4">
-            <div class="stat-num">30+</div>
-            <div class="stat-label">critical bugs caught<br>in UAT</div>
+          <div class="hero-right">
+            <div class="stat-card c1">
+              <div class="stat-num">1st</div>
+              <div class="stat-label">SP Hackathon 2025<br>Place</div>
+            </div>
+            <div class="stat-card c2">
+              <div class="stat-num">2</div>
+              <div class="stat-label">apps on Play Store<br>& TestFlight</div>
+            </div>
+            <div class="stat-card c3">
+              <div class="stat-num">4+</div>
+              <div class="stat-label">languages shipped</div>
+            </div>
+            <div class="stat-card c4">
+              <div class="stat-num">30+</div>
+              <div class="stat-label">critical bugs caught<br>in UAT</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <a href="#about" class="scroll-cue" aria-label="Scroll to About">
+      <span class="scroll-cue-mouse" aria-hidden="true"></span>
+      scroll
+    </a>
 
     <div class="hero-photo-full" aria-hidden="true">
       <img src="/photo.webp" width="1200" height="900" alt="" loading="eager" decoding="async">
     </div>
   </section>
+
+  <!-- ── TECH RIBBON ── -->
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon-track">
+      <span>AWS Bedrock</span><span>Lambda</span><span>API Gateway</span><span>React Native</span>
+      <span>Java 17</span><span>FastAPI</span><span>TensorFlow</span><span>Docker</span>
+      <span>Playwright</span><span>Selenium</span><span>PostgreSQL</span><span>Agentic AI</span>
+    </div>
+  </div>
 
   <!-- ── ABOUT ──
        TODO for Khine:
@@ -4377,7 +4306,6 @@
 
       <!-- GlucoSG — featured -->
       <div class="project-card featured reveal" data-category="hackathon">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-win">1ST PLACE · SP ENERGIZED 2025</div>
 
@@ -4387,9 +4315,8 @@
             and persistent auth. Judges cited the problem framing and local data specificity as key differentiators.
           </div>
 
-          <div
-            style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#6b7d5a;">◆</span> <strong>Hackathon Project · Singapore Polytechnic · 2025</strong>
+          <div class="project-meta">
+            <span class="project-meta-dot" aria-hidden="true">◆</span> <strong>Hackathon Project · Singapore Polytechnic · 2025</strong>
           </div>
 
           <div class="project-stack">
@@ -4407,26 +4334,22 @@
             <a href="/glucosg.jpeg" target="_blank" rel="noopener" class="link-btn">Certificate</a>
           </div>
         </div>
-        <div class="project-visual"
-          style="padding:16px; overflow:hidden; min-height:420px; display:flex; align-items:center; justify-content:center; background:#111;">
-          <video src="/glucosg-demo.mp4" autoplay muted loop playsinline controls
-            style="height:380px; width:auto; border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <div class="project-visual media-tall">
+          <video src="/glucosg-demo.mp4" autoplay muted loop playsinline controls>
           </video>
         </div>
       </div>
 
       <!-- EmotionVision — featured -->
       <div class="project-card featured reveal" data-category="computer-vision">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-ai">AI / COMPUTER VISION</div>
           <div class="project-title">EmotionVision</div>
           <div class="project-desc">Real-time emotion detection and crowd density analysis. Custom TensorFlow CNN,
             FastAPI inference server, OpenCV video pipeline, Supabase logging. End-to-end ML deployment — deployed on
             Render.</div>
-          <div
-            style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 03/2026</strong>
+          <div class="project-meta">
+            <span class="project-meta-dot" aria-hidden="true">◆</span> <strong>Portfolio Project · 03/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">TensorFlow</span>
@@ -4441,17 +4364,14 @@
               ↗</a>
           </div>
         </div>
-        <div class="project-visual"
-          style="padding:16px; overflow:hidden; min-height:420px; display:flex; align-items:center; justify-content:center; background:#111;">
-          <video src="/demo.mp4" autoplay muted loop playsinline controls
-            style="height:300px; width:100%; border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <div class="project-visual media-wide">
+          <video src="/demo.mp4" autoplay muted loop playsinline controls>
           </video>
         </div>
       </div>
 
       <!-- Code-to-Cloud — featured -->
       <div class="project-card featured reveal" data-category="cloud-architecture">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-ai">AI / CLOUD ARCHITECTURE</div>
           <div class="project-title">Code-to-Cloud V1</div>
@@ -4460,9 +4380,8 @@
             alignment. Built end-to-end on AWS: React frontend, API Gateway, Lambda, and Bedrock (Claude Haiku 4.5)
             doing the analysis. <em>V1 takes 5 to 10 seconds per analysis while the AI reasons through your code.</em>
           </div>
-          <div
-            style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 05/2026</strong>
+          <div class="project-meta">
+            <span class="project-meta-dot" aria-hidden="true">◆</span> <strong>Portfolio Project · 05/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">AWS Bedrock</span>
@@ -4481,17 +4400,14 @@
               ↗</a>
           </div>
         </div>
-        <div class="project-visual"
-          style="padding:16px; overflow:hidden; min-height:420px; display:flex; align-items:center; justify-content:center; background:#111;">
-          <video src="/code-to-cloud-demo.mp4" autoplay muted loop playsinline controls
-            style="height:300px; width:100%; border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <div class="project-visual media-wide">
+          <video src="/code-to-cloud-demo.mp4" autoplay muted loop playsinline controls>
           </video>
         </div>
       </div>
 
       <!-- Banking QA Automation Framework — FEATURED (FULL WIDTH) -->
       <div class="project-card featured reveal" data-category="testing-qa">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-win">11/11 TESTS PASSING · 100% COVERAGE</div>
 
@@ -4503,9 +4419,8 @@
             testing on every commit via GitHub Actions. Live Allure dashboard tracks test metrics and trends in
             real-time.
           </div>
-          <div
-            style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 06/2026</strong>
+          <div class="project-meta">
+            <span class="project-meta-dot" aria-hidden="true">◆</span> <strong>Portfolio Project · 06/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">Java 17</span>
@@ -4522,25 +4437,17 @@
               class="link-btn">Live Dashboard</a>
           </div>
         </div>
-        <div class="project-visual"
-          style="padding:16px; overflow:hidden; min-height:400px; display:flex; flex-direction:column; gap:16px; background:#111;">
+        <div class="project-visual media-stack">
           <!-- Screenshot 1: Allure Report Overview — CLICKABLE -->
-          <img src="/banking-qa-allure-report.png" alt="Allure Test Report - 11 tests 100% passing"
-            style="width:100%; height:auto; border-radius:8px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.2s ease;"
-            onclick="openModal(this.src, this.alt)" onmouseover="this.style.transform='scale(1.02)'"
-            onmouseout="this.style.transform='scale(1)'">
+          <img src="/banking-qa-allure-report.png" alt="Allure Test Report - 11 tests 100% passing" class="zoomable" onclick="openModal(this.src, this.alt)">
 
           <!-- Screenshot 2: Test Execution Details — CLICKABLE -->
-          <img src="/banking-qa-test-suites.png" alt="Test execution details - Login, Transfer, Regression tests"
-            style="width:100%; height:auto; border-radius:8px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.2s ease;"
-            onclick="openModal(this.src, this.alt)" onmouseover="this.style.transform='scale(1.02)'"
-            onmouseout="this.style.transform='scale(1)'">
+          <img src="/banking-qa-test-suites.png" alt="Test execution details - Login, Transfer, Regression tests" class="zoomable" onclick="openModal(this.src, this.alt)">
         </div>
       </div>
 
       <!-- Hearth Coffee Co. — featured -->
       <div class="project-card featured reveal" data-category="ecommerce-cms">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div>
           <div class="project-badge badge-web">SHOPIFY / E-COMMERCE PLATFORM</div>
           <div class="project-title">Hearth Coffee Co.</div>
@@ -4552,9 +4459,8 @@
               customization, a custom section built from scratch, and a self-built service integrated at
               runtime.</em>
           </div>
-          <div
-            style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-            <span style="color:#6b7d5a;">◆</span> <strong>Portfolio Project · 08/2026</strong>
+          <div class="project-meta">
+            <span class="project-meta-dot" aria-hidden="true">◆</span> <strong>Portfolio Project · 08/2026</strong>
           </div>
           <div class="project-stack">
             <span class="stack-tag">Shopify / Liquid</span>
@@ -4572,38 +4478,27 @@
             <a href="https://github.com/khine282/shopify-hearth-coffee" target="_blank" rel="noopener"
               class="link-btn">GitHub ↗</a>
           </div>
-          <div
-            style="font-family:var(--font-mono); font-size:14px; margin-top:10px; display:inline-flex; align-items:center; gap:8px; padding:8px 12px; background:rgba(107,125,90,0.12); border:1px solid var(--lime); border-radius:8px; color:var(--text);">
-            <span aria-hidden="true">🔒</span>
+          <div class="store-pass">
             Store password:
-            <code
-              style="font-weight:700; color:var(--lime); background:rgba(107,125,90,0.15); padding:2px 6px; border-radius:4px;">shopifyCoffee</code>
+            <code>shopifyCoffee</code>
           </div>
         </div>
-        <div class="project-visual"
-          style="padding:16px; overflow:hidden; min-height:420px; display:flex; align-items:center; justify-content:center; background:#111;">
-          <video src="/demoCoffee.mp4" autoplay muted loop playsinline controls
-            style="height:380px; width:auto; border-radius:12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        <div class="project-visual media-tall">
+          <video src="/demoCoffee.mp4" autoplay muted loop playsinline controls>
           </video>
         </div>
       </div>
 
       <!-- SGEMS2 -->
       <div class="project-card reveal reveal-delay-1" data-category="internship">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div class="project-badge badge-enterprise">ENTERPRISE · PRODUCTION</div>
         <div class="project-title">SGEMS2</div>
-        <div
-          style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:var(--accent);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
+        <div class="project-meta">
+          <span class="project-meta-dot" aria-hidden="true">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
         </div>
         <div class="project-desc">Security and estate management platform deployed across Singapore. Hibernate 5→6
           migration, Jakarta EE compliance, GPS/EXIF tracking, Face++ facial verification, QR systems, and full hardware
           integration for specialist field devices.</div>
-        <div
-          style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:#2563eb;">◆</span> Internship Project · 2025
-        </div>
         <div class="project-stack">
           <span class="stack-tag">Java 17</span>
           <span class="stack-tag">Jakarta EE</span>
@@ -4612,28 +4507,22 @@
           <span class="stack-tag">JSP</span>
         </div>
         <div class="project-links">
-          <span class="link-btn private">🔒 Private Codebase</span>
+          <span class="link-btn private">Private Codebase</span>
         </div>
       </div>
 
       <!-- Mobile Apps -->
       <div class="project-card reveal reveal-delay-2" data-category="internship">
-        <div class="project-color-bar" style="background: var(--accent);"></div>
         <div class="project-badge badge-mobile">REACT NATIVE · DEPLOYED</div>
         <div class="project-title">SGEMS2 Mobile Apps</div>
-        <div
-          style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:var(--accent);">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
+        <div class="project-meta">
+          <span class="project-meta-dot" aria-hidden="true">◆</span> Internship Project · Reachfield IT Solutions · 2025–2026
         </div>
         <div class="project-desc">Two production-grade React Native applications (Work Order Management and Form
           Management) deployed to Google Play and TestFlight. Developed and tested multi-flavor Android builds using
           Android Studio; configured iOS builds and managed TestFlight deployment via Xcode. Integrated Bluetooth
           thermal printing, QR/hardware scanner, Face++ biometric verification, and PDF generation for K10 and F2
           ruggedized devices.</div>
-        <div
-          style="font-family:var(--font-mono); font-size:13px; color:var(--muted); margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-          <span style="color:#2563eb;">◆</span> Internship Project · 2025
-        </div>
         <div class="project-stack">
           <span class="stack-tag">React Native</span>
           <span class="stack-tag">Android Studio</span>
@@ -4644,7 +4533,7 @@
           <span class="stack-tag">Bluetooth</span>
         </div>
         <div class="project-links">
-          <span class="link-btn private">🔒 Private Codebase</span>
+          <span class="link-btn private">Private Codebase</span>
         </div>
       </div>
 
@@ -5113,8 +5002,8 @@
       </div>
 
       <div class="reveal reveal-delay-2">
-        <div class="avail-card" style="margin-bottom:16px;">
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <div class="avail-card">
+          <div class="avail-head">
             <span class="status-dot"></span>
             <div class="avail-title">Available Now</div>
           </div>
@@ -5129,26 +5018,15 @@
         </div>
 
         <!-- CONTACT FORM -->
-        <div style="background: var(--surface); border: 1px solid var(--border); border-radius:16px; padding:28px;">
-          <div
-            style="font-family:var(--font-mono); font-size:13px; letter-spacing:2px; color:var(--lime); text-transform:uppercase; margin-bottom:16px;">
-            Send me a message</div>
+        <div class="form-card">
+          <div class="form-card-label">Send me a message</div>
 
-          <form id="contactForm" style="display:flex; flex-direction:column; gap:12px;">
-            <input type="text" id="from_name" name="from_name" placeholder="Your name" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:15px; outline:none; transition:border-color 0.2s ease;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <input type="email" id="from_email" name="from_email" placeholder="Your email" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:15px; outline:none; transition:border-color 0.2s ease;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'">
-            <textarea id="message" name="message" placeholder="Your message" rows="4" required
-              style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 16px; color:var(--text); font-family:var(--font-body); font-size:15px; outline:none; transition:border-color 0.2s ease; resize:vertical;"
-              onfocus="this.style.borderColor='var(--lime)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-            <button type="submit" id="submitBtn"
-              style="background:var(--lime); color:#000; font-family:var(--font-mono); font-size:14px; font-weight:500; padding:12px 24px; border-radius:8px; border:none; cursor:pointer; transition:all 0.2s ease; letter-spacing:0.3px;">Send
-              Message →</button>
-            <div id="statusMessage"
-              style="font-family:var(--font-mono); font-size:13px; display:none; padding:10px 14px; border-radius:6px;">
+          <form id="contactForm" class="contact-form">
+            <input type="text" id="from_name" name="from_name" placeholder="Your name" required class="field">
+            <input type="email" id="from_email" name="from_email" placeholder="Your email" required class="field">
+            <textarea id="message" name="message" placeholder="Your message" rows="4" required class="field"></textarea>
+            <button type="submit" id="submitBtn" class="btn-primary">Send Message →</button>
+            <div id="statusMessage" class="form-status" style="display:none;">
             </div>
           </form>
         </div>
@@ -5207,13 +5085,9 @@
   <footer>
     <a href="#hero" class="footer-logo">KZT<span>.</span></a>
     <div class="footer-copy">Khine Zar Thwe · Built to understand the abstractions · 2026</div>
-    <div style="display:flex; gap:12px;">
-      <a href="https://github.com/khine282" target="_blank" rel="noopener"
-        style="font-family:var(--font-mono); font-size:13px; color:var(--muted); text-decoration:none; transition:color 0.2s ease;"
-        onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--muted)'">GitHub ↗</a>
-      <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"
-        style="font-family:var(--font-mono); font-size:13px; color:var(--muted); text-decoration:none; transition:color 0.2s ease;"
-        onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--muted)'">LinkedIn ↗</a>
+    <div class="footer-links">
+      <a href="https://github.com/khine282" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener">LinkedIn ↗</a>
     </div>
   </footer>
 
@@ -5227,7 +5101,7 @@
 
   <div class="chatbot-teaser" id="chatbotTeaser" hidden>
     <button class="chatbot-teaser-close" id="chatbotTeaserClose" aria-label="Dismiss">✕</button>
-    👋 Ask me anything about Khine — projects, skills, experience
+    Ask me anything about Khine — projects, skills, experience
   </div>
 
   <div class="chatbot-panel" id="chatbotPanel">
@@ -5261,8 +5135,10 @@
   <script type="module">
     import { initializeContact } from './contact.js'
     import { initSmoothScroll } from './smooth-scroll.js'
+    import { initOwlWorld } from './owl-world.js'
     initializeContact()
     initSmoothScroll()
+    initOwlWorld()
   </script>
 
 

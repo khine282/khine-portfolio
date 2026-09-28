@@ -25,7 +25,7 @@ function openModal(imageSrc, imageAlt) {
       <div style="position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center;">
         <span style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 10000; user-select: none;" onclick="closeImageModal();">&times;</span>
         <img id="modalImage" src="" alt="" style="max-width: 100%; max-height: 100%; border-radius: 8px; object-fit: contain;">
-        <p id="modalCaption" style="color: white; text-align: center; margin-top: 16px; font-family: var(--font-mono); font-size: 12px;"></p>
+        <p id="modalCaption" style="color: white; text-align: center; margin-top: 16px; font-family: var(--font-mono); font-size: var(--fs-tiny);"></p>
       </div>
     `;
     
