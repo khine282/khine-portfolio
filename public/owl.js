@@ -99,7 +99,7 @@
     "somehow thrived here as an intl student",
     "now? turns out cloud dev is the part i'm actually passionate about",
     "also i'm a leo, if that explains anything",
-    "psst — hover khine's photo up top, it goes full-size",
+    "psst — click khine's photo up top, it opens full-size",
     "the projects section is the good stuff, keep scrolling",
     "wanna know more? the chat bubble's got you",
     "the certifications list scrolls — more hiding down there",
