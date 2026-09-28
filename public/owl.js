@@ -1,7 +1,7 @@
 // Owl mascot. On desktop it roams the lower viewport and can be dragged;
 // on phones / reduced-motion it docks in a corner. Hovering shows a
 // "click me · drag me" label; click/tap cycles through Khine's story + a
-// few tips. The ✕ sends it away for this visit — a 🦉 button then shows in
+// few tips. The ✕ sends it away for this visit — an owl button then shows in
 // the nav bar to bring it back (reload / owlReset() also work).
 (function () {
   var pet = document.getElementById('owlPet');
@@ -43,6 +43,9 @@
 
   function place() {
     pet.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+    // keep the speech bubble on screen when the owl is near an edge
+    pet.classList.toggle('near-left', x < 130);
+    pet.classList.toggle('near-right', x > vw() - 170);
   }
 
   // roam the lower ~45% of the viewport so it stays clear of reading area
@@ -90,20 +93,20 @@
   // clicking the owl cycles through these — Khine's story first (bite-sized),
   // then a few practical pointers, then it loops
   var tips = [
-    "fun fact: i was pre-med back in myanmar 🩺",
-    "2nd year i knew i wanted out — picked tech, like every student does 💻",
-    "so i packed up and moved to singapore for it 🇸🇬",
-    "somehow thrived here as an intl student ✨",
-    "now? turns out cloud dev is the part i'm actually passionate about ☁️",
-    "also i'm a leo, if that explains anything ♌",
-    "psst — hover khine's photo up top, it goes full-size 👆",
+    "fun fact: i was pre-med back in myanmar",
+    "2nd year i knew i wanted out — picked tech, like every student does",
+    "so i packed up and moved to singapore for it",
+    "somehow thrived here as an intl student",
+    "now? turns out cloud dev is the part i'm actually passionate about",
+    "also i'm a leo, if that explains anything",
+    "psst — click khine's photo up top, it opens full-size",
     "the projects section is the good stuff, keep scrolling",
     "wanna know more? the chat bubble's got you",
     "the certifications list scrolls — more hiding down there",
-    "try the theme toggle up in the nav 🌙"
+    "try the theme toggle up in the nav"
   ];
   var tipIdx = 0;
-  var LABEL = docked ? "tap me 🦉" : "click me · drag me 🦉";
+  var LABEL = docked ? "tap me" : "click me · drag me";
 
   function hideBubble() {
     if (bubble) bubble.hidden = true;
@@ -118,6 +121,14 @@
   }
 
   function showLabel(ms) { showBubble(LABEL, ms || 0); }
+
+  // lets the page make the owl comment on things (owl-world.js calls this
+  // as each section scrolls into view). Stays quiet while being handled.
+  window.owlSay = function (text, ms) {
+    if (pet.hidden || dragging || paused) return false;
+    showBubble(text, ms || 3800);
+    return true;
+  };
 
   function nextTip() {
     showBubble(tips[tipIdx % tips.length], 4500);
@@ -223,8 +234,9 @@
     pet.hidden = false;
     pet.classList.toggle('is-docked', docked);
     place();
-    // show the label once on arrival so it's noticed, then let it fade
-    setTimeout(function () { showLabel(docked ? 5000 : 3500); }, 500);
+    // greet on arrival, then show the label so it's clear it can be poked
+    setTimeout(function () { showBubble("hi! scroll down, i'll show you around ↓", 3800); }, 500);
+    setTimeout(function () { if (!paused) showLabel(docked ? 4000 : 3000); }, 4600);
     scheduleRoam();
   }
 
