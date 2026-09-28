@@ -429,7 +429,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* ── HERO ───────────────────────────────────────────────────────────── */
-.hero { position: relative; isolation: isolate; padding-top: clamp(20px, 3vw, 40px); }
+.hero { position: relative; isolation: isolate; padding-top: clamp(40px, 6vw, 88px); }
 
 /* soft orange / lilac / lime glow drifting behind the home tiles */
 .hero::before {
