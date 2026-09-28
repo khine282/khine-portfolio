@@ -535,6 +535,18 @@ button { font: inherit; color: inherit; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .t-saa h3 { font-size: 22px; margin: 4px 0 2px; }
 .t-saa small { font-size: var(--fs-small); opacity: 0.8; }
+.target-pill {
+  display: block;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #16151c;
+  color: var(--lime);
+  font: 500 var(--fs-label) var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 .t-ask { cursor: pointer; }
 .t-ask h3 { font-size: 28px; margin-top: 12px; }
@@ -970,6 +982,18 @@ button { font: inherit; color: inherit; }
   transition: opacity 0.25s, transform 0.25s;
 }
 .orbit-detail.on { opacity: 1; transform: none; pointer-events: auto; }
+.orbit-detail-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px dashed rgba(243, 240, 234, 0.45);
+  font: 500 12px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .orbit-detail h4 { font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
 .orbit-detail p { font-size: clamp(13px, 1.15vw, 15px); line-height: 1.55; color: #dcd8e3; }
 .orbit-detail .orbit-chips { margin-top: 12px; }
