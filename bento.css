@@ -1243,6 +1243,78 @@ footer .links a:hover span { color: var(--bg); }
   .chatbot-teaser { display: none !important; }
 }
 
+/* ── PHONE POLISH (≤620px) ───────────────────────────────────────────
+   Keep it a bento, not one endless column: small tiles pair up, long
+   content is condensed, tab rows swipe sideways. */
+.more-btn { display: none; }
+
+@media (max-width: 620px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento > .tile { grid-column: span 2; grid-row: auto; }
+  .bento > .tile.mini { grid-column: span 1; padding: 18px; }
+  .mini .big { font-size: 48px; }
+  .mini p { font-size: var(--fs-small); line-height: 1.35; }
+  .mini.link-tile h3 { font-size: 20px; }
+  .mini .val { display: none; }
+
+  /* one swipeable row of filters / tabs */
+  .sec-head > .filters { width: 100%; }
+  .filters,
+  .cert-tabs-buttons {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -12px;
+    padding: 2px 12px 6px;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 28px), transparent);
+    mask: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 28px), transparent);
+  }
+  .filters::-webkit-scrollbar,
+  .cert-tabs-buttons::-webkit-scrollbar { display: none; }
+  .filter-btn,
+  .cert-tab-btn { flex: none; min-height: 40px; }
+
+  /* projects: demo first, description trimmed with "Read more" */
+  .proj.feat .media { order: -1; min-height: 0; max-height: 300px; }
+  .media.stack img + img { display: none; }
+  .proj .desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .proj .desc.open { display: block; }
+  .more-btn {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: -6px;
+    padding: 8px 0;
+    border: 0;
+    background: none;
+    font-weight: 700;
+    font-size: var(--fs-small);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .meta { font-size: 14px; }
+
+  /* stack: compact name chips instead of a sentence per item */
+  .stack-tile .tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack-tile .tech li {
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+  .stack-tile .tech li b { font-size: var(--fs-small); font-weight: 700; }
+  .stack-tile .tech li span { display: none; }
+
+  /* comfortable tap targets */
+  .proof { min-height: 44px; }
+  .links a, .btn { min-height: 44px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .tile { opacity: 1; transform: none; }
