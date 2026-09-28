@@ -1,9 +1,8 @@
 // Bento — page behaviour.
 //   · theme toggle, mobile menu, active nav pill
 //   · tiles pop in as they scroll into view; a spotlight follows the cursor
-//   · live bits: rotating role, Singapore clock, count-up stats, the chat
+//   · live bits: rotating role, count-up stats, the chat
 //     tile typing sample questions, credential tabs
-//   · demo videos only play while on screen
 //   · the owl's eyes follow the cursor and it comments on each section
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -16,7 +15,6 @@ export function initBento() {
   revealTiles()
   if (finePointer) spotlight()
   rotateRoles()
-  clock()
   countUp()
   askTile()
   certTabs()
@@ -131,22 +129,6 @@ function rotateRoles() {
     roles[k].classList.add('on')
     setTimeout(() => cur.classList.remove('out'), 650)
   }, 2600)
-}
-
-function clock() {
-  const el = document.getElementById('clock')
-  if (!el) return
-  const tick = () => {
-    el.textContent = new Date().toLocaleTimeString('en-SG', {
-      timeZone: 'Asia/Singapore',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    })
-  }
-  tick()
-  setInterval(tick, 1000)
 }
 
 // numbers count up the first time they're seen (they start at the real value
