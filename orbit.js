@@ -201,6 +201,11 @@ export function initOrbit() {
 
   // ── filters dim the names that don't match ──
   const btns = document.querySelectorAll('.projects-filter-bar .filter-btn')
+  btns.forEach((btn) => {
+    const cat = btn.dataset.filter
+    const n = cat === 'all' ? projects.length : projects.filter((p) => p.category === cat).length
+    btn.insertAdjacentHTML('beforeend', `<span class="filter-count">${n}</span>`)
+  })
   btns.forEach((btn) =>
     btn.addEventListener('click', () => {
       const cat = btn.dataset.filter

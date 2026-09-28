@@ -829,35 +829,43 @@ button { font: inherit; color: inherit; }
 
 .badge.ghost { background: color-mix(in srgb, currentColor 12%, transparent); color: inherit; }
 
-/* filters sit in a slim column beside the ring, which gets the rest */
-.projects-layout { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; align-items: center; }
+/* filters sit in a column beside the ring, which gets the rest */
+.projects-layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 24px; align-items: center; }
+
+.filter-count { margin-left: 6px; font: 500 12px var(--mono); opacity: 0.6; vertical-align: super; }
 
 @media (min-width: 901px) {
-  .projects-layout .filters { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .projects-layout .filters { flex-direction: column; align-items: flex-start; gap: 4px; }
   .projects-layout .filter-btn {
     position: relative;
-    padding: 8px 0 8px 18px;
+    padding: 6px 0 6px 0;
     border: 0;
     border-radius: 0;
     background: none;
     color: var(--muted);
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-align: left;
-    transition: color 0.2s;
+    white-space: nowrap;
+    transition: color 0.25s, padding-left 0.3s var(--ease);
   }
   .projects-layout .filter-btn::before {
     content: "";
     position: absolute;
     left: 0;
     top: 50%;
-    width: 8px;
-    height: 2px;
-    background: var(--line-strong);
-    transition: width 0.2s, background 0.2s;
+    width: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--text);
+    transition: width 0.3s var(--ease), background 0.25s;
   }
-  .projects-layout .filter-btn:hover { color: var(--text); }
+  .projects-layout .filter-btn:hover { color: var(--text); padding-left: 26px; }
+  .projects-layout .filter-btn:hover::before { width: 16px; }
   .projects-layout .filter-btn-active,
-  .projects-layout .filter-btn-active:hover { background: none; color: var(--text); font-weight: 800; }
-  .projects-layout .filter-btn-active::before { width: 12px; background: var(--orange); }
+  .projects-layout .filter-btn-active:hover { background: none; color: var(--orange); font-weight: 800; padding-left: 36px; }
+  .projects-layout .filter-btn-active::before { width: 26px; background: var(--orange); }
 }
 
 @media (max-width: 900px) {
