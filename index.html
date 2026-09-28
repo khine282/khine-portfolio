@@ -268,6 +268,9 @@
     <section class="sec" id="projects">
       <div class="sec-head">
         <div><span class="label"><b>03</b> · Projects</span><h2>Things I've actually <em>shipped</em>.</h2></div>
+      </div>
+
+      <div class="projects-layout">
         <div class="filters projects-filter-bar" role="group" aria-label="Filter projects">
           <button class="filter-btn filter-btn-active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="internship">Internship</button>
@@ -278,161 +281,90 @@
           <button class="filter-btn" data-filter="cloud-architecture">Cloud</button>
           <button class="filter-btn" data-filter="ecommerce-cms">E-commerce</button>
         </div>
-      </div>
+        <div class="orbit" id="projectOrbit">
+          <div class="orbit-list">
+            <article class="orbit-proj" data-category="cloud-architecture" data-video="/code-to-cloud-demo.mp4">
+              <span class="badge">AI · Cloud architecture</span>
+              <h3>Code-to-Cloud</h3>
+              <p class="orbit-one">Paste code, get the AWS architecture and monthly cost back.</p>
+              <p class="orbit-desc">Paste any code, get back the AWS architecture you should use. Recommends services, calculates monthly costs across three traffic tiers and explains its reasoning with Well-Architected alignment. Built end-to-end on AWS: React, API Gateway, Lambda and Bedrock (Claude Haiku 4.5). V1 takes 5–10 seconds per analysis while the AI reasons through your code.</p>
+              <div class="orbit-chips"><span>Bedrock</span><span>Lambda</span><span>API Gateway</span><span>React</span><span>Python</span><span>CloudWatch</span></div>
+              <div class="orbit-links"><a href="https://code-to-cloud.kaizarthwe.com/" target="_blank" rel="noopener">Live demo ↗</a><a href="https://github.com/khine282/code-to-cloud" target="_blank" rel="noopener">GitHub ↗</a></div>
+            </article>
 
-      <div class="bento projects-grid">
+            <article class="orbit-proj" data-category="hackathon" data-video="/glucosg-demo.mp4">
+              <span class="badge">1st place · SP Energized 2025</span>
+              <h3>GlucoSG</h3>
+              <p class="orbit-one">Nutrition tracker for Singapore’s diabetic population.</p>
+              <p class="orbit-desc">Full-stack nutrition tracking app for Singapore’s diabetic and pre-diabetic population. Glycemic index data tailored to Singapore’s food landscape, meal logging, statistics dashboard and persistent auth. Judges cited the problem framing and local data specificity as key differentiators.</p>
+              <div class="orbit-chips"><span>React / Vite</span><span>Node.js</span><span>Express</span><span>Supabase</span></div>
+              <div class="orbit-links"><a href="https://github.com/ProjektKevin/Energizer-Hackathon-2025" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.youtube.com/watch?v=2WdttsRlXWM&amp;feature=youtu.be" target="_blank" rel="noopener">YouTube ↗</a><a href="/glucosg.jpeg" target="_blank" rel="noopener">Certificate ↗</a></div>
+            </article>
 
-        <article class="tile c-green proj feat w2 project-card" data-category="hackathon">
-          <div class="copy">
-            <div class="top"><span class="badge">1st place · SP Energized 2025</span></div>
-            <h3>GlucoSG</h3>
-            <p class="meta">Hackathon · Singapore Polytechnic · 2025</p>
-            <p class="desc">Full-stack nutrition tracking app for Singapore's diabetic and pre-diabetic population. Glycemic
-              index data tailored to Singapore's food landscape, meal logging, statistics dashboard and persistent auth.
-              Judges cited the problem framing and local data specificity as key differentiators.</p>
-            <div class="chips"><span>React / Vite</span><span>Node.js</span><span>Express</span><span>Supabase</span></div>
-            <div class="links">
-              <a href="https://github.com/ProjektKevin/Energizer-Hackathon-2025" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-              <a href="https://www.youtube.com/watch?v=2WdttsRlXWM&amp;feature=youtu.be" target="_blank" rel="noopener"><span>YouTube ↗</span></a>
-              <a href="/glucosg.jpeg" target="_blank" rel="noopener"><span>Certificate</span></a>
-            </div>
-          </div>
-          <div class="media"><video data-lazy data-src="/glucosg-demo.mp4" muted loop playsinline controls preload="none" aria-label="GlucoSG demo"></video></div>
-        </article>
+            <article class="orbit-proj" data-category="llm" data-image="/helpdesk-triage.png">
+              <span class="badge">Prompt engineering · LLM</span>
+              <h3>Helpdesk Triage</h3>
+              <p class="orbit-one">Triages IT tickets in Burmese, English, Chinese and Malay.</p>
+              <p class="orbit-desc">Type an IT problem in Burmese, English, Chinese, Malay or a mix: the app detects the language, classifies the issue, notices frustration, sets a priority, writes a one-line English summary for IT and replies in the user’s own language, asking a follow-up when the message is too vague. Built to practise the ChatGPT Prompt Engineering for Developers course on Gemini: delimiters, structured JSON output, few-shot prompting, condition checks, temperature 0, plus a 20-message evaluation set.</p>
+              <div class="orbit-chips"><span>Python</span><span>Gemini API</span><span>Streamlit</span><span>Prompt engineering</span><span>JSON output</span></div>
+              <div class="orbit-links"><a href="https://supportdesk-triage-kai.streamlit.app" target="_blank" rel="noopener">Live demo ↗</a><a href="https://github.com/khine282/helpdesk-triage" target="_blank" rel="noopener">GitHub ↗</a></div>
+            </article>
 
-        <article class="tile c-ink proj feat w2 project-card" data-category="cloud-architecture">
-          <div class="copy">
-            <div class="top"><span class="badge">AI · Cloud architecture</span></div>
-            <h3>Code-to-Cloud V1</h3>
-            <p class="meta">Portfolio project · 05/2026</p>
-            <p class="desc">Paste any code, get back the AWS architecture you should use. Recommends services, calculates
-              monthly costs across three traffic tiers and explains its reasoning with Well-Architected alignment. Built
-              end-to-end on AWS: React, API Gateway, Lambda and Bedrock (Claude Haiku 4.5). V1 takes 5–10 seconds per
-              analysis while the AI reasons through your code.</p>
-            <div class="chips"><span>Bedrock</span><span>Lambda</span><span>API Gateway</span><span>React</span><span>Python</span><span>CloudWatch</span></div>
-            <div class="links">
-              <a href="https://code-to-cloud.kaizarthwe.com/" target="_blank" rel="noopener"><span>Live demo ↗</span></a>
-              <a href="https://github.com/khine282/code-to-cloud" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-            </div>
-          </div>
-          <div class="media"><video data-lazy data-src="/code-to-cloud-demo.mp4" muted loop playsinline controls preload="none" aria-label="Code-to-Cloud demo"></video></div>
-        </article>
+            <article class="orbit-proj" data-category="computer-vision" data-video="/demo.mp4">
+              <span class="badge">AI · Computer vision</span>
+              <h3>EmotionVision</h3>
+              <p class="orbit-one">Real-time emotion detection and crowd density.</p>
+              <p class="orbit-desc">Real-time emotion detection and crowd-density analysis. Custom TensorFlow CNN, FastAPI inference server, OpenCV video pipeline and Supabase logging. End-to-end ML deployment on Render.</p>
+              <div class="orbit-chips"><span>TensorFlow</span><span>OpenCV</span><span>FastAPI</span><span>Python</span><span>Docker</span></div>
+              <div class="orbit-links"><a href="https://github.com/khine282/emotionvision" target="_blank" rel="noopener">GitHub ↗</a></div>
+            </article>
 
-        <article class="tile c-orange proj feat w2 project-card" data-category="llm">
-          <div class="copy">
-            <div class="top"><span class="badge">Prompt engineering · LLM</span></div>
-            <h3>Multilingual IT Helpdesk Triage</h3>
-            <p class="meta">Learning project · DeepLearning.AI course</p>
-            <p class="desc">Type an IT problem in Burmese, English, Chinese, Malay or a mix: the app detects the language,
-              classifies the issue, notices frustration, sets a priority, writes a one-line English summary for IT and
-              replies in the user's own language, asking a follow-up when the message is too vague. Built to practise
-              the ChatGPT Prompt Engineering for Developers course on Gemini: delimiters, structured JSON output,
-              few-shot prompting, condition checks, temperature 0, plus a 20-message evaluation set.</p>
-            <div class="chips"><span>Python</span><span>Gemini API</span><span>Streamlit</span><span>Prompt engineering</span><span>JSON output</span></div>
-            <div class="links">
-              <a href="https://supportdesk-triage-kai.streamlit.app" target="_blank" rel="noopener"><span>Live demo ↗</span></a>
-              <a href="https://github.com/khine282/helpdesk-triage" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-            </div>
-          </div>
-          <div class="media stack">
-            <img src="/helpdesk-triage.png" alt="Helpdesk triage app classifying an English message as a high-priority software issue" loading="lazy" onclick="openModal(this.src, this.alt)">
-          </div>
-        </article>
+            <article class="orbit-proj" data-category="testing-qa" data-image="/banking-qa-allure-report.png">
+              <span class="badge">11/11 tests passing</span>
+              <h3>Banking QA</h3>
+              <p class="orbit-one">End-to-end test framework with CI and a live Allure dashboard.</p>
+              <p class="orbit-desc">Enterprise-grade end-to-end testing framework built on ParaBank: test design methodology, Page Object Model, dynamic test data, defect management and automated testing on every commit via GitHub Actions. A live Allure dashboard tracks test metrics and trends.</p>
+              <div class="orbit-chips"><span>Java 17</span><span>Selenium</span><span>TestNG</span><span>Maven</span><span>GitHub Actions</span><span>Allure</span></div>
+              <div class="orbit-links"><a href="https://github.com/khine282/banking-app-e2e-test-suite" target="_blank" rel="noopener">GitHub ↗</a><a href="https://khine282.github.io/banking-app-e2e-test-suite/" target="_blank" rel="noopener">Dashboard ↗</a></div>
+            </article>
 
-        <article class="tile c-pink proj feat w2 project-card" data-category="computer-vision">
-          <div class="copy">
-            <div class="top"><span class="badge ghost">AI · Computer vision</span></div>
-            <h3>EmotionVision</h3>
-            <p class="meta">Portfolio project · 03/2026</p>
-            <p class="desc">Real-time emotion detection and crowd-density analysis. Custom TensorFlow CNN, FastAPI
-              inference server, OpenCV video pipeline and Supabase logging. End-to-end ML deployment on Render.</p>
-            <div class="chips"><span>TensorFlow</span><span>OpenCV</span><span>FastAPI</span><span>Python</span><span>Docker</span></div>
-            <div class="links">
-              <a href="https://github.com/khine282/emotionvision" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-            </div>
-          </div>
-          <div class="media"><video data-lazy data-src="/demo.mp4" muted loop playsinline controls preload="none" aria-label="EmotionVision demo"></video></div>
-        </article>
+            <article class="orbit-proj" data-category="ecommerce-cms" data-video="/demoCoffee.mp4">
+              <span class="badge">Shopify · E-commerce</span>
+              <h3>Hearth Coffee</h3>
+              <p class="orbit-one">Custom Shopify theme with a “Find your roast” quiz API.</p>
+              <p class="orbit-desc">Custom Shopify theme built on Dawn, plus a self-built Node.js/Express API. A fully custom “Find your roast” quiz posts to the API for scoring, then hydrates results with live Shopify product data — no Shopify app, no Storefront API token. Store password: <code>shopifyCoffee</code></p>
+              <div class="orbit-chips"><span>Shopify / Liquid</span><span>Online Store 2.0</span><span>Node.js</span><span>Express</span><span>Render</span></div>
+              <div class="orbit-links"><a href="https://hearth-coffee-demo.myshopify.com" target="_blank" rel="noopener">Live demo ↗</a><a href="https://shopify-hearth-coffee.onrender.com" target="_blank" rel="noopener">API ↗</a><a href="https://github.com/khine282/shopify-hearth-coffee" target="_blank" rel="noopener">GitHub ↗</a></div>
+            </article>
 
-        <article class="tile c-lilac proj feat w2 project-card" data-category="testing-qa">
-          <div class="copy">
-            <div class="top"><span class="badge">11/11 tests passing</span></div>
-            <h3>Banking QA Automation</h3>
-            <p class="meta">Portfolio project · 06/2026</p>
-            <p class="desc">Enterprise-grade end-to-end testing framework built on ParaBank: test design methodology,
-              Page Object Model, dynamic test data, defect management and automated testing on every commit via GitHub
-              Actions. A live Allure dashboard tracks test metrics and trends.</p>
-            <div class="chips"><span>Java 17</span><span>Selenium</span><span>TestNG</span><span>Maven</span><span>GitHub Actions</span><span>Allure</span></div>
-            <div class="links">
-              <a href="https://github.com/khine282/banking-app-e2e-test-suite" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-              <a href="https://khine282.github.io/banking-app-e2e-test-suite/" target="_blank" rel="noopener"><span>Live dashboard ↗</span></a>
-            </div>
-          </div>
-          <div class="media stack">
-            <img src="/banking-qa-allure-report.png" alt="Allure test report — 11 tests, 100% passing" loading="lazy" onclick="openModal(this.src, this.alt)">
-            <img src="/banking-qa-test-suites.png" alt="Test execution details — login, transfer and regression suites" loading="lazy" onclick="openModal(this.src, this.alt)">
-          </div>
-        </article>
+            <article class="orbit-proj" data-category="ecommerce-cms">
+              <span class="badge">ASP.NET Core · Azure</span>
+              <h3>BookStock</h3>
+              <p class="orbit-one">Order and inventory API with rollback-safe SQL Server transactions.</p>
+              <p class="orbit-desc">E-commerce order and inventory management system. Layered (Clean Architecture) REST API in ASP.NET Core for product catalog, order processing, mocked payments and stock management, with JWT authentication. Atomic order transactions in SQL Server with rollback prevent overselling; stored procedures and views power monthly-sales, top-seller and low-stock reports. Deployed to Azure App Service with Azure SQL Database.</p>
+              <div class="orbit-chips"><span>C#</span><span>ASP.NET Core</span><span>EF Core</span><span>SQL Server</span><span>JWT</span><span>Azure</span></div>
+              <div class="orbit-links"></div>
+            </article>
 
-        <article class="tile c-yellow proj feat w2 project-card" data-category="ecommerce-cms">
-          <div class="copy">
-            <div class="top"><span class="badge ghost">Shopify · E-commerce</span></div>
-            <h3>Hearth Coffee Co.</h3>
-            <p class="meta">Portfolio project · 08/2026</p>
-            <p class="desc">Custom Shopify theme built on Dawn, plus a self-built Node.js/Express API. A fully custom
-              "Find your roast" quiz posts to the API for scoring, then hydrates results with live Shopify product
-              data — no Shopify app, no Storefront API token.</p>
-            <div class="chips"><span>Shopify / Liquid</span><span>Online Store 2.0</span><span>Node.js</span><span>Express</span><span>Render</span></div>
-            <span class="pass">Store password: <code>shopifyCoffee</code></span>
-            <div class="links">
-              <a href="https://hearth-coffee-demo.myshopify.com" target="_blank" rel="noopener"><span>Live demo ↗</span></a>
-              <a href="https://shopify-hearth-coffee.onrender.com" target="_blank" rel="noopener"><span>API ↗</span></a>
-              <a href="https://github.com/khine282/shopify-hearth-coffee" target="_blank" rel="noopener"><span>GitHub ↗</span></a>
-            </div>
-          </div>
-          <div class="media"><video data-lazy data-src="/demoCoffee.mp4" muted loop playsinline controls preload="none" aria-label="Hearth Coffee demo"></video></div>
-        </article>
+            <article class="orbit-proj" data-category="internship" data-private>
+              <span class="badge">Enterprise · Production</span>
+              <h3>SGEMS2</h3>
+              <p class="orbit-one">Security and estate platform deployed across Singapore.</p>
+              <p class="orbit-desc">Security and estate management platform deployed across Singapore, built during my internship at Reachfield IT Solutions (2025–2026). Hibernate 5→6 migration, Jakarta EE compliance, GPS/EXIF tracking, Face++ facial verification, QR systems and hardware integration for specialist field devices.</p>
+              <div class="orbit-chips"><span>Java 17</span><span>Jakarta EE</span><span>Hibernate 6</span><span>MySQL</span></div>
+              <div class="orbit-links"></div>
+            </article>
 
-        <article class="tile c-sky proj w2 project-card" data-category="ecommerce-cms">
-          <div class="top"><span class="badge ghost">ASP.NET Core · Azure</span></div>
-          <div>
-            <h3>BookStock</h3>
-            <p class="meta" style="margin:8px 0 12px">Coursework · Singapore Polytechnic</p>
-            <p class="desc">E-commerce order and inventory management system. Layered (Clean Architecture) REST API in
-              ASP.NET Core for product catalog, order processing, mocked payments and stock management, with JWT
-              authentication. Atomic order transactions in SQL Server with rollback prevent overselling; stored
-              procedures and views power monthly-sales, top-seller and low-stock reports. Deployed to Azure App
-              Service with Azure SQL Database.</p>
+            <article class="orbit-proj" data-category="internship" data-private>
+              <span class="badge">React Native · Deployed</span>
+              <h3>SGEMS2 Mobile</h3>
+              <p class="orbit-one">Work order apps on Google Play and TestFlight.</p>
+              <p class="orbit-desc">Work Order and Form Management apps on Google Play and TestFlight, built during my internship at Reachfield IT Solutions (2025–2026). Multi-flavour Android builds, iOS/TestFlight releases via Xcode, Bluetooth thermal printing, QR/hardware scanning, Face++ biometrics and PDF generation for K10 and F2 rugged devices.</p>
+              <div class="orbit-chips"><span>React Native</span><span>Android</span><span>iOS</span><span>Face++</span><span>Bluetooth</span></div>
+              <div class="orbit-links"></div>
+            </article>
           </div>
-          <div class="chips"><span>C#</span><span>ASP.NET Core</span><span>EF Core</span><span>SQL Server</span><span>JWT</span><span>Azure</span></div>
-        </article>
-
-        <article class="tile proj project-card" data-category="internship">
-          <div class="top"><span class="badge ghost">Enterprise · Production</span></div>
-          <div>
-            <h3>SGEMS2</h3>
-            <p class="meta" style="margin:8px 0 12px">Internship · Reachfield IT Solutions · 2025–2026</p>
-            <p class="desc soft">Security and estate management platform deployed across Singapore. Hibernate 5→6
-              migration, Jakarta EE compliance, GPS/EXIF tracking, Face++ facial verification, QR systems and hardware
-              integration for specialist field devices.</p>
-          </div>
-          <div class="chips"><span>Java 17</span><span>Jakarta EE</span><span>Hibernate 6</span><span>MySQL</span></div>
-          <div class="links"><span class="private" style="padding:8px 14px;border-radius:999px;border:1.5px dashed var(--line-strong);font-weight:700;font-size:var(--fs-small)">Private codebase</span></div>
-        </article>
-
-        <article class="tile proj project-card" data-category="internship">
-          <div class="top"><span class="badge ghost">React Native · Deployed</span></div>
-          <div>
-            <h3>SGEMS2 Mobile Apps</h3>
-            <p class="meta" style="margin:8px 0 12px">Internship · Reachfield IT Solutions · 2025–2026</p>
-            <p class="desc soft">Work Order and Form Management apps on Google Play and TestFlight. Multi-flavour Android
-              builds, iOS/TestFlight releases via Xcode, Bluetooth thermal printing, QR/hardware scanning, Face++
-              biometrics and PDF generation for K10 and F2 rugged devices.</p>
-          </div>
-          <div class="chips"><span>React Native</span><span>Android</span><span>iOS</span><span>Face++</span><span>Bluetooth</span></div>
-          <div class="links"><span class="private" style="padding:8px 14px;border-radius:999px;border:1.5px dashed var(--line-strong);font-weight:700;font-size:var(--fs-small)">Private codebase</span></div>
-        </article>
-
+        </div>
       </div>
     </section>
 
@@ -441,84 +373,34 @@
       <div class="sec-head">
         <div><span class="label"><b>04</b> · Tech stack</span><h2>What I've <em>shipped</em> with.</h2></div>
       </div>
-      <div class="bento">
-        <div class="tile c-ink stack-tile w2">
-          <h3>Backend <small>10</small></h3>
-          <ul class="tech">
-            <li><b>Jakarta EE</b><span>Enterprise Java on SGEMS2 — <strong>30+ critical bugs caught in UAT</strong>, contributed to the REST API layer</span></li>
-            <li><b>Spring Boot</b><span>EmotionVision backend services · REST API design</span></li>
-            <li><b>FastAPI</b><span>Python ML microservice layer · async endpoints for inference</span></li>
-            <li><b>Node.js / Express</b><span>Server-side logic for portfolio APIs and side projects</span></li>
-            <li><b>Hibernate / JPA</b><span>ORM for SGEMS2 · Hibernate 5→6 migration</span></li>
-            <li><b>Lambda</b><span>Python serverless functions for the Bedrock chatbot streaming endpoint</span></li>
-            <li><b>Django</b><span>Server-side apps with Celery and WebSocket real-time updates</span></li>
-            <li><b>Celery</b><span>Async task queue · background job processing</span></li>
-            <li><b>WebSocket</b><span>Real-time bidirectional updates via Django + Celery</span></li>
-            <li><b>ASP.NET Core</b><span>Clean Architecture REST API with JWT auth · deployed on Azure (BookStock)</span></li>
-          </ul>
+      <div class="skills">
+        <div class="skill-group" style="--dot: var(--orange)">
+          <h3>LLM &amp; GenAI</h3>
+          <ul><li>Prompt engineering</li><li>Amazon Bedrock</li><li>Claude API</li><li>Gemini API</li><li>RAG</li><li>LangChain</li><li>Streamlit</li><li>Whisper</li></ul>
         </div>
-        <div class="tile stack-tile">
-          <h3>Languages <small>06</small></h3>
-          <ul class="tech">
-            <li><b>Java</b><span><strong>1 year</strong> production · Jakarta EE · JDK 17 migration</span></li>
-            <li><b>Python</b><span>TensorFlow + OpenCV · FastAPI</span></li>
-            <li><b>JavaScript</b><span>React, React Native, Node</span></li>
-            <li><b>C#</b><span>ASP.NET Core REST API (BookStock) · Microsoft Foundational certified</span></li>
-            <li><b>SQL</b><span>PostgreSQL, MySQL · schema design</span></li>
-            <li><b>HTML / CSS</b><span>Semantic, responsive layouts</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--sky)">
+          <h3>Cloud &amp; DevOps</h3>
+          <ul><li>AWS</li><li>Lambda</li><li>Docker</li><li>Git</li><li>CI/CD</li><li>Render / Netlify</li><li>Linux</li></ul>
         </div>
-        <div class="tile c-lilac stack-tile">
-          <h3>Frontend <small>05</small></h3>
-          <ul class="tech">
-            <li><b>React</b><span>HDB data dashboard · Bedrock chatbot UI</span></li>
-            <li><b>React Native</b><span><strong>Shipped to Google Play &amp; TestFlight</strong></span></li>
-            <li><b>Vite</b><span>Build tooling · dev server config</span></li>
-            <li><b>Tailwind</b><span>Utility-first styling</span></li>
-            <li><b>REST APIs</b><span>Designed and consumed across projects</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--text)">
+          <h3>Backend</h3>
+          <ul><li>Jakarta EE</li><li>Spring Boot</li><li>FastAPI</li><li>Node.js / Express</li><li>Hibernate / JPA</li><li>Django</li><li>Celery</li><li>WebSocket</li><li>ASP.NET Core</li></ul>
         </div>
-        <div class="tile c-lime stack-tile">
-          <h3>AI / Vision <small>05</small></h3>
-          <ul class="tech">
-            <li><b>TensorFlow</b><span><strong>EmotionVision</strong> custom-trained model</span></li>
-            <li><b>OpenCV</b><span>Face detection, frame processing</span></li>
-            <li><b>MediaPipe</b><span>Face mesh and landmarks</span></li>
-            <li><b>YOLO</b><span>Crowd counting in production</span></li>
-            <li><b>AWS Bedrock</b><span>Claude with streaming responses</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--muted)">
+          <h3>Languages</h3>
+          <ul><li>Java</li><li>Python</li><li>JavaScript</li><li>C#</li><li>SQL</li><li>HTML / CSS</li></ul>
         </div>
-        <div class="tile c-sky stack-tile">
-          <h3>Cloud &amp; DevOps <small>06</small></h3>
-          <ul class="tech">
-            <li><b>AWS</b><span>EC2, Lambda, S3, Bedrock · SAA-C03 next</span></li>
-            <li><b>Docker</b><span>Containerised microservices</span></li>
-            <li><b>Git</b><span>Feature branches, PR reviews</span></li>
-            <li><b>CI/CD</b><span>Automated mobile app releases</span></li>
-            <li><b>Render / Netlify</b><span>Deploys, domains, env config</span></li>
-            <li><b>Linux</b><span>Ubuntu server admin</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--lilac)">
+          <h3>Frontend</h3>
+          <ul><li>React</li><li>React Native</li><li>Vite</li><li>Tailwind</li><li>REST APIs</li></ul>
         </div>
-        <div class="tile c-orange stack-tile w2">
-          <h3>LLM &amp; GenAI <small>07</small></h3>
-          <ul class="tech">
-            <li><b>Prompt engineering</b><span>Delimiters, structured JSON output, few-shot, condition checks — <strong>DeepLearning.AI course</strong>, applied in the helpdesk triage app</span></li>
-            <li><b>Amazon Bedrock</b><span>Claude with streaming — the assistant on this site, Code-to-Cloud</span></li>
-            <li><b>Claude API</b><span>LLM apps and analysis pipelines</span></li>
-            <li><b>Gemini API</b><span>Multilingual triage app · Burmese, English, Chinese, Malay</span></li>
-            <li><b>RAG</b><span>Retrieval-augmented generation for grounded answers</span></li>
-            <li><b>LangChain</b><span>Chaining prompts, tools and retrieval</span></li>
-            <li><b>Streamlit / Whisper</b><span>Quick LLM demos · speech-to-text</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--lime)">
+          <h3>AI / Vision</h3>
+          <ul><li>TensorFlow</li><li>OpenCV</li><li>MediaPipe</li><li>YOLO</li></ul>
         </div>
-        <div class="tile stack-tile w4">
-          <h3>Data <small>04</small></h3>
-          <ul class="tech">
-            <li><b>PostgreSQL</b><span>Bedrock chatbot and portfolio projects · Neon serverless</span></li>
-            <li><b>MySQL</b><span>SGEMS2 and earlier coursework projects</span></li>
-            <li><b>Supabase</b><span>Auth + database · realtime subscriptions</span></li>
-            <li><b>SQL Server</b><span>Transactions with rollback, stored procedures and reporting views (BookStock)</span></li>
-          </ul>
+        <div class="skill-group" style="--dot: var(--yellow)">
+          <h3>Data</h3>
+          <ul><li>PostgreSQL</li><li>MySQL</li><li>Supabase</li><li>SQL Server</li></ul>
         </div>
       </div>
     </section>
@@ -927,9 +809,11 @@
     import { initializeContact } from './contact.js'
     import { initSmoothScroll } from './smooth-scroll.js'
     import { initBento } from './bento.js'
+    import { initOrbit } from './orbit.js'
     initializeContact()
     initSmoothScroll()
     initBento()
+    initOrbit()
   </script>
 
   <script>
@@ -941,21 +825,6 @@
       });
     });
 
-    // Project filters
-    (function () {
-      var btns = document.querySelectorAll('.filter-btn');
-      var cards = document.querySelectorAll('.projects-grid .project-card');
-      btns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var cat = btn.getAttribute('data-filter');
-          btns.forEach(function (b) { b.classList.remove('filter-btn-active'); });
-          btn.classList.add('filter-btn-active');
-          cards.forEach(function (card) {
-            card.classList.toggle('hidden', cat !== 'all' && card.getAttribute('data-category') !== cat);
-          });
-        });
-      });
-    })();
   </script>
 
   <script>

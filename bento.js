@@ -21,8 +21,6 @@ export function initBento() {
   askTile()
   certTabs()
   zoomTiles()
-  lazyVideos()
-  readMore()
   owlEyes()
   owlGuide()
 }
@@ -250,44 +248,6 @@ function zoomTiles() {
         go()
       }
     })
-  })
-}
-
-// demo videos only play while they're on screen
-function lazyVideos() {
-  const vids = document.querySelectorAll('video[data-lazy]')
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        const v = e.target
-        if (e.isIntersecting) {
-          if (!v.src) v.src = v.dataset.src
-          if (!reduce) v.play().catch(() => {})
-        } else {
-          v.pause()
-        }
-      })
-    },
-    { rootMargin: '200px 0px' }
-  )
-  vids.forEach((v) => io.observe(v))
-}
-
-// phones trim project descriptions to a few lines; this adds the toggle
-// (the button is hidden by CSS on larger screens)
-function readMore() {
-  document.querySelectorAll('.proj .desc').forEach((desc) => {
-    const btn = document.createElement('button')
-    btn.type = 'button'
-    btn.className = 'more-btn'
-    btn.textContent = 'Read more'
-    btn.setAttribute('aria-expanded', 'false')
-    btn.addEventListener('click', () => {
-      const open = desc.classList.toggle('open')
-      btn.textContent = open ? 'Show less' : 'Read more'
-      btn.setAttribute('aria-expanded', String(open))
-    })
-    desc.after(btn)
   })
 }
 
