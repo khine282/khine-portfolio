@@ -1,14 +1,15 @@
 // ═══════════════════════════════════════════════════════════════════
-// EXPERIENCE TIME TRACK
-// Work and study are bars on a shared timeline, certifications are
-// diamonds on the axis. Hovering one shows its highlights in the panel
-// underneath; it draws itself in when scrolled into view.
+// EXPERIENCE NODE GRAPH
+// Every role, course and certification is a node drifting gently in
+// place, linked to the next one in time by a curved edge — a little
+// signal travels the chain from the first node to the latest.
+// Hovering a node shows its highlights in the panel underneath.
 // The <ol class="track-list"> in index.html is the source — without JS
 // it shows as a plain list.
 // ═══════════════════════════════════════════════════════════════════
 
-const LANES = { work: 30, study: 92, axis: 160 } // y of each lane, px
-const LANE_NAMES = { work: 'Work', study: 'Study', axis: 'Milestones' }
+// vertical rhythm of the chain, as a fraction of the canvas height
+const WAVE = [0.66, 0.3, 0.7, 0.34, 0.68, 0.32, 0.64]
 
 const month = (s) => {
   const [y, m] = s.split('-').map(Number)
@@ -19,66 +20,127 @@ export function initTrack() {
   const root = document.getElementById('expTrack')
   if (!root) return
 
-  const now = new Date()
-  const items = [...root.querySelectorAll('.track-list > li')].map((li) => ({
-    kind: li.dataset.kind,
-    start: month(li.dataset.start),
-    end: li.dataset.end ? month(li.dataset.end) : null,
-    short: li.dataset.short,
-    when: li.querySelector('.track-when').textContent,
-    title: li.querySelector('h3').innerHTML,
-    org: li.querySelector('.track-org').innerHTML,
-    stats: li.querySelector('.track-stats').innerHTML,
-  }))
+  const items = [...root.querySelectorAll('.track-list > li')]
+    .map((li) => ({
+      kind: li.dataset.kind,
+      start: month(li.dataset.start),
+      ongoing: li.dataset.kind === 'work' && !li.dataset.end,
+      short: li.dataset.short || li.querySelector('h3').textContent,
+      when: li.querySelector('.track-when').textContent,
+      title: li.querySelector('h3').innerHTML,
+      org: li.querySelector('.track-org').innerHTML,
+      stats: li.querySelector('.track-stats').innerHTML,
+    }))
+    .sort((a, b) => a.start - b.start)
 
-  // the scale runs from the first January to the end of the latest year shown
-  const first = new Date(Math.min(...items.map((it) => it.start)))
-  const last = new Date(Math.max(now, ...items.map((it) => it.end || it.start)))
-  const from = new Date(first.getFullYear(), 0, 1)
-  const to = new Date(last.getFullYear(), 11, 31)
-  const x = (d) => ((d - from) / (to - from)) * 100
-
-  let html = ''
-  for (const lane of ['work', 'study', 'axis']) {
-    html += `<span class="track-lane-name" style="top:${LANES[lane]}px">${LANE_NAMES[lane]}</span>`
-    if (lane !== 'axis') html += `<span class="track-rule" style="top:${LANES[lane]}px"></span>`
-  }
-  html += `<span class="track-axis" style="top:${LANES.axis}px"></span>`
-
-  const years = to.getFullYear() - from.getFullYear() + 1
-  for (let i = 0; i < years; i++) {
-    const y = from.getFullYear() + i
-    html += `<span class="track-tick" style="left:${x(new Date(y, 0, 1))}%; top:${LANES.axis + 18}px; transition-delay:${0.3 + i * 0.12}s">${y}</span>`
-  }
-  html += `<span class="track-tick now" style="left:${x(now)}%; top:${LANES.axis + 18}px; transition-delay:1s">now</span>`
-
-  let bars = 0
-  let marks = 0
-  items.forEach((it, i) => {
-    if (it.kind === 'work' || it.kind === 'study') {
-      const ongoing = !it.end
-      const end = it.end || now
-      html += `<button class="track-bar ${it.kind} ${ongoing ? 'current' : ''}" type="button" data-i="${i}" aria-label="${it.short}"
-        style="left:${x(it.start)}%; width:${x(end) - x(it.start)}%; top:${LANES[it.kind]}px; transition-delay:${0.4 + bars++ * 0.25}s, 0s, 0s"><span>${it.short}</span></button>`
-      if (ongoing) html += `<span class="track-now" style="left:${x(now)}%; top:${LANES[it.kind]}px"></span>`
-    } else {
-      html += `<button class="track-mark ${it.kind === 'next' ? 'next' : ''}" type="button" data-i="${i}" aria-label="${it.when}"
-        style="left:${x(it.start)}%; top:${LANES.axis}px; transition-delay:${1.2 + marks++ * 0.15}s, 0s, 0s"></button>`
-    }
-  })
+  const n = items.length
+  const nodes = items
+    .map((it, i) => {
+      const cls = ['node', it.kind, it.ongoing ? 'current' : ''].join(' ')
+      const year = it.when.replace(/\s*·.*$/, '')
+      return `<button class="${cls}" type="button" data-i="${i}" style="transition-delay:${0.15 + i * 0.12}s">
+        <span class="node-dot"></span>
+        <span class="node-label"><b>${it.short}</b><small>${year}</small></span>
+      </button>`
+    })
+    .join('')
+  const edges = items
+    .slice(1)
+    .map((it, i) => `<path class="edge ${it.kind === 'next' ? 'next' : ''}" data-a="${i}" data-b="${i + 1}" pathLength="1" style="transition-delay:${0.4 + i * 0.15}s"/>`)
+    .join('')
 
   root.insertAdjacentHTML(
     'beforeend',
-    `<div class="track-scroller"><div class="track-canvas">${html}</div></div>
+    `<div class="track-scroller"><div class="track-canvas">
+       <svg class="edges" aria-hidden="true">${edges}<circle class="signal" r="4"/></svg>
+       ${nodes}
+     </div></div>
      <div class="track-panel" aria-live="polite"></div>
-     <p class="track-hint">Hover a bar or ◆ milestone to see it here.</p>`
+     <p class="track-hint">Hover a node to see it here.</p>`
   )
   root.classList.add('track-ready')
 
   const canvas = root.querySelector('.track-canvas')
+  const svg = canvas.querySelector('.edges')
   const panel = root.querySelector('.track-panel')
   const scroller = root.querySelector('.track-scroller')
-  const targets = canvas.querySelectorAll('[data-i]')
+  const targets = [...canvas.querySelectorAll('.node')]
+  const paths = [...svg.querySelectorAll('.edge')]
+  const signal = svg.querySelector('.signal')
+
+  // ── layout: base positions + a slow individual drift for each node ──
+  let W = 0
+  let H = 0
+  const base = items.map((_, i) => ({
+    fx: n === 1 ? 0.5 : 0.07 + (0.86 * i) / (n - 1),
+    fy: WAVE[i % WAVE.length],
+    amp: 7 + (i % 3) * 3,
+    speed: 0.00045 + (i % 4) * 0.00008,
+    phase: i * 1.7,
+  }))
+  const pos = base.map(() => ({ x: 0, y: 0 }))
+
+  function measure() {
+    W = canvas.clientWidth
+    H = canvas.clientHeight
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`)
+  }
+
+  function place(t) {
+    base.forEach((b, i) => {
+      const dx = Math.cos(t * b.speed * 0.8 + b.phase) * b.amp * 0.6
+      const dy = Math.sin(t * b.speed + b.phase) * b.amp
+      pos[i].x = b.fx * W + dx
+      pos[i].y = b.fy * H + dy
+      targets[i].style.transform = `translate(${pos[i].x}px, ${pos[i].y}px)`
+    })
+    paths.forEach((p) => {
+      const a = pos[+p.dataset.a]
+      const b = pos[+p.dataset.b]
+      const k = (b.x - a.x) * 0.5
+      p.setAttribute('d', `M${a.x},${a.y} C${a.x + k},${a.y} ${b.x - k},${b.y} ${b.x},${b.y}`)
+    })
+  }
+
+  // the signal runs along the solid edges, rests, then starts over
+  const solid = paths.filter((p) => !p.classList.contains('next'))
+  const HOP = 1100
+  const REST = 1400
+  function pulse(t) {
+    if (!solid.length) return
+    const cycle = solid.length * HOP + REST
+    const s = t % cycle
+    const hop = Math.floor(s / HOP)
+    if (hop >= solid.length) {
+      signal.style.opacity = 0
+      return
+    }
+    const p = solid[hop]
+    const pt = p.getPointAtLength(((s % HOP) / HOP) * p.getTotalLength())
+    signal.setAttribute('cx', pt.x)
+    signal.setAttribute('cy', pt.y)
+    signal.style.opacity = 1
+  }
+
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)')
+  let visible = false
+  let raf = 0
+  function frame(t) {
+    place(t)
+    if (still.matches) signal.style.opacity = 0
+    else pulse(t)
+    raf = visible && !still.matches ? requestAnimationFrame(frame) : 0
+  }
+  function kick() {
+    if (!raf) raf = requestAnimationFrame(frame)
+  }
+
+  measure()
+  place(0)
+  new ResizeObserver(() => {
+    measure()
+    place(performance.now())
+  }).observe(canvas)
 
   // ── panel ──
   const live = (s) => s.replace(/\b(present|next)\b/, '<span class="live">$1</span>')
@@ -88,6 +150,7 @@ export function initTrack() {
     shown = i
     const it = items[i]
     targets.forEach((el) => el.classList.toggle('on', +el.dataset.i === i))
+    paths.forEach((p) => p.classList.toggle('on', +p.dataset.a === i || +p.dataset.b === i))
     panel.classList.add('swap')
     setTimeout(() => {
       panel.innerHTML = `<div><div class="track-when">${live(it.when)}</div><h3>${it.title}</h3><div class="track-org">${it.org}</div></div>
@@ -96,7 +159,7 @@ export function initTrack() {
     }, 180)
   }
 
-  const current = Math.max(0, items.findIndex((it) => it.kind === 'work' && !it.end))
+  const current = Math.max(0, items.findIndex((it) => it.ongoing))
   targets.forEach((el) => {
     const pick = () => {
       canvas.classList.add('dimmed')
@@ -112,17 +175,19 @@ export function initTrack() {
   })
   show(current)
 
-  // ── draw in when scrolled into view ──
-  const io = new IntersectionObserver(
+  // ── appear when scrolled into view; only animate while on screen ──
+  new IntersectionObserver(
     ([e]) => {
-      if (!e.isIntersecting) return
-      canvas.classList.add('in')
-      io.disconnect()
+      visible = e.isIntersecting
+      if (visible) {
+        canvas.classList.add('in')
+        kick()
+      }
     },
-    { threshold: 0.4 }
-  )
-  io.observe(canvas)
+    { threshold: 0.3 }
+  ).observe(canvas)
+  still.addEventListener('change', kick)
 
-  // phones scroll the track sideways — start at "now"
+  // phones scroll the graph sideways — start at "now"
   scroller.scrollLeft = scroller.scrollWidth
 }
