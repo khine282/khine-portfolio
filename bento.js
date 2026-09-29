@@ -275,7 +275,6 @@ function owlGuide() {
     stack: 'everything khine has actually shipped with',
     certifications: 'psst, the list scrolls. more below ↓',
     contact: 'say hi! khine replies within 24h',
-    education: 'pre-med → IT. plot twist',
   }
   const said = new Set()
   let last = 0

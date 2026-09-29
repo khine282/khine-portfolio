@@ -1,7 +1,8 @@
 // ═══════════════════════════════════════════════════════════════════
 // PROJECT ORBIT
-// Project names circle a ring; hovering one plays its demo in the middle
-// with a short blurb. "Details" slides the full write-up over the demo,
+// Projects are planets circling a ring, coloured by category (the filter
+// buttons double as the key); the selected one swells and drags a comet
+// tail. Hovering one plays its demo in the middle with a short blurb. "Details" slides the full write-up over the demo,
 // "Expand" opens the demo full-size. The <article class="orbit-proj">
 // list in index.html is the source — without JS it shows as a plain list.
 // ═══════════════════════════════════════════════════════════════════
@@ -13,6 +14,18 @@ const lockSvg =
   '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>'
 const expandSvg =
   '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 1h4v4M5 11H1V7M11 1 7 5M1 11l4-4"/></svg>'
+
+// planet colour per category — the filter buttons get the same dots
+const PLANET = {
+  internship: 'var(--mint)',
+  hackathon: 'var(--yellow)',
+  'testing-qa': 'var(--lime)',
+  llm: 'var(--lilac)',
+  'computer-vision': 'var(--pink)',
+  'cloud-architecture': 'var(--sky)',
+  'ecommerce-cms': 'var(--orange)',
+}
+const TAIL = 14 // dots in the comet tail
 
 const CYCLE_MS = 5000
 const SPIN = 0.00006 // radians per ms — one lap ≈ 105s
@@ -38,8 +51,14 @@ export function initOrbit() {
     'beforeend',
     `<div class="orbit-ring" aria-hidden="true"></div>
      <div class="orbit-ring inner" aria-hidden="true"></div>
+     <svg class="orbit-tail" aria-hidden="true">${'<circle/>'.repeat(TAIL)}</svg>
      <div class="orbit-names" role="tablist" aria-label="Projects">
-       ${projects.map((p, i) => `<button class="orbit-name" role="tab" data-i="${i}">${p.name}</button>`).join('')}
+       ${projects
+         .map(
+           (p, i) =>
+             `<button class="orbit-name" role="tab" data-i="${i}" style="--c:${PLANET[p.category] || 'var(--orange)'}"><span class="orbit-planet"></span><span class="orbit-label">${p.name}</span></button>`
+         )
+         .join('')}
      </div>
      <div class="orbit-core">
        <div class="orbit-screen">
@@ -53,6 +72,8 @@ export function initOrbit() {
   orbit.classList.add('orbit-ready')
 
   const names = [...orbit.querySelectorAll('.orbit-name')]
+  const tail = orbit.querySelector('.orbit-tail')
+  const tailDots = [...tail.children]
   const screen = orbit.querySelector('.orbit-screen')
   const detail = orbit.querySelector('.orbit-detail')
   const info = orbit.querySelector('.orbit-info')
@@ -74,11 +95,27 @@ export function initOrbit() {
     if (visible && !paused() && !reduce) angle += (now - last) * SPIN
     last = now
     if (!small.matches) {
-      const r = orbit.offsetWidth * 0.43
+      const w = orbit.offsetWidth
+      const r = w * 0.43
       names.forEach((el, i) => {
         const a = angle + (i / names.length) * Math.PI * 2
-        el.style.transform = `translate(calc(-50% + ${Math.cos(a) * r}px), calc(-50% + ${Math.sin(a) * r}px))`
+        el.style.transform = `translate(${Math.cos(a) * r}px, ${Math.sin(a) * r}px)`
+        el.classList.toggle('left', Math.cos(a) < -0.15) // label on the outside of the ring
       })
+      // comet tail trails the selected planet
+      if (current >= 0) {
+        tail.setAttribute('viewBox', `${-w / 2} ${-w / 2} ${w} ${w}`)
+        tail.style.setProperty('--c', names[current].style.getPropertyValue('--c'))
+        const a0 = angle + (current / names.length) * Math.PI * 2
+        tailDots.forEach((d, k) => {
+          const a = a0 - (k + 1) * 0.035
+          const f = 1 - k / TAIL
+          d.setAttribute('cx', Math.cos(a) * r)
+          d.setAttribute('cy', Math.sin(a) * r)
+          d.setAttribute('r', w * 0.013 * f)
+          d.setAttribute('opacity', 0.55 * f)
+        })
+      }
     } else {
       names.forEach((el) => (el.style.transform = ''))
     }
@@ -205,6 +242,7 @@ export function initOrbit() {
     const cat = btn.dataset.filter
     const n = cat === 'all' ? projects.length : projects.filter((p) => p.category === cat).length
     btn.insertAdjacentHTML('beforeend', `<span class="filter-count">${n}</span>`)
+    if (PLANET[cat]) btn.insertAdjacentHTML('afterbegin', `<span class="filter-dot" style="--c:${PLANET[cat]}"></span>`)
   })
   btns.forEach((btn) =>
     btn.addEventListener('click', () => {
