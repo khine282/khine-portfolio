@@ -9,6 +9,8 @@
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
 const small = matchMedia('(max-width: 760px)')
+// phones show a plain project list instead (bento.css), so no demo plays there
+const phone = matchMedia('(max-width: 620px)')
 
 const lockSvg =
   '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>'
@@ -34,7 +36,9 @@ export function initOrbit() {
   const orbit = document.getElementById('projectOrbit')
   if (!orbit) return
 
-  const projects = [...orbit.querySelectorAll('.orbit-proj')].map((el) => ({
+  const articles = [...orbit.querySelectorAll('.orbit-proj')]
+  articles.forEach((el) => el.style.setProperty('--c', PLANET[el.dataset.category] || 'var(--orange)'))
+  const projects = articles.map((el) => ({
     name: el.querySelector('h3').textContent,
     badge: el.querySelector('.badge').textContent,
     one: el.querySelector('.orbit-one').innerHTML,
@@ -129,8 +133,9 @@ export function initOrbit() {
     if (p.video) {
       const v = Object.assign(document.createElement('video'), { src: p.video, muted: true, loop: true, playsInline: true })
       v.setAttribute('aria-label', `${p.name} demo`)
+      if (phone.matches) v.preload = 'none'
       wrap.append(v)
-      if (visible) v.play().catch(() => {})
+      if (visible && !phone.matches) v.play().catch(() => {})
     } else if (p.image) {
       wrap.innerHTML = `<img src="${p.image}" alt="${p.name} screenshot">`
     } else if (p.priv) {
@@ -227,13 +232,13 @@ export function initOrbit() {
   // pause the spin and the auto-cycle while the visitor is inside the orbit
   orbit.addEventListener('mouseenter', () => (hovering = true))
   orbit.addEventListener('mouseleave', () => (hovering = false))
-  setInterval(() => visible && !paused() && next(), CYCLE_MS)
+  setInterval(() => visible && !paused() && !phone.matches && next(), CYCLE_MS)
 
   // only play while the section is on screen
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting
     const v = screen.querySelector('.orbit-media:not(.fade) video')
-    if (v) visible ? v.play().catch(() => {}) : v.pause()
+    if (v) visible && !phone.matches ? v.play().catch(() => {}) : v.pause()
   }).observe(orbit)
 
   // ── filters dim the names that don't match ──
@@ -250,6 +255,8 @@ export function initOrbit() {
       btns.forEach((b) => b.classList.toggle('filter-btn-active', b === btn))
       active = projects.map((p) => cat === 'all' || p.category === cat)
       names.forEach((n, i) => n.classList.toggle('dim', !active[i]))
+      articles.forEach((a, i) => a.classList.toggle('off', !active[i])) // the phone list
+      orbit.querySelector('.orbit-list').classList.toggle('filtered', cat !== 'all')
       if (!active[current]) next()
     })
   )
