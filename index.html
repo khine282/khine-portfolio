@@ -81,9 +81,9 @@
       <div class="bento">
 
         <div class="tile c-ink t-intro w2 h2">
-          <div class="label"><span class="dot" aria-hidden="true"></span>Available for hire · Singapore</div>
+          <div class="label"><img class="hero-avatar phone-only" src="/photo.webp" alt="" width="52" height="52"><span class="dot" aria-hidden="true"></span>Available for hire · Singapore</div>
           <div>
-            <h1>Khine Zar<br>Thwe<span>.</span></h1>
+            <h1>Khine Zar<br> Thwe<span>.</span></h1>
             <div class="roles" aria-label="Junior AI &amp; Software Developer, QA &amp; Test Engineer, Cloud Developer">
               <b class="on">Junior AI &amp; Software Developer</b>
               <b>QA &amp; Test Engineer</b>
@@ -98,6 +98,7 @@
             </div>
             <div class="row">
               <a class="btn solid" href="#projects">View my work →</a>
+              <a class="btn phone-only" href="#contact">Contact</a>
               <a class="btn" href="/Khine_Zar_Thwe_Resume.pdf" download>Resume ↓</a>
               <a class="btn" href="https://github.com/khine282" target="_blank" rel="noopener">GitHub</a>
               <a class="btn" href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener">LinkedIn</a>
@@ -624,7 +625,7 @@
           <div class="sec-head"><div><span class="label"><b>06</b> · Contact</span><h2>Let's work <em>together.</em></h2></div></div>
           <p class="contact-lede">Open to junior software engineer and AI developer roles in Singapore. S Pass sponsorship welcome.
             If your team ships real things and asks hard questions before building them — let's talk.</p>
-          <p class="contact-avail"><span class="dot" aria-hidden="true"></span><b>Available now</b> · Junior SWE · AI Developer · Full-Stack · App Support · S Pass needed</p>
+          <p class="contact-avail"><span class="dot" aria-hidden="true"></span><b>Available now</b><span class="avail-roles">Junior SWE · AI Developer · Full-Stack · App Support · S Pass needed</span></p>
           <ul class="contact-links">
             <li><a href="mailto:khinezarthwe282@gmail.com?subject=Opportunity%20for%20Khine%20Zar%20Thwe"><span>Email</span><span class="val">khinezarthwe282@gmail.com</span><span class="arrow" aria-hidden="true">↗</span></a></li>
             <li><a href="https://www.linkedin.com/in/khine-zar-thwe-282kzt/" target="_blank" rel="noopener"><span>LinkedIn</span><span class="val">khine-zar-thwe-282kzt</span><span class="arrow" aria-hidden="true">↗</span></a></li>
@@ -632,6 +633,7 @@
           </ul>
         </div>
 
+        <button type="button" class="btn solid msg-toggle phone-only" aria-expanded="false" aria-controls="contactForm">Send a message</button>
         <form id="contactForm" class="contact-form">
           <span class="label">Send me a message</span>
           <!-- one-click starters fill the message box (contact.js) -->
@@ -732,11 +734,13 @@
     import { initBento } from './bento.js'
     import { initOrbit } from './orbit.js'
     import { initTrack } from './track.js'
+    import { initPhone } from './phone.js'
     initializeContact()
     initSmoothScroll()
     initBento()
     initOrbit()
     initTrack()
+    initPhone()
   </script>
 
   <script>
