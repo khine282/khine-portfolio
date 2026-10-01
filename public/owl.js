@@ -96,7 +96,7 @@
 
   // clicking the owl opens Khine's latest LinkedIn post — swap this link
   // for the new one ("…" on the post → Copy link to post) after each post
-  var LATEST_POST = "https://lnkd.in/p/g_rzgp8Y";
+  var LATEST_POST = "https://www.linkedin.com/feed/update/urn:li:activity:7511325544182054912/";
   var LABEL = docked ? "tap me to see the latest wonder ✨" : "click me to see the latest wonder ✨";
 
   function hideBubble() {
