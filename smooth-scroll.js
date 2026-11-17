@@ -25,7 +25,7 @@ export function initSmoothScroll() {
 
   // Let nested scrollable panels handle their own wheel events.
   document
-    .querySelectorAll('.cert-scroll-container, .chatbot-messages')
+    .querySelectorAll('.chatbot-messages')
     .forEach((el) => el.setAttribute('data-lenis-prevent', ''))
 
   // Route in-page anchor links through Lenis so jumps are eased too.

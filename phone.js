@@ -9,7 +9,7 @@
 
 export function initPhone() {
   showAll(document.querySelector('.orbit-list'), '.orbit-proj', 'projects', document.getElementById('projectOrbit'))
-  showAll(document.querySelector('.cert-tab-pane[data-tab="all"] .cert-scroll-container'), '.cert-tab-item', '')
+  showAll(document.querySelector('.cert-grid'), '.cert-card', 'credentials')
   experience()
   messageToggle()
 }
