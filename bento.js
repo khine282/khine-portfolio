@@ -208,14 +208,16 @@ function askTile() {
 }
 
 function certTabs() {
-  const btns = document.querySelectorAll('.cert-tab-btn')
+  const btns = document.querySelectorAll('.cert-filter')
+  const grid = document.querySelector('.cert-grid')
   btns.forEach((btn) =>
     btn.addEventListener('click', () => {
-      const tab = btn.dataset.tab
+      const f = btn.dataset.filter
       btns.forEach((b) => b.classList.toggle('active', b === btn))
-      document
-        .querySelectorAll('.cert-tab-pane')
-        .forEach((p) => p.classList.toggle('active', p.dataset.tab === tab))
+      grid.classList.toggle('filtered', f !== 'all')
+      grid.querySelectorAll('.cert-card').forEach((c) => {
+        c.hidden = f !== 'all' && !c.dataset.cat.split(' ').includes(f)
+      })
     })
   )
 }
@@ -273,7 +275,7 @@ function owlGuide() {
     experience: 'a whole year shipping to prod',
     projects: 'ooh, the good stuff. try the filters!',
     stack: 'everything khine has actually shipped with',
-    certifications: 'psst, the list scrolls. more below ↓',
+    certifications: 'every card links to the real certificate ↗',
     contact: 'say hi! khine replies within 24h',
   }
   const said = new Set()
